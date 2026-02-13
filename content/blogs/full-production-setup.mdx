@@ -1,0 +1,105 @@
+---
+title: "Deploying Full-Stack Apps to AWS: Production Guide"
+date: "2026-02-09"
+category: "DevOps / Deployment"
+tags: ["aws", "devops", "ec2", "rds", "nginx", "ssl"]
+excerpt: "Move beyond Vercel. A step-by-step masterclass on deploying Node.js & React to AWS EC2 with Nginx, SSL, and RDS."
+image: "/images/blogs/aws-deployment.png"
+readTime: "20 min read"
+featured: true
+---
+
+## Why AWS?
+Vercel and Netlify are amazing. But eventually, you might need:
+1.  **Cost Control**: EC2 Spot instances are cheaper at scale.
+2.  **Long-Running Processes**: WebSockets, Cron Jobs, Worker Threads.
+3.  **VPC Isolation**: Enterprise-grade security.
+
+This guide takes a Next.js/Node.js app and puts it on a dedicated Ubuntu server.
+
+---
+
+## Step 1: Network Setup (VPC)
+We need a secure house for our server.
+1.  Create a **VPC** (Virtual Private Cloud).
+2.  Create an **Internet Gateway** (IGW) so outside traffic can get in.
+3.  Create a **Security Group** (Firewall):
+    *   Allow SSH (Port 22) - *Your IP Only*.
+    *   Allow HTTP (Port 80) - *Anywhere*.
+    *   Allow HTTPS (Port 443) - *Anywhere*.
+
+---
+
+## Step 2: The Application Server (EC2)
+1.  Launch an **Ubuntu 22.04 LTS** instance (t3.micro is fine for free tier).
+2.  SSH into the machine: `ssh -i key.pem ubuntu@1.2.3.4`
+3.  Install Node.js:
+    ```bash
+    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+    ```
+
+---
+
+## Step 3: Database Setup (RDS)
+Never run a database on the same EC2 instance as your app in production. If the app crashes the server, you lose DB access. Using **AWS RDS** (Relational Database Service) handles backups and patching for you.
+
+1.  Create PostgreSQL database.
+2.  Set connectivity to **Private Subnet** (secure).
+3.  Whitelisting: Only allow connections from your EC2 Security Group.
+
+---
+
+## Step 4: Configuring Nginx Reverse Proxy
+We don't want to expose Node (Port 3000) directly to the web. Nginx is faster, handles SSL, and buffers attacks.
+
+`sudo nano /etc/nginx/sites-available/default`
+
+```nginx
+server {
+    listen 80;
+    server_name api.yourdomain.com;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+Restart Nginx: `sudo systemctl restart nginx`
+
+---
+
+## Step 5: Process Management with PM2
+If your app crashes, who restarts it? PM2.
+
+```bash
+sudo npm install pm2 -g
+pm2 start npm --name "nextdb-app" -- start
+pm2 startup
+pm2 save
+```
+
+Now your app survives server reboots.
+
+---
+
+## Step 6: SSL Security (Certbot)
+Never ship HTTP. It hurts SEO and is insecure.
+
+```bash
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d api.yourdomain.com
+```
+
+Certbot will automatically edit your Nginx config to force HTTPS.
+
+---
+
+## Conclusion
+You have graduated from PaaS to IaaS. You now own your infrastructure. You can scale vertically (bigger EC2) or horizontally (Auto Scaling Groups) as your SaaS grows.

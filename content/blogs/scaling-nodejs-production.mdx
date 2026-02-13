@@ -1,0 +1,91 @@
+---
+title: "Scaling Node.js: From 100 to 1 Million Requests"
+date: "2026-02-08"
+category: "Performance Optimization"
+tags: ["nodejs", "scaling", "performance", "devops", "kubernetes"]
+excerpt: "Master the art of scaling Node.js applications. A complete guide to clustering, load balancing, and optimizing the event loop for production."
+image: "/images/blogs/nodejs-scaling.png"
+readTime: "14 min read"
+featured: false
+---
+
+## The Single-Threaded Nature of Node
+
+Node.js is built on the **V8 Engine** and uses a **non-blocking, event-driven I/O model**. This makes it incredibly fast for I/O-bound tasks (like reading from a database), but susceptible to bottlenecks on CPU-bound tasks (like image processing).
+
+But here is the catch: Node.js runs on a single thread. If you deploy a standard Node app on an 8-core server, you are wasting 87% of your CPU power.
+
+---
+
+## Phase 1: Vertical Scaling (Clustering)
+
+In Node.js, we can create child processes using the `cluster` module. This allows us to spawn a "Worker" for every CPU core available. They share the same server port but process requests independently.
+
+### Using PM2 for Zero-Downtime Reloads
+Instead of writing manual cluster code, use **PM2**, the production process manager for Node.js.
+
+```bash
+# Start application with maximum instances (one per core)
+pm2 start app.js -i max
+
+# Reload without downtime (Requests are handed off to new workers)
+pm2 reload app
+```
+
+**Result**: 8x throughput on an 8-core machine.
+
+---
+
+## Phase 2: Horizontal Scaling (Load Balancing)
+
+Eventually, one machine is not enough. You need to scale horizontally—adding more servers.
+
+### The Load Balancer (Nginx / HAProxy)
+You place a Load Balancer in front of your server farm. It distributes traffic using algorithms like **Round Robin** or **Least Connections**.
+
+### The Problem: Sticky Sessions
+If you store user sessions in RAM (e.g., `express-session`), you have a problem.
+1.  User logs in on Server A. Session is saved in Server A's RAM.
+2.  Next request hits Server B. Server B knows nothing about the session. **User is logged out.**
+
+**Solution:** Use a centralized Session Store like **Redis**.
+All servers confirm the session token against Redis.
+
+---
+
+## Phase 3: Optimizing the Event Loop
+
+Scaling infrastructure is useless if your code blocks the event loop.
+
+### The Don'ts
+1.  **Don't use Sync functions**: `fs.readFileSync`, `crypto.pbkdf2Sync`. They halt the entire server.
+2.  **Don't process JSON blobs > 10MB**: `JSON.parse` is synchronous and CPU intensive. Use streaming parsers like `JSONStream`.
+
+### The Dos
+1.  **Offloading**: Move heavy computation to **Worker Threads** or a separate microservice (maybe written in Go or Rust).
+2.  **gzip/Brotli**: Compress responses to reduce network latency.
+
+```javascript
+import compression from 'compression';
+app.use(compression());
+```
+
+---
+
+## Phase 4: Database Scaling
+
+Your app servers are stateless and scalable, but your Database is now the bottleneck.
+
+1.  **Read Replicas**: Direct all `GET` requests to Read Replicas, and only `POST/PUT` to the Primary DB.
+2.  **Connection Pooling**: Node.js opens connections fast. Ensure your DB isn't overwhelmed by establishing a connection pool (e.g., in Postgres or MongoDB driver).
+
+---
+
+## Summary
+
+Scaling is a journey, not a switch.
+1.  Start with **PM2** (utilize all cores).
+2.  Move to **Redis** for state.
+3.  Deploy behind **Nginx**.
+4.  Optimize query patterns and event loop blocking.
+5.  Orchestrate with **Kubernetes** when you hit widespread scale.

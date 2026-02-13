@@ -1,0 +1,69 @@
+---
+title: "How I Built CommerceX: A Scalable MERN Stack Architecture"
+date: "2026-02-10"
+category: "Architecture"
+tags: ["mern", "microservices", "system-design"]
+excerpt: "A deep dive into the architectural decisions behind CommerceX, a high-performance e-commerce platform built with microservices."
+image: "/images/blogs/microservices.png"
+readTime: "8 min read"
+featured: true
+---
+
+## Introduction
+
+Building a scalable e-commerce platform requires careful consideration of architecture, database design, and state management. In this article, I'll walk you through how I built **CommerceX**, utilizing a microservices approach within a MERN stack environment.
+
+## The Problem with Monoliths
+
+When I first started CommerceX, I considered a monolithic architecture. However, as the feature set grew—adding inventory management, order processing, and real-time notifications—it became clear that a decoupled system was necessary.
+
+### Key Challenges
+1.  **Scalability:** Scaling the entire app just to handle high traffic on the product page.
+2.  **Maintainability:** A single codebase becoming too complex.
+3.  **Deployment:** Risk of bringing down the whole system for a minor update.
+
+## The Solution: Microservices
+
+I decided to split the application into distinct services:
+
+- **Auth Service:** Handles JWT authentication and user management.
+- **Product Service:** Manages catalog, inventory, and search (cached with Redis).
+- **Order Service:** Processes transactions and order states.
+- **Notification Service:** Listens for events (using RabbitMQ) to send emails/SMS.
+
+## Implementation Details
+
+Here is a look at how I structured the API Gateway to route requests to these services:
+
+```javascript
+// API Gateway Entry Point
+const express = require('express');
+const proxy = require('express-http-proxy');
+const app = express();
+
+app.use('/auth', proxy('http://localhost:8001'));
+app.use('/products', proxy('http://localhost:8002'));
+app.use('/orders', proxy('http://localhost:8003'));
+
+app.listen(8000, () => {
+    console.log('Gateway running on Port 8000');
+});
+```
+
+## Performance Optimization
+
+To ensure the platform could handle high concurrency, I implemented several optimizations:
+
+### 1. Caching with Redis
+Product details are cached to reduce database hits.
+
+### 2. Database Indexing
+MongoDB indexes were crucial for query performance.
+
+> **Pro Tip:** Always analyze your query patterns before creating indexes. Over-indexing can slow down write operations.
+
+## Conclusion
+
+Migrating to a microservices architecture introduced complexity but significantly improved scalability and fault tolerance. CommerceX is now capable of handling thousands of concurrent users with ease.
+
+[View the Project on GitHub](https://github.com/jenilrupapara001/Jenil-portfolio)

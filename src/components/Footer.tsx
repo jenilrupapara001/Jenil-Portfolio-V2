@@ -61,9 +61,12 @@ export default function Footer() {
                         <div className="space-y-6">
                             <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Showroom</h4>
                             <ul className="space-y-4">
-                                {["Projects", "Experience", "Contact"].map((item) => (
+                                {["Projects", "Experience", "Contact", "Knowledge Hub"].map((item) => (
                                     <li key={item}>
-                                        <Link href={`/${item.toLowerCase()}`} className="text-foreground/40 hover:text-white transition-colors text-sm font-black uppercase tracking-widest leading-none">
+                                        <Link
+                                            href={(item === "Knowledge Hub" ? "/blogs" : `/${item.toLowerCase()}`)}
+                                            className="text-foreground/40 hover:text-white transition-colors text-sm font-black uppercase tracking-widest leading-none"
+                                        >
                                             {item}
                                         </Link>
                                     </li>

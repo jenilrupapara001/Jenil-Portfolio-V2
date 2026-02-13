@@ -1,8 +1,10 @@
 import { MetadataRoute } from 'next'
 import { projects } from '@/utils/projects'
+import { getBlogPosts } from '@/lib/blog'
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://jenilrupapara.vercel.app'
+    const posts = getBlogPosts()
 
     const baseRoutes: MetadataRoute.Sitemap = [
         {
@@ -41,6 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'monthly',
             priority: 0.6,
         },
+        {
+            url: `${baseUrl}/blogs`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
     ]
 
     const projectRoutes: MetadataRoute.Sitemap = projects.map((project) => ({
@@ -50,5 +58,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
     }))
 
-    return [...baseRoutes, ...projectRoutes]
+    const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
+        url: `${baseUrl}/blogs/${post.slug}`,
+        lastModified: new Date(post.date),
+        changeFrequency: 'monthly',
+        priority: 0.8,
+    }))
+
+    return [...baseRoutes, ...projectRoutes, ...blogRoutes]
 }
