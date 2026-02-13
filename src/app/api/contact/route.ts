@@ -12,27 +12,34 @@ export async function POST(req: Request) {
             );
         }
 
-        // Connect to SMTP Server
-        // const transporter = nodemailer.createTransport({
-        //   host: process.env.SMTP_HOST,
-        //   port: parseInt(process.env.SMTP_PORT || '587'),
-        //   secure: false, 
-        //   auth: {
-        //     user: process.env.SMTP_USER,
-        //     pass: process.env.SMTP_PASS,
-        //   },
-        // });
+        // Connect to SMTP Server (Gmail)
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS, // App Password
+            },
+        });
 
-        // await transporter.sendMail({
-        //   from: process.env.SMTP_FROM,
-        //   to: process.env.CONTACT_EMAIL,
-        //   subject: `New Message from Portfolio: ${name}`,
-        //   text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-        //   html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Message:</strong><br>${message}</p>`,
-        // });
-
-        // Mock success for now
-        console.log(`Received message from ${name} (${email}): ${message}`);
+        // Send Email to yourself
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: process.env.EMAIL_USER, // Your email
+            replyTo: email, // Reply to the sender's email
+            subject: `New Message from Portfolio: ${name}`,
+            text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+            html: `
+                <div style="font-family: sans-serif; padding: 20px;">
+                    <h2>New Inquiry from Portfolio</h2>
+                    <p><strong>Name:</strong> ${name}</p>
+                    <p><strong>Email:</strong> ${email}</p>
+                    <div style="margin-top: 20px; padding: 15px; background-color: #f4f4f4; border-radius: 5px;">
+                        <p><strong>Message:</strong></p>
+                        <p>${message.replace(/\n/g, '<br>')}</p>
+                    </div>
+                </div>
+            `,
+        });
 
         return NextResponse.json({ success: true, message: 'Email sent successfully' }, { status: 200 });
     } catch (error) {
