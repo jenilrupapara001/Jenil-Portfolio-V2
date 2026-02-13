@@ -1,30 +1,113 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Zap, ShieldCheck, Clock, Layers } from "lucide-react";
-import { useRef, useState, useEffect } from "react";
+import { ArrowRight, Zap, ShieldCheck, Clock, Layers, Cpu, Terminal, Globe, Search, Activity, Box } from "lucide-react";
+import { useRef, useState, useEffect, useMemo } from "react";
 
-const TechIcon = ({ icon: Icon, label, color, initialX, initialY, delay }: any) => (
-    <motion.div
-        initial={{ x: initialX, y: initialY, opacity: 0 }}
-        animate={{
-            y: [initialY, initialY - 15, initialY],
-            opacity: 1
-        }}
-        transition={{
-            y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay },
-            opacity: { duration: 1, delay }
-        }}
-        className="absolute p-4 bg-background/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl flex items-center gap-3 z-30 group hover:scale-110 transition-transform cursor-pointer pointer-events-auto"
-        style={{ left: initialX, top: initialY }}
-    >
-        <div className={`w-10 h-10 rounded-lg bg-${color}-500/10 flex items-center justify-center text-${color}-500 shadow-inner group-hover:bg-${color}-500/20 transition-colors`}>
-            <Icon className="w-6 h-6" />
+const LiveSystemConsole = () => {
+    const [lines, setLines] = useState<string[]>([]);
+    const logs = useMemo(() => [
+        "INITIALIZING CORE SYSTEMS...",
+        "CONNECTING TO EDGE NETWORKS...",
+        "STAGING MICROSERVICES...",
+        "DEPLOYING KAFKA CLUSTER...",
+        "REH-DEE-ESS CACHE WARMING...",
+        "SYSTEM SLA: 99.99%...",
+        "OPTIMIZING RENDERING ENGINE...",
+        "READY FOR PRODUCTION."
+    ], []);
+
+    useEffect(() => {
+        let currentLine = 0;
+        const interval = setInterval(() => {
+            setLines(prev => [...prev.slice(-4), logs[currentLine]]);
+            currentLine = (currentLine + 1) % logs.length;
+        }, 1500);
+        return () => clearInterval(interval);
+    }, [logs]);
+
+    return (
+        <div className="w-full h-full flex flex-col p-8 font-mono text-[10px] md:text-sm selection:bg-primary/30 relative">
+            {/* Console Header */}
+            <div className="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
+                <div className="flex items-center gap-3">
+                    <div className="flex gap-1.5">
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-500/20 border border-red-500/40" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/20 border border-yellow-500/40" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-green-500/20 border border-green-500/40" />
+                    </div>
+                    <span className="text-foreground/20 font-black uppercase tracking-[0.2em] ml-2">System Console v2.0</span>
+                </div>
+                <div className="flex items-center gap-2 text-primary animate-pulse">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                    <span className="font-black uppercase tracking-widest text-[8px]">Live</span>
+                </div>
+            </div>
+
+            {/* Simulated Data Visualization */}
+            <div className="flex-grow flex flex-col justify-center gap-6">
+                <div className="grid grid-cols-2 gap-4">
+                    <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-2">
+                        <div className="flex items-center justify-between">
+                            <Cpu className="w-3 h-3 text-primary" />
+                            <span className="text-[8px] font-black uppercase text-foreground/20">Load</span>
+                        </div>
+                        <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+                            <motion.div
+                                animate={{ width: ["20%", "60%", "40%", "80%", "30%"] }}
+                                transition={{ duration: 4, repeat: Infinity }}
+                                className="h-full bg-primary shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]"
+                            />
+                        </div>
+                    </div>
+                    <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-2">
+                        <div className="flex items-center justify-between">
+                            <Activity className="w-3 h-3 text-accent" />
+                            <span className="text-[8px] font-black uppercase text-foreground/20">Uptime</span>
+                        </div>
+                        <p className="text-sm font-black italic">99.8%</p>
+                    </div>
+                </div>
+
+                <div className="space-y-3 pl-2">
+                    <AnimatePresence mode="popLayout">
+                        {lines.map((line, i) => (
+                            <motion.div
+                                key={`${line}-${i}`}
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                className="flex items-center gap-3"
+                            >
+                                <span className="text-primary font-black">&gt;</span>
+                                <span className="text-foreground/60 uppercase tracking-widest font-black leading-none">{line}</span>
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
+                </div>
+            </div>
+
+            {/* Bottom Metrics */}
+            <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                    <Box className="w-4 h-4 text-foreground/20" />
+                    <div className="flex flex-col">
+                        <span className="text-[8px] font-black uppercase tracking-widest text-foreground/20">Active Node</span>
+                        <span className="text-[10px] font-black italic">Mumbai-S1</span>
+                    </div>
+                </div>
+                <div className="flex -space-x-2">
+                    {[1, 2, 3].map(i => (
+                        <div key={i} className="w-6 h-6 rounded-full border border-black bg-white/5 backdrop-blur-md flex items-center justify-center">
+                            <div className="w-1 h-1 rounded-full bg-primary/40" />
+                        </div>
+                    ))}
+                </div>
+            </div>
         </div>
-        <span className="font-bold text-sm bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">{label}</span>
-    </motion.div>
-);
+    );
+};
 
 const MagneticButton = ({ children, href, variant = "primary" }: any) => {
     const ref = useRef<HTMLDivElement>(null);
@@ -82,13 +165,6 @@ export default function Hero() {
         <section className="relative w-full h-[100vh] flex items-center justify-center overflow-hidden selection:bg-primary/30">
             <div className="container mx-auto px-6 z-10 flex flex-col md:flex-row items-center justify-between gap-12 h-screen pt-20">
 
-                {/* Tech Orbs Layer - Absolute Positioning restricted to container */}
-                {/* <div className="absolute inset-0 pointer-events-none overflow-hidden hidden lg:block">
-                    <TechIcon icon={Layers} label="MERN Expert" color="blue" initialX="5%" initialY="20%" delay={0.2} />
-                    <TechIcon icon={Zap} label="Speed Optimized" color="yellow" initialX="2%" initialY="70%" delay={0.5} />
-                    <TechIcon icon={Clock} label="Workflow Automation" color="green" initialX="85%" initialY="15%" delay={0.8} />
-                </div> */}
-
                 {/* Text Content */}
                 <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left pt-12 md:pt-0">
                     <motion.div
@@ -97,14 +173,14 @@ export default function Hero() {
                         className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/5 border border-white/10 text-primary-foreground text-sm font-bold mb-10 backdrop-blur-md"
                     >
                         <ShieldCheck className="w-5 h-5 text-primary" />
-                        <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent tracking-wide">AVAILABLE FOR HIGH-STAKES PROJECTS</span>
+                        <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent tracking-wide text-[10px] font-black">AVAILABLE FOR HIGH-STAKES PROJECTS</span>
                     </motion.div>
 
                     <motion.h1
                         initial={{ opacity: 0, y: 40 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="text-6xl lg:text-9xl font-black mb-10 leading-[0.9] tracking-tighter"
+                        className="text-6xl lg:text-[10rem] font-black mb-10 leading-[0.8] tracking-tighter"
                     >
                         I BUILD <br />
                         <span className="text-transparent bg-clip-text bg-[image:linear-gradient(45deg,#4F46E5,#0EA5E9,#A855F7,#4F46E5)] bg-[size:300%_auto] animate-gradient-flow italic">SCALABLE</span> <br />
@@ -115,9 +191,9 @@ export default function Hero() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-xl md:text-2xl text-foreground/60 mb-14 max-w-2xl leading-relaxed font-light"
+                        className="text-xl md:text-2xl text-foreground/40 mb-14 max-w-2xl leading-relaxed font-medium italic"
                     >
-                        Expert in crafting <span className="text-foreground font-medium underline underline-offset-8 decoration-primary/30">high-performance web ecosystems</span> using the MERN stack. I transform technical debt into <span className="text-primary font-medium italic">operational leverage</span>.
+                        Engineering <span className="text-foreground font-black underline underline-offset-8 decoration-primary/30">high-performance ecosystems</span> where scalability is architectural standard.
                     </motion.p>
 
                     <motion.div
@@ -135,7 +211,7 @@ export default function Hero() {
                     </motion.div>
                 </div>
 
-                {/* Right Visual Element */}
+                {/* Right Visual Element: Interactive System Console */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -144,34 +220,31 @@ export default function Hero() {
                 >
                     <div className="relative group perspective-1000">
                         {/* Dynamic Glow */}
-                        <div className="absolute inset-0 bg-primary/20 rounded-[5rem] blur-[100px] group-hover:bg-primary/40 transition-all duration-700 animate-pulse" />
+                        <div className="absolute inset-0 bg-primary/20 rounded-[5rem] blur-[120px] group-hover:bg-primary/40 transition-all duration-700 animate-pulse" />
 
-                        {/* Character/Avatar Card */}
+                        {/* Interactive Console Card */}
                         <motion.div
                             whileHover={{ rotateY: 15, rotateX: -5 }}
-                            className="relative w-80 h-[450px] lg:w-[450px] lg:h-[550px] bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] rounded-[5rem] border border-white/10 shadow-3xl flex items-center justify-center p-4 z-20"
+                            className="relative w-80 h-[450px] lg:w-[500px] lg:h-[600px] bg-gradient-to-br from-[#0c0c0c] to-[#020202] rounded-[5rem] border border-white/10 shadow-3xl flex flex-col z-20 overflow-hidden"
                         >
-                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 pointer-events-none rounded-[5rem]" />
-                            <div className="text-[12rem] lg:text-[15rem] font-black text-transparent bg-clip-text bg-gradient-to-br from-primary to-accent select-none drop-shadow-[0_25px_25px_rgba(0,0,0,0.5)]">
-                                JR
-                            </div>
+                            <LiveSystemConsole />
 
                             {/* Corner Accents */}
-                            <div className="absolute top-12 left-12 w-16 h-1 bg-primary/40" />
-                            <div className="absolute top-12 left-12 w-1 h-16 bg-primary/40" />
-                            <div className="absolute bottom-12 right-12 w-16 h-1 bg-accent/40" />
-                            <div className="absolute bottom-12 right-12 w-1 h-16 bg-accent/40" />
+                            <div className="absolute top-12 left-12 w-16 h-1 bg-primary/20" />
+                            <div className="absolute top-12 left-12 w-1 h-16 bg-primary/20" />
+                            <div className="absolute bottom-12 right-12 w-16 h-1 bg-accent/20" />
+                            <div className="absolute bottom-12 right-12 w-1 h-16 bg-accent/20" />
                         </motion.div>
 
                         {/* Overlaid Floating Metrics */}
                         <motion.div
                             animate={{ y: [0, -25, 0] }}
                             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute bottom-[-10%] right-[-10%] p-8 bg-background/80 backdrop-blur-3xl border border-white/10 rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] z-40 ring-1 ring-white/10"
+                            className="absolute bottom-[-5%] right-[-5%] p-8 bg-black/80 backdrop-blur-3xl border border-white/10 rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] z-40 ring-1 ring-white/10"
                         >
                             <div className="flex flex-col gap-2">
-                                <span className="text-xs font-bold text-primary uppercase tracking-[0.3em]">Efficiency Boost</span>
-                                <span className="text-5xl font-black tabular-nums tracking-tighter text-foreground">+50%</span>
+                                <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em]">SLA Status</span>
+                                <span className="text-4xl font-black tabular-nums tracking-tighter text-foreground italic">99.99%</span>
                             </div>
                         </motion.div>
                     </div>
