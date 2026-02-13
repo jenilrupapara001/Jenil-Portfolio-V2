@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   verification: {
-    google: "u-S39rlDJF5IGjICn_9fThC6MPd4kXhvgBxDcehqdFQ",
+    google: "VvSXRnC8iZ9S3kTt_vC91Hn4KDpbZTkhXoj74yTq6cQ",
   },
 };
 
