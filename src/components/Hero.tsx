@@ -110,17 +110,17 @@ export default function Hero() {
                 </div>
 
                 {/* Right Visual Element: Premium Architecture Image */}
-                <motion.div
+                {/* <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1.2, delay: 0.3 }}
                     className="flex-1 w-full max-w-[600px] flex justify-center lg:justify-end relative items-center lg:mt-0"
                 >
                     <div className="relative group perspective-1000 w-full aspect-square sm:aspect-auto sm:h-[450px] md:h-[500px] lg:h-[600px]">
-                        {/* Dynamic Glow */}
+                    
                         <div className="absolute inset-0 bg-primary/20 rounded-[3rem] sm:rounded-[5rem] blur-[80px] sm:blur-[120px] group-hover:bg-primary/40 transition-all duration-700 animate-pulse" />
 
-                        {/* Image Container */}
+                        
                         <motion.div
                             whileHover={{ rotateY: 10, rotateX: -5 }}
                             className="relative w-full h-full bg-gradient-to-br from-[#0c0c0c] to-[#020202] rounded-[3rem] sm:rounded-[5rem] border border-white/10 shadow-3xl flex flex-col z-20 overflow-hidden"
@@ -131,14 +131,14 @@ export default function Hero() {
                                 className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700"
                             />
 
-                            {/* Corner Accents */}
+                            
                             <div className="absolute top-8 sm:top-12 left-8 sm:left-12 w-10 sm:w-16 h-1 bg-primary/20" />
                             <div className="absolute top-8 sm:top-12 left-8 sm:left-12 w-1 h-10 sm:h-16 bg-primary/20" />
                             <div className="absolute bottom-8 sm:bottom-12 right-8 sm:bottom-12 w-10 sm:w-16 h-1 bg-accent/20" />
                             <div className="absolute bottom-8 sm:bottom-12 right-8 sm:bottom-12 w-1 h-10 sm:h-16 bg-accent/20" />
                         </motion.div>
 
-                        {/* Overlaid Floating Metrics */}
+                        
                         <motion.div
                             animate={{ y: [0, -15, 0] }}
                             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -150,7 +150,7 @@ export default function Hero() {
                             </div>
                         </motion.div>
                     </div>
-                </motion.div>
+                </motion.div> */}
             </div>
 
             <style jsx global>{`

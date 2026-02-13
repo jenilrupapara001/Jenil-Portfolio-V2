@@ -1,10 +1,9 @@
 "use client";
 
-import { use } from "react";
 import { Project } from "@/utils/projects";
 import Image from "next/image";
 import Link from "next/link";
-import { Github, ExternalLink, ChevronLeft, Sparkles, Target, Zap, ShieldCheck } from "lucide-react";
+import { Github, ExternalLink, ChevronLeft, Zap, ShieldCheck, Box, Workflow, AlertCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function ProjectDetailView({ project }: { project: Project }) {
@@ -46,27 +45,86 @@ export default function ProjectDetailView({ project }: { project: Project }) {
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-20 items-start">
-                        <div className="lg:col-span-8 space-y-12 md:space-y-20">
+                        <div className="lg:col-span-8 space-y-16 md:space-y-24">
+                            {/* The Bottleneck */}
                             <section className="space-y-6">
                                 <div className="flex items-center gap-4">
                                     <div className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-[10px] font-black italic text-primary">01</div>
-                                    <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tighter italic">The Bottleneck</h2>
+                                    <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tighter italic text-white/90">The Bottleneck</h2>
                                 </div>
                                 <p className="text-foreground/60 leading-relaxed text-lg md:text-2xl font-medium italic border-l-2 border-primary/20 pl-6 md:pl-8">
                                     "{project.problem}"
                                 </p>
                             </section>
 
+                            {/* Key Features */}
+                            <section className="space-y-8">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-[10px] font-black italic text-primary">02</div>
+                                    <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tighter italic text-white/90">Key Features</h2>
+                                </div>
+                                <div className="grid grid-cols-1 gap-4">
+                                    {project.features.map((feature, idx) => (
+                                        <div key={idx} className="flex items-start gap-4 p-6 rounded-[1.5rem] bg-white/[0.02] border border-white/5 hover:border-primary/20 transition-colors group">
+                                            <div className="mt-1">
+                                                <Box className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
+                                            </div>
+                                            <p className="text-foreground/70 font-medium leading-relaxed">{feature}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+
+                            {/* The Architecture/Solution */}
                             <section className="space-y-6">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-[10px] font-black italic text-accent">02</div>
-                                    <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tighter italic">The Architecture</h2>
+                                    <div className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-[10px] font-black italic text-accent">03</div>
+                                    <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tighter italic text-white/90">The Architecture</h2>
                                 </div>
-                                <p className="text-foreground/40 leading-relaxed text-base md:text-lg font-medium">
+                                <p className="text-foreground/40 leading-relaxed text-base md:text-xl font-medium">
                                     {project.solution}
                                 </p>
                             </section>
 
+                            {/* Technical Challenges */}
+                            <section className="space-y-8">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-[10px] font-black italic text-red-500/80">04</div>
+                                    <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tighter italic text-white/90">Overcoming Challenges</h2>
+                                </div>
+                                <div className="space-y-4">
+                                    {project.challenges.map((challenge, idx) => (
+                                        <div key={idx} className="flex items-start gap-4 p-6 rounded-[1.5rem] bg-red-500/[0.02] border border-red-500/10">
+                                            <div className="mt-1">
+                                                <AlertCircle className="w-4 h-4 text-red-500/60" />
+                                            </div>
+                                            <p className="text-foreground/50 font-medium leading-relaxed italic">{challenge}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+
+                            {/* Development Process */}
+                            <section className="space-y-8">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-[10px] font-black italic text-green-500/80">05</div>
+                                    <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tighter italic text-white/90">Protocol & Process</h2>
+                                </div>
+                                <div className="relative pl-8 space-y-12">
+                                    <div className="absolute left-0 top-2 bottom-2 w-[1px] bg-white/5" />
+                                    {project.process.map((step, idx) => (
+                                        <div key={idx} className="relative">
+                                            <div className="absolute -left-9 top-1 w-2 h-2 rounded-full bg-green-500/40 border border-green-500/20 shadow-[0_0_10px_rgba(34,197,94,0.3)]" />
+                                            <div className="space-y-2">
+                                                <span className="text-[10px] font-black uppercase tracking-widest text-green-500/40">Phase 0{idx + 1}</span>
+                                                <p className="text-foreground/60 font-medium leading-relaxed">{step}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+
+                            {/* Impact Summary */}
                             <section>
                                 <motion.div
                                     whileHover={{ y: -5 }}

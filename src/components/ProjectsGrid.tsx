@@ -9,7 +9,6 @@ import { ArrowUpRight, BrainCircuit, ShieldCheck, Database, Layout, Sparkles } f
 
 const categories = [
     { id: "all", label: "All Works", icon: Layout },
-    { id: "ai", label: "Artificial Intelligence", icon: BrainCircuit },
     { id: "backend", label: "Microservices", icon: Database },
     { id: "saas", label: "Enterprise SaaS", icon: ShieldCheck },
 ];
@@ -21,9 +20,8 @@ export default function ProjectsGrid() {
         if (activeCategory === "all") return projects;
 
         const categoryMap: Record<string, string[]> = {
-            ai: ["vyapaarsetu-ai"],
             backend: ["commercex-microservices"],
-            saas: ["grownext-in", "bavadiya-realty", "metalex-saas"],
+            saas: ["ajio-return-tracking", "grownext-in", "bavadiya-realty", "metalex-saas"],
         };
 
         return projects.filter(p => categoryMap[activeCategory]?.includes(p.slug));
