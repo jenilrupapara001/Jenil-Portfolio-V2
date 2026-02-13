@@ -35,8 +35,8 @@ export default function Navbar() {
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           className={`flex items-center justify-between px-6 md:px-8 py-3 rounded-full border transition-all duration-700 backdrop-blur-3xl shadow-2xl ${scrolled
-              ? "bg-black/40 border-white/10 w-full max-w-5xl"
-              : "bg-transparent border-transparent w-full max-w-7xl"
+            ? "bg-black/40 border-white/10 w-full max-w-5xl"
+            : "bg-transparent border-transparent w-full max-w-7xl"
             }`}
         >
           {/* Logo Section */}

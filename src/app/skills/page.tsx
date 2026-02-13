@@ -58,44 +58,44 @@ export default function SkillsPage() {
                             </div>
                         </div>
 
-                        <div className="lg:col-span-12 xl:col-span-4 relative group hidden sm:block">
-                            {/* Perspective Tech Card */}
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.9, rotateY: 10 }}
-                                animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                                transition={{ duration: 1, delay: 0.2 }}
-                                className="relative p-8 md:p-12 rounded-[2.5rem] md:rounded-[4rem] bg-gradient-to-br from-white/[0.03] to-transparent border border-white/10 backdrop-blur-3xl shadow-2xl overflow-hidden"
-                            >
-                                <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                                <div className="relative z-10 space-y-6 md:space-y-8">
-                                    <div className="flex justify-between items-start">
-                                        <div className="space-y-1">
-                                            <p className="text-primary font-black uppercase tracking-[0.2em] text-[8px] md:text-[10px]">SLA Status</p>
-                                            <p className="text-xl md:text-2xl font-black italic">Active</p>
-                                        </div>
-                                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-primary/20 flex items-center justify-center text-primary">
-                                            <Zap className="w-5 h-5 md:w-6 md:h-6 animate-pulse" />
-                                        </div>
+                        {/* <div className="lg:col-span-12 xl:col-span-4 relative group hidden sm:block">
+                            
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, rotateY: 10 }}
+                            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                            transition={{ duration: 1, delay: 0.2 }}
+                            className="relative p-8 md:p-12 rounded-[2.5rem] md:rounded-[4rem] bg-gradient-to-br from-white/[0.03] to-transparent border border-white/10 backdrop-blur-3xl shadow-2xl overflow-hidden"
+                        >
+                            <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                            <div className="relative z-10 space-y-6 md:space-y-8">
+                                <div className="flex justify-between items-start">
+                                    <div className="space-y-1">
+                                        <p className="text-primary font-black uppercase tracking-[0.2em] text-[8px] md:text-[10px]">SLA Status</p>
+                                        <p className="text-xl md:text-2xl font-black italic">Active</p>
                                     </div>
-
-                                    <div className="space-y-4 md:space-y-6">
-                                        {[
-                                            { label: "Performance", value: "99th Pct", icon: Zap, color: "text-blue-400" },
-                                            { label: "Type Safety", value: "Strict", icon: Target, color: "text-purple-400" },
-                                            { label: "Precision", value: "High-Fi", icon: Search, color: "text-green-400" }
-                                        ].map((stat) => (
-                                            <div key={stat.label} className="flex items-center justify-between border-b border-white/5 pb-3 md:pb-4">
-                                                <div className="flex items-center gap-3">
-                                                    <stat.icon className={`w-3 h-3 md:w-4 md:h-4 ${stat.color}`} />
-                                                    <span className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-foreground/40">{stat.label}</span>
-                                                </div>
-                                                <span className="text-xs md:text-sm font-black italic">{stat.value}</span>
-                                            </div>
-                                        ))}
+                                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-primary/20 flex items-center justify-center text-primary">
+                                        <Zap className="w-5 h-5 md:w-6 md:h-6 animate-pulse" />
                                     </div>
                                 </div>
-                            </motion.div>
-                        </div>
+
+                                <div className="space-y-4 md:space-y-6">
+                                    {[
+                                        { label: "Performance", value: "99th Pct", icon: Zap, color: "text-blue-400" },
+                                        { label: "Type Safety", value: "Strict", icon: Target, color: "text-purple-400" },
+                                        { label: "Precision", value: "High-Fi", icon: Search, color: "text-green-400" }
+                                    ].map((stat) => (
+                                        <div key={stat.label} className="flex items-center justify-between border-b border-white/5 pb-3 md:pb-4">
+                                            <div className="flex items-center gap-3">
+                                                <stat.icon className={`w-3 h-3 md:w-4 md:h-4 ${stat.color}`} />
+                                                <span className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-foreground/40">{stat.label}</span>
+                                            </div>
+                                            <span className="text-xs md:text-sm font-black italic">{stat.value}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div> */}
                     </div>
                 </div>
 
@@ -108,16 +108,16 @@ export default function SkillsPage() {
                     <span className="text-[7px] md:text-[8px] font-black uppercase tracking-[0.4em]">Initialize Deep Dive</span>
                     <ArrowDown className="w-3 h-3 md:w-4 md:h-4 text-primary" />
                 </motion.div>
-            </section>
+            </section >
 
             {/* Main Skills Grid */}
-            <div className="relative pt-12 md:pt-20">
+            < div className="relative pt-12 md:pt-20" >
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[90vw] md:w-[80vw] h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                 <Skills />
-            </div>
+            </div >
 
             {/* Future Stance Section */}
-            <Section id="evolution" title="" className="!py-12 md:!py-28">
+            < Section id="evolution" title="" className="!py-12 md:!py-28" >
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -151,7 +151,7 @@ export default function SkillsPage() {
                         </div>
                     </div>
                 </motion.div>
-            </Section>
-        </div>
+            </Section >
+        </div >
     );
 }

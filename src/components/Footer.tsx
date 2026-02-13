@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const socialLinks = [
     { name: "GitHub", href: "https://github.com/jenilrupapara001", icon: Github, color: "hover:text-white" },
-    { name: "LinkedIn", href: "https://jenilrupapara.netlify.app", icon: Linkedin, color: "hover:text-blue-400" },
+    { name: "LinkedIn", href: "https://linkedin.com/in/jenilrupapara-fullstack-developer", icon: Linkedin, color: "hover:text-blue-400" },
     { name: "Email", href: "mailto:jenilrupapara340@gmail.com", icon: Mail, color: "hover:text-primary" },
 ];
 
