@@ -30,17 +30,17 @@ export default function ProjectsGrid() {
     }, [activeCategory]);
 
     return (
-        <div className="space-y-24">
+        <div className="space-y-12 md:space-y-24">
             {/* Premium Category Filter */}
             <div className="flex flex-wrap justify-center items-center gap-4 px-4">
-                <div className="p-2 bg-white/[0.02] border border-white/10 rounded-[2rem] flex flex-wrap justify-center gap-2 backdrop-blur-xl">
+                <div className="p-1.5 md:p-2 bg-white/[0.02] border border-white/10 rounded-2xl md:rounded-[2rem] flex flex-wrap justify-center gap-1.5 md:gap-2 backdrop-blur-xl">
                     {categories.map((cat) => (
                         <button
                             key={cat.id}
                             onClick={() => setActiveCategory(cat.id)}
-                            className={`group flex items-center gap-3 px-8 py-4 rounded-[1.5rem] text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500 relative overflow-hidden ${activeCategory === cat.id
-                                    ? "text-white"
-                                    : "text-foreground/40 hover:text-foreground/80"
+                            className={`group flex items-center gap-2 md:gap-3 px-4 md:px-8 py-3 md:py-4 rounded-xl md:rounded-[1.5rem] text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500 relative overflow-hidden ${activeCategory === cat.id
+                                ? "text-white"
+                                : "text-foreground/40 hover:text-foreground/80"
                                 }`}
                         >
                             {activeCategory === cat.id && (
@@ -50,7 +50,7 @@ export default function ProjectsGrid() {
                                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                                 />
                             )}
-                            <cat.icon className={`w-4 h-4 relative z-10 ${activeCategory === cat.id ? "animate-pulse" : "opacity-40 group-hover:opacity-100 transition-opacity"}`} />
+                            <cat.icon className={`w-3 h-3 md:w-4 md:h-4 relative z-10 ${activeCategory === cat.id ? "animate-pulse" : "opacity-40 group-hover:opacity-100 transition-opacity"}`} />
                             <span className="relative z-10">{cat.label}</span>
                         </button>
                     ))}
@@ -60,7 +60,7 @@ export default function ProjectsGrid() {
             {/* High-End Masonry-Style Grid */}
             <motion.div
                 layout
-                className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16"
+                className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 px-4 md:px-0"
             >
                 <AnimatePresence mode="popLayout">
                     {filteredProjects.map((project, index) => (
@@ -74,63 +74,64 @@ export default function ProjectsGrid() {
                             className={`group relative ${index % 3 === 0 ? "md:col-span-2 lg:col-span-1" : ""}`}
                         >
                             <Link href={`/projects/${project.slug}`} className="block h-full group">
-                                <div className="h-full rounded-[3.5rem] bg-white/[0.02] border border-white/5 backdrop-blur-[100px] overflow-hidden hover:border-primary/40 transition-all duration-700 flex flex-col hover:shadow-[0_0_120px_-30px_rgba(var(--primary-rgb),0.4)]">
+                                <div className="h-full rounded-[2.5rem] md:rounded-[3.5rem] bg-white/[0.02] border border-white/5 backdrop-blur-[100px] overflow-hidden hover:border-primary/40 transition-all duration-700 flex flex-col hover:shadow-[0_0_120px_-30px_rgba(var(--primary-rgb),0.4)]">
 
-                                    {/* Image Container with Parallax-ready feel */}
-                                    <div className="relative h-[28rem] overflow-hidden">
+                                    {/* Image Container */}
+                                    <div className="relative h-[20rem] md:h-[28rem] overflow-hidden">
                                         <Image
                                             src={project.image}
                                             alt={project.title}
                                             fill
                                             className="object-cover group-hover:scale-105 transition-transform duration-1000 ease-out grayscale-[0.3] group-hover:grayscale-0"
+                                            sizes="(max-width: 768px) 100vw, 50vw"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/20 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-700" />
 
                                         {/* Floating Badge */}
-                                        <div className="absolute top-8 left-8 flex items-center gap-3 px-4 py-2 rounded-full bg-black/40 border border-white/10 backdrop-blur-md">
+                                        <div className="absolute top-6 md:top-8 left-6 md:left-8 flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-black/40 border border-white/10 backdrop-blur-md">
                                             <Sparkles className="w-3 h-3 text-primary animate-pulse" />
-                                            <span className="text-[9px] font-black uppercase tracking-widest text-white/80">
+                                            <span className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-white/80">
                                                 {project.tags[0]}
                                             </span>
                                         </div>
 
-                                        {/* Corner Arrow */}
-                                        <div className="absolute top-8 right-8 w-14 h-14 rounded-full bg-primary text-white flex items-center justify-center opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 rotate-45 group-hover:rotate-0 transition-all duration-500 shadow-2xl">
-                                            <ArrowUpRight className="w-6 h-6" />
+                                        {/* Corner Arrow (Hidden on very small mobile) */}
+                                        <div className="absolute top-6 md:top-8 right-6 md:right-8 w-10 h-10 md:w-14 md:h-14 rounded-full bg-primary text-white flex items-center justify-center opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 rotate-45 group-hover:rotate-0 transition-all duration-500 shadow-2xl">
+                                            <ArrowUpRight className="w-4 h-4 md:w-6 md:h-6" />
                                         </div>
 
                                         {/* Bottom Labels */}
-                                        <div className="absolute bottom-10 left-10 right-10 flex flex-col gap-4 transform group-hover:-translate-y-2 transition-transform duration-700">
-                                            <h3 className="text-4xl md:text-6xl font-black italic uppercase tracking-tighter leading-none">
+                                        <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 right-6 md:right-10 flex flex-col gap-3 md:gap-4 transform group-hover:-translate-y-2 transition-transform duration-700">
+                                            <h3 className="text-3xl sm:text-4xl md:text-6xl font-black italic uppercase tracking-tighter leading-[0.85] md:leading-none">
                                                 {project.title.split(' ')[0]} <br />
                                                 <span className="text-primary">{project.title.split(' ').slice(1).join(' ')}</span>
                                             </h3>
-                                            <p className="text-white/40 text-sm font-medium leading-relaxed line-clamp-2 max-w-sm">
+                                            <p className="text-white/40 text-[10px] md:text-sm font-medium leading-relaxed line-clamp-2 max-w-sm">
                                                 {project.description}
                                             </p>
                                         </div>
                                     </div>
 
                                     {/* Footer Info */}
-                                    <div className="p-10 flex flex-col gap-8 flex-grow">
-                                        <div className="grid grid-cols-2 gap-8 border-b border-white/5 pb-8">
+                                    <div className="p-6 md:p-10 flex flex-col gap-6 md:gap-8 flex-grow">
+                                        <div className="grid grid-cols-1 xs:grid-cols-2 gap-6 md:gap-8 border-b border-white/5 pb-6 md:pb-8">
                                             <div className="space-y-1">
-                                                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-primary/60">Core Result</p>
-                                                <p className="text-sm font-bold text-foreground/80 italic leading-tight">{project.impact}</p>
+                                                <p className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.3em] text-primary/60">Core Result</p>
+                                                <p className="text-xs md:text-sm font-bold text-foreground/80 italic leading-tight">{project.impact}</p>
                                             </div>
                                             <div className="space-y-1">
-                                                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-foreground/20">Technology</p>
-                                                <div className="flex flex-wrap gap-2 text-[10px] font-black uppercase tracking-widest text-foreground/60">
+                                                <p className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.3em] text-foreground/20">Technology</p>
+                                                <div className="flex flex-wrap gap-2 text-[8px] md:text-[10px] font-black uppercase tracking-widest text-foreground/60">
                                                     {project.tags.slice(1, 3).join(" • ")}
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div className="flex items-center justify-between group/btn">
-                                            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/40 group-hover:text-primary transition-colors">
+                                            <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] text-foreground/40 group-hover:text-primary transition-colors">
                                                 Explore Architecture
                                             </span>
-                                            <div className="w-12 h-[1px] bg-white/10 group-hover:w-20 group-hover:bg-primary transition-all duration-500" />
+                                            <div className="w-8 md:w-12 h-[1px] bg-white/10 group-hover:w-16 md:group-hover:w-20 group-hover:bg-primary transition-all duration-500" />
                                         </div>
                                     </div>
                                 </div>

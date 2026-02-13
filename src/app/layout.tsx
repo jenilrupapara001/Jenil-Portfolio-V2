@@ -35,6 +35,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
+  verification: {
+    google: "u-S39rlDJF5IGjICn_9fThC6MPd4kXhvgBxDcehqdFQ",
+  },
 };
 
 import { ThemeProvider } from "@/components/ThemeProvider";
