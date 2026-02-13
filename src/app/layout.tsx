@@ -38,6 +38,9 @@ export const metadata: Metadata = {
   verification: {
     google: "VvSXRnC8iZ9S3kTt_vC91Hn4KDpbZTkhXoj74yTq6cQ",
   },
+  other: {
+    "google-adsense-account": "ca-pub-7130727000782953",
+  },
 };
 
 import { ThemeProvider } from "@/components/ThemeProvider";
