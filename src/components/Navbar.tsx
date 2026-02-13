@@ -75,7 +75,7 @@ export default function Navbar() {
 
           {/* Desktop Actions */}
           <div className="hidden lg:flex items-center gap-6">
-            <ThemeToggle />
+            {/* <ThemeToggle /> */}
             <Link
               href="/contact"
               className="px-6 py-2 bg-primary text-white text-[10px] font-black uppercase tracking-widest rounded-full hover:shadow-[0_0_30px_-5px_rgba(var(--primary-rgb),0.5)] transition-all active:scale-95"
@@ -86,7 +86,7 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <div className="lg:hidden flex items-center gap-4">
-            <ThemeToggle />
+            {/* <ThemeToggle /> */}
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="relative z-[101] p-3 rounded-full bg-white/[0.05] border border-white/10"
