@@ -1,84 +1,156 @@
+"use client";
+
 import Skills from "@/components/Skills";
 import Section from "@/components/Section";
-import { Zap, Target, Search } from "lucide-react";
-
-export const metadata = {
-    title: "Skills & Expertise | Jenil Rupapara",
-    description: "Explore my technical proficiency in MERN stack, AWS, and modern web tools.",
-};
+import { Zap, Target, Search, ArrowDown, Cpu, Network, Binary } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function SkillsPage() {
     return (
-        <div className="pt-8">
-            <Section id="skills-header" title="Mastering the Stack">
-                <div className="max-w-4xl mx-auto text-center mb-16 px-4">
-                    <p className="text-xl md:text-2xl text-foreground/80 leading-relaxed max-w-2xl mx-auto">
-                        I specialize in building <span className="text-primary font-bold">high-performance ecosystems</span> where scalability and security are built-in from day one.
-                    </p>
+        <div className="space-y-0 pb-32">
+            {/* Ultra-High-Fidelity Skills Hero (Immersive) */}
+            <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-32 pb-20">
+                {/* Background Architecture Elements */}
+                <div className="absolute inset-0 z-0">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60rem] h-[60rem] bg-primary/5 blur-[200px] rounded-full animate-pulse" />
+                    <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-blue-500/5 blur-[150px] rounded-full translate-x-1/3 -translate-y-1/3" />
+                </div>
 
-                    <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="flex flex-col items-center">
-                            <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 mb-6 border border-blue-500/20">
-                                <Zap className="w-8 h-8" />
+                <div className="max-w-7xl mx-auto px-4 w-full relative z-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                        <div className="lg:col-span-8 space-y-12">
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                className="flex items-center gap-4"
+                            >
+                                <div className="h-[1px] w-12 bg-primary" />
+                                <span className="text-primary font-black uppercase tracking-[0.5em] text-[10px]">Technical Capability Hub</span>
+                            </motion.div>
+
+                            <div className="space-y-6">
+                                <h1 className="text-7xl md:text-[13rem] font-black uppercase tracking-tighter italic leading-[0.7] select-none">
+                                    Technical <br />
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-400 to-primary animate-gradient-x italic">Arsenal.</span>
+                                </h1>
+                                <p className="text-xl md:text-3xl text-foreground/40 leading-tight font-medium max-w-2xl">
+                                    Engineering <span className="text-white italic">resilient ecosystems</span> where extreme scalability and fault-tolerance are default architectural standards.
+                                </p>
                             </div>
-                            <h3 className="text-lg font-bold mb-3 uppercase tracking-tighter">Performance</h3>
-                            <p className="text-sm text-foreground/60">Optimizing Core Web Vitals to achieve 90+ Lighthouse scores consistently.</p>
+
+                            <div className="flex flex-wrap gap-6 pt-4">
+                                {[
+                                    { icon: Cpu, label: "Core Compute" },
+                                    { icon: Network, label: "Event Systems" },
+                                    { icon: Binary, label: "Data Integrity" }
+                                ].map((badge, i) => (
+                                    <motion.div
+                                        key={badge.label}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.5 + i * 0.1 }}
+                                        className="px-6 py-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex items-center gap-3"
+                                    >
+                                        <badge.icon className="w-4 h-4 text-primary" />
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-white/60">{badge.label}</span>
+                                    </motion.div>
+                                ))}
+                            </div>
                         </div>
-                        <div className="flex flex-col items-center">
-                            <div className="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-500 mb-6 border border-purple-500/20">
-                                <Target className="w-8 h-8" />
-                            </div>
-                            <h3 className="text-lg font-bold mb-3 uppercase tracking-tighter">Scalability</h3>
-                            <p className="text-sm text-foreground/60">Architecting modular systems that grow seamlessly with user demand.</p>
-                        </div>
-                        <div className="flex flex-col items-center">
-                            <div className="w-16 h-16 bg-green-500/10 rounded-2xl flex items-center justify-center text-green-500 mb-6 border border-green-500/20">
-                                <Search className="w-8 h-8" />
-                            </div>
-                            <h3 className="text-lg font-bold mb-3 uppercase tracking-tighter">Precision</h3>
-                            <p className="text-sm text-foreground/60">Writing clean, type-safe code that minimizes bugs and technical debt.</p>
+
+                        <div className="lg:col-span-4 relative group">
+                            {/* Perspective Tech Card */}
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9, rotateY: 20 }}
+                                animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                                transition={{ duration: 1, delay: 0.2 }}
+                                className="relative p-12 rounded-[4rem] bg-gradient-to-br from-white/[0.03] to-transparent border border-white/10 backdrop-blur-3xl shadow-2xl overflow-hidden"
+                            >
+                                <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                                <div className="relative z-10 space-y-8">
+                                    <div className="flex justify-between items-start">
+                                        <div className="space-y-1">
+                                            <p className="text-primary font-black uppercase tracking-[0.2em] text-[10px]">SLA Status</p>
+                                            <p className="text-2xl font-black italic">Active</p>
+                                        </div>
+                                        <div className="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-primary">
+                                            <Zap className="w-6 h-6 animate-pulse" />
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-6">
+                                        {[
+                                            { label: "Performance", value: "99th Pct", icon: Zap, color: "text-blue-400" },
+                                            { label: "Type Safety", value: "Strict", icon: Target, color: "text-purple-400" },
+                                            { label: "Precision", value: "High-Fi", icon: Search, color: "text-green-400" }
+                                        ].map((stat) => (
+                                            <div key={stat.label} className="flex items-center justify-between border-b border-white/5 pb-4">
+                                                <div className="flex items-center gap-3">
+                                                    <stat.icon className={`w-4 h-4 ${stat.color}`} />
+                                                    <span className="text-[10px] font-black uppercase tracking-widest text-foreground/40">{stat.label}</span>
+                                                </div>
+                                                <span className="text-sm font-black italic">{stat.value}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </motion.div>
                         </div>
                     </div>
                 </div>
-            </Section>
 
-            <Skills />
+                {/* Scroll Indicator */}
+                <motion.div
+                    animate={{ y: [0, 10, 0] }}
+                    transition={{ repeat: Infinity, duration: 2 }}
+                    className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-foreground/20"
+                >
+                    <span className="text-[8px] font-black uppercase tracking-[0.4em]">Initialize Deep Dive</span>
+                    <ArrowDown className="w-4 h-4 text-primary" />
+                </motion.div>
+            </section>
 
-            <Section id="future-focus" title="Continuous Evolution" className="bg-white/[0.02]">
-                <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center px-4">
-                    <div>
-                        <h3 className="text-3xl font-black mb-6 uppercase">The Horizon</h3>
-                        <p className="text-foreground/70 leading-relaxed mb-6">
-                            The tech landscape moves fast, and I move faster. I am currently deep-diving into <span className="text-primary">AI-driven code generation</span> and <span className="text-accent">Web3 infrastructure</span> to stay at the cutting edge of what's possible.
-                        </p>
-                        <ul className="space-y-4">
-                            <li className="flex items-center gap-4 text-foreground/80">
-                                <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                                <span>Advanced System Design Patterns</span>
-                            </li>
-                            <li className="flex items-center gap-4 text-foreground/80">
-                                <div className="w-1.5 h-1.5 bg-accent rounded-full" />
-                                <span>Generative AI for Software Engineering</span>
-                            </li>
-                            <li className="flex items-center gap-4 text-foreground/80">
-                                <div className="w-1.5 h-1.5 bg-blue-500 rounded-full" />
-                                <span>Cloud-Native Security Best Practices</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="p-8 bg-gradient-to-br from-primary/10 to-transparent border border-white/5 rounded-[2rem] backdrop-blur-md">
-                        <blockquote className="text-xl italic text-foreground/90 font-medium">
-                            "The best way to predict the future is to build it. Every skill I acquire is another tool to build a better digital reality."
-                        </blockquote>
-                        <div className="mt-6 flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">JR</div>
-                            <div>
-                                <p className="text-sm font-bold">Jenil Rupapara</p>
-                                <p className="text-xs text-foreground/40">Full Stack Architect</p>
+            {/* Main Skills Grid (Pre-Redesigned) */}
+            <div className="relative pt-20">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                <Skills />
+            </div>
+
+            {/* Future Stance Section */}
+            <Section id="evolution" title="">
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="max-w-7xl mx-auto px-4"
+                >
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center p-12 md:p-24 rounded-[4rem] bg-white/[0.02] border border-white/5 backdrop-blur-3xl overflow-hidden relative">
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none" />
+
+                        <div className="space-y-8 relative z-10">
+                            <div className="space-y-4">
+                                <span className="text-primary font-black uppercase tracking-[0.5em] text-[10px]">The Technical Horizon</span>
+                                <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic">Continuous <span className="text-primary italic">Transformation.</span></h2>
+                            </div>
+                            <p className="text-lg md:text-xl text-foreground/40 font-medium leading-relaxed">
+                                The landscape of software engineering is fluid. I am currently deep-diving into <span className="text-white italic">AI-driven code generation</span> and <span className="text-primary">Cloud-Native Security</span> to stay at the absolute frontier of what is possible.
+                            </p>
+                        </div>
+
+                        <div className="relative group p-10 bg-black/40 rounded-[3rem] border border-white/5 backdrop-blur-xl">
+                            <blockquote className="text-2xl md:text-3xl italic text-white/90 font-black tracking-tighter leading-tight relative z-10">
+                                "The best way to predict the future is to <span className="text-primary">engineer it.</span> Every tool acquired is a building block for the next evolution."
+                            </blockquote>
+                            <div className="mt-8 flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-xs font-black uppercase italic">JR</div>
+                                <div>
+                                    <p className="text-sm font-black uppercase">Jenil Rupapara</p>
+                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary/60">System Architect</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </Section>
         </div>
     );
