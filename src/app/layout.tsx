@@ -4,7 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import GlobalSpotlight from "@/components/GlobalSpotlight";
+import SplashCursor from "@/components/ui/SplashCursor";
 import Script from "next/script";
 
 const syne = Syne({
@@ -68,7 +68,7 @@ export default function RootLayout({
                     forcedTheme="dark"
                     disableTransitionOnChange
                 >
-                    <GlobalSpotlight />
+                    <SplashCursor />
                     <div className="relative z-10 flex flex-col min-h-screen">
                         <Navbar />
                         <main className="flex-grow pt-16">
