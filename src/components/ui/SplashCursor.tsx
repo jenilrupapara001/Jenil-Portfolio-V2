@@ -164,16 +164,16 @@ const SplashCursor: React.FC<SplashCursorProps> = ({
         class Material {
             vertexShader: WebGLShader;
             fragmentShaderSource: string;
-            programs: any[];
+            programs: Record<number, WebGLProgram>;
             activeProgram: any;
-            uniforms: any[];
+            uniforms: Record<string, WebGLUniformLocation | null>;
 
             constructor(vertexShader: WebGLShader, fragmentShaderSource: string) {
                 this.vertexShader = vertexShader;
                 this.fragmentShaderSource = fragmentShaderSource;
-                this.programs = [];
+                this.programs = {};
                 this.activeProgram = null;
-                this.uniforms = [];
+                this.uniforms = {};
             }
             setKeywords(keywords: string[]) {
                 let hash = 0;
@@ -194,7 +194,7 @@ const SplashCursor: React.FC<SplashCursorProps> = ({
         }
 
         class Program {
-            uniforms: any;
+            uniforms: Record<string, WebGLUniformLocation | null>;
             program: WebGLProgram;
 
             constructor(vertexShader: WebGLShader, fragmentShader: WebGLShader) {
@@ -217,7 +217,7 @@ const SplashCursor: React.FC<SplashCursorProps> = ({
         }
 
         function getUniforms(program: WebGLProgram) {
-            let uniforms: any = [];
+            let uniforms: Record<string, WebGLUniformLocation | null> = {};
             let uniformCount = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
             for (let i = 0; i < uniformCount; i++) {
                 let uniformName = gl.getActiveUniform(program, i)!.name;
