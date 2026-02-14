@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import SplashCursor from "@/components/ui/SplashCursor";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 
 const syne = Syne({
     variable: "--font-syne",
@@ -77,6 +78,7 @@ export default function RootLayout({
                         <Footer />
                     </div>
                 </ThemeProvider>
+                <Analytics />
             </body>
         </html>
     );
