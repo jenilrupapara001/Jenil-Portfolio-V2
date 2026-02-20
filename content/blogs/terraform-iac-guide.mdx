@@ -1,0 +1,43 @@
+---
+title: "Infrastructure as Code with Terraform: A Practical Guide"
+date: "2026-02-23"
+category: "DevOps"
+tags: ["Terraform", "Infrastructure", "IaC", "AWS"]
+excerpt: "Stop clicking in the AWS Console. Manage your servers, databases, and networks as code with Terraform."
+image: "/blogs/terraform-iac-guide.png"
+readTime: "13 min read"
+featured: false
+---
+
+## Infrastructure as Code (IaC)
+
+Manually creating resources in a cloud provider console is "Infrastructure as a Secret." Nobody knows how the server was configured, and it's impossible to reproduce. **Terraform** allows you to define your entire setup (VPCs, EC2s, RDS, S3) in a declarative language (HCL).
+
+## 1. The Core Benefits
+
+- **Reproducibility**: Spin up a 'Dev' environment identical to 'Prod' in minutes.
+- **Version Control**: Track every infrastructure change in Git. See who opened a specific port and why.
+- **Automation**: Integrate infrastructure changes into your CI/CD pipeline.
+
+## 2. Terraform State: The Single Source of Truth
+
+Terraform keeps a `.tfstate` file that maps your code to real-world resources. In a team environment, this state must be **Remote** (stored in S3 with a DynamoDB lock). This prevents two engineers from trying to change the infrastructure at the same time.
+
+## 3. Modules: Reusable Infrastructure
+
+Don't repeat yourself. I create **Terraform Modules** for common patterns. For example, a "Standard Web Server" module that includes the instance, its security group, and its logging configuration. This allows me to spin up new services in a single line of code.
+
+## 4. Multi-Cloud Readiness
+
+While I primarily use AWS, Terraform's provider-based architecture allows you to manage resources across Google Cloud, Azure, Vercel, and even Cloudflare using the same syntax.
+
+## 5. Security with Terraform
+
+Terraform can also enforce security patterns. Use it to ensure that:
+- S3 buckets are never public.
+- Encryption is enabled on all RDS instances.
+- IAM roles follow the 'Principle of Least Privilege'.
+
+## Conclusion
+
+Moving to Terraform is a milestone in an engineer's career. It marks the transition from 'SysAdmin' to 'Platform Architect'. By treating your hardware with the same rigor as your software, you build a system that is resilient, documented, and truly scalable.

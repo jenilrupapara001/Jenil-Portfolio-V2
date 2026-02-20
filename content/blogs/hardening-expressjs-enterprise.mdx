@@ -1,0 +1,48 @@
+---
+title: "Hardening Express.js for Enterprise Deployments"
+date: "2026-02-26"
+category: "Security"
+tags: ["Node.js", "Express", "Security", "Backend"]
+excerpt: "Moving beyond the defaults. How to configure Express.js to withstand real-world attacks and high-load stress."
+image: "/blogs/hardening-expressjs-enterprise.png"
+readTime: "11 min read"
+featured: false
+---
+
+## Express is 'Minimal' by Design
+
+Express.js is popular because it doesn't give you much. But that 'minimalism' means it also doesn't give you much security out of the box. To take Express into the enterprise, you must "Harden" it manually.
+
+## 1. Helmet.js: The First Line of Defense
+
+`Helmet` is a middleware that automatically sets several of the security headers discussed in my previous post. It's the very first thing I install in every Express project.
+```javascript
+const helmet = require('helmet');
+app.use(helmet());
+```
+
+## 2. Parameter Pollution and Payload Limits
+
+Don't let a user crash your server by sending a 100MB JSON body.
+`app.use(express.json({ limit: '10kb' }));`
+Also, use `hpp` (HTTP Parameter Pollution) middleware to prevent attackers from sending arrays where you expect strings (e.g., `?id=123&id=456`).
+
+## 3. Secure Cookie Configuration
+
+If you're using `express-session` or `cookie-parser`, your cookies must be strictly configured:
+- `httpOnly: true`: No JS access.
+- `secure: true`: HTTPS only.
+- `sameSite: 'strict'`: Protect against CSRF.
+- `domain: '.yourdomain.com'`: Explicitly scope the cookie.
+
+## 4. Generic Error Messages
+
+Never send a stack trace to the user. Capturing a `500` error and sending `Internal Server Error` is better than showing the hacker exactly which line of code failed and what database you are using. I use a **Global Error Handler** to log the real error to Sentry but send a clean, safe message to the client.
+
+## 5. Rate Limiting and Brute Force Protection
+
+Use `express-rate-limit` for generic endpoints and `rate-limiter-flexible` (backed by Redis) for high-stakes endpoints like login. This prevents automated scripts from guessing passwords or scraping your data.
+
+## Conclusion
+
+A hardened Express app is a quiet one. It reveals nothing to the attacker, rejects malformed data instantly, and stays stable under load. These small configuration changes are what separate a "Developer" from a "Systems Engineer."

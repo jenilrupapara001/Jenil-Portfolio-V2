@@ -6,17 +6,23 @@ interface TagFilterProps {
 }
 
 export default function TagFilter({ tags, onSelect }: TagFilterProps) {
+    if (!tags || tags.length === 0) return null;
+
     return (
-        <div className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl">
-            <h3 className="text-sm font-black uppercase tracking-widest text-white mb-4">Popular Tags</h3>
-            <div className="flex flex-wrap gap-2">
+        <div className="py-2">
+            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30 mb-6 flex items-center gap-2">
+                <span className="w-1 h-1 rounded-full bg-primary/40" />
+                Tags
+            </h3>
+            <div className="flex flex-wrap gap-x-3 gap-y-2">
                 {tags.map((tag) => (
                     <button
                         key={tag}
                         onClick={() => onSelect(tag)}
-                        className="px-3 py-1.5 rounded-lg bg-white/[0.03] border border-white/5 text-[10px] font-mono uppercase tracking-wider text-foreground/50 hover:text-primary hover:border-primary/30 transition-all"
+                        className="text-[11px] font-bold text-foreground/40 hover:text-primary transition-colors py-1 flex items-center gap-1.5 group"
                     >
-                        #{tag}
+                        <span className="opacity-0 group-hover:opacity-100 transition-opacity text-primary">#</span>
+                        {tag}
                     </button>
                 ))}
             </div>

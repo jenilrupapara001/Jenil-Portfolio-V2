@@ -1,0 +1,43 @@
+---
+title: "Designing Audit Logging Systems for Compliance"
+date: "2026-02-26"
+category: "Security"
+tags: ["Security", "Compliance", "Logging", "Auditing"]
+excerpt: "Who did what and when? Building immutable audit trails that pass SOC2 and GDPR audits with ease."
+image: "/blogs/designing-audit-logging-systems.png"
+readTime: "13 min read"
+featured: false
+---
+
+## The Breadcrumb Trail
+
+In enterprise software, "I don't know who changed that" is an unacceptable answer. Whether it's for debugging a system failure or passing a SOC2 audit, you need a robust, immutable **Audit Logging** system.
+
+## 1. Technical Logs vs. Audit Logs
+
+- **Technical Logs**: "Database connection lost." (For developers).
+- **Audit Logs**: "User 'Jenil' changed the billing plan for 'Company X' from Pro to Enterprise." (For compliance and security).
+
+## 2. What to Log?
+
+Every audit entry should answer four questions:
+- **Who**: The actor (User ID, IP address, User Agent).
+- **What**: The action performed (Create, Update, Delete, Login).
+- **Where**: The resource affected (Project ID, Payment ID).
+- **When**: The UTC timestamp.
+
+## 3. Immutability: The 'Append-Only' Rule
+
+An audit log is useless if a hacker (or a disgruntled employee) can delete their own tracks. Use an **Append-Only Database** or a specialized service like **AWS CloudTrail**. Once a log is written, it should be physically impossible to modify or delete for at least 7 years.
+
+## 4. Handling Sensitive Data in Logs
+
+Audit logs must show 'What changed' (e.g., `old_value` -> `new_value`). But be careful! Never log a user's password, credit card number, or medical info. Use a 'Redaction' layer that filters out sensitive fields before the log is saved.
+
+## 5. Searchable and Accessible
+
+An audit log that nobody can read is a waste of disk space. Build a simple internal dashboard for your support team to search logs by `userId` or `actionType`. This significantly reduces the time it takes to answer the question: "What happened to my data?"
+
+## Conclusion
+
+Audit logging is the "Black Box" of your SaaS. It provides the accountability and transparency that enterprise clients demand. By building an immutable, structured, and searchable audit trail, you prove that your application is built for the highest levels of trust and compliance.

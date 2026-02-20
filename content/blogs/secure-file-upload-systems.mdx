@@ -1,0 +1,44 @@
+---
+title: "Designing Secure File Upload Systems"
+date: "2026-02-26"
+category: "Security"
+tags: ["Security", "S3", "Node.js", "Backend"]
+excerpt: "Don't let users upload viruses. A guide to secure, scalable, and isolated file handling in modern web apps."
+image: "/blogs/secure-file-upload-system-design.png"
+readTime: "12 min read"
+featured: false
+---
+
+## The Danger of User Data
+
+Allowing users to upload files is like opening your front door to a stranger. A malicious user can upload a script that executes on your server, a virus that infects other users, or a giant file that crashes your system (DoS). 
+
+## 1. Rule #1: Never Store on Local Disk
+
+Application servers should be stateless. Storing user files on the local disk is a security risk and makes scaling impossible. Use an object store like **AWS S3** or **Google Cloud Storage**. Use a dedicated bucket that has no 'Public' access permissions.
+
+## 2. Validation: Beyond the Extension
+
+Don't just check if the file ends in `.jpg`. Hackers can rename `malware.exe` to `photo.jpg`. 
+- **MIME Type Validation**: Check the 'Magic Bytes' of the file to verify its true format.
+- **Size Limits**: Enforce strict max-file-size limits at the Gateway level (Nginx) to prevent DoS attacks.
+
+## 3. The Pre-signed URL Pattern
+
+Don't let the file pass through your Node.js process. It's slow and consumes memory. 
+1. The client asks your API for permission to upload.
+2. Your API generates a **Pre-signed S3 URL** with a 5-minute expiry.
+3. The client uploads the file *directly* to S3.
+This offloads the heavy bandwidth and security risk to AWS.
+
+## 4. Malware Scanning: The Pro Step
+
+In enterprise apps, I pipe every upload through a **ClamAV** scanner or a cloud-native scanning service (like AWS Macie). The file is uploaded to a 'Quarantine' bucket first. Once the scan is clean, a Lambda function moves it to the 'Production' bucket.
+
+## 5. Metadata Scrubbing
+
+Images often contain EXIF data (GPS coordinates, camera info). To protect user privacy, use a library like `sharp` to resize the image and strip all metadata before it is served to other users.
+
+## Conclusion
+
+Secure file handling is about isolation and verification. By using pre-signed URLs, malware scanning, and isolated storage, you turn a high-risk feature into a robust, professional service.

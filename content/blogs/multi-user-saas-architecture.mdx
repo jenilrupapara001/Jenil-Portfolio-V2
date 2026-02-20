@@ -1,0 +1,39 @@
+---
+title: "Building Multi-User SaaS Architecture: Isolation & Security"
+date: "2026-02-10"
+category: "Security"
+tags: ["SaaS", "Multi-tenancy", "Architecture", "Security"]
+excerpt: "Architecting true multi-tenant systems. Strategies for data isolation, custom domains, and scalable user management."
+image: "/blogs/multi-user-saas.png"
+readTime: "14 min read"
+featured: false
+---
+
+## The Challenge of Multi-tenancy
+
+Building an app for one user is easy. Building an app that serves 1,000 different companies, each with their own users, data, and settings, is where true software engineering happens. The goal is 'Logical Isolation'—Company A must never, under any circumstances, see Company B's data.
+
+## 1. Database Isolation Strategies
+
+There are three main paths:
+- **Database-per-Tenant**: The most secure but hardest to scale and manage.
+- **Schema-per-Tenant**: A middle ground, often used with PostgreSQL.
+- **Shared Database, Isolated Rows**: The most common for modern SaaS. I use PostgreSQL **Row-Level Security (RLS)** to enforce isolation at the database engine level, ensuring that even a bug in the application code can't leak data across tenants.
+
+## 2. Authentication & RBAC
+
+Identity management in a multi-user SaaS requires more than just a login page. You need **Role-Based Access Control (RBAC)**. In my Metalex SaaS platform, I implemented a tiered permission system where 'Admins' can oversee production, 'Workers' can only log hours, and 'Auditors' can only view reports. 
+
+Using JWT with custom claims like `tenantId` and `role` allows the backend to verify every request without unnecessary database lookups.
+
+## 3. Custom Domains & Subdomains
+
+A premium SaaS often allows clients to use their own domains (e.g., `app.clientcompany.com`). I utilize Vercel's 'Edge Middleware' to detect the incoming hostname and dynamically route the request to the correct tenant profile without a browser-side redirect.
+
+## 4. Scalable Infrastructure
+
+As you add more users, your background jobs (emails, reports, backups) can become a bottleneck. I use a distributed task queue (like BullMQ) to ensure that a massive report generation task for one tenant doesn't slow down the UI for another.
+
+## Conclusion
+
+Multi-user architecture is about trust. By building security into the very foundation of the database and identity layers, you create a platform that can grow from ten to ten thousand tenants with confidence.

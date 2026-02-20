@@ -1,0 +1,46 @@
+---
+title: "API Rate Limiting in Node.js: Protecting Your Production Systems"
+date: "2026-02-05"
+category: "Backend"
+tags: ["Node.js", "API", "Security", "Scalability"]
+excerpt: "How to implement robust rate limiting to prevent abuse and ensure system stability. Sliding windows, token buckets, and Redis integration."
+image: "/blogs/api-rate-limiting.png"
+readTime: "9 min read"
+featured: false
+---
+
+## The Invisible Threat
+
+In production, your API is always under attack—either by malicious bots or by buggy client-side code that enters an infinite loop. Without rate limiting, a single runaway process can consume your database connections and crash your entire infrastructure.
+
+## 1. Token Bucket vs. Sliding Window
+
+When I architected the CommerceX microservices engine, choosing the right algorithm was critical. 
+- **Token Bucket**: Great for handling bursts of traffic.
+- **Sliding Window Log**: The most accurate but memory-intensive.
+- **Fixed Window**: Simple but has 'burst' issues at the edges of the window.
+
+For most SaaS applications, I recommend the **Fixed Window Counter** with a small window size (e.g., 1 minute) as it provides a great balance of performance and protection.
+
+## 2. Why Redis?
+
+If you have multiple instances of your API running (which you should), your rate limiting must be global. Using a local in-memory store like `express-rate-limit`'s default will only limit requests per instance. Instead, use **Redis**. 
+
+Redis allows all your API nodes to share a single counter for each IP or User ID, ensuring that your limits are enforced consistently regardless of which server handles the request.
+
+## 3. Dynamic Rate Limiting
+
+Not all users are equal. My standard protocol involves tiered limits:
+- **Public APIs**: 60 requests per minute.
+- **Authenticated Users**: 300 requests per minute.
+- **Enterprise Clients**: Custom limits defined in their profile.
+
+This encourages users to authenticate and allows for a 'Freemium' model where high-usage requires a paid tier.
+
+## 4. Graceful Degradation
+
+Don't just kill the request. Return a `429 Too Many Requests` status code with a `Retry-After` header. This tells well-behaved clients exactly how long they need to wait before trying again, reducing unnecessary retries.
+
+## Conclusion
+
+Rate limiting is a fundamental pillar of production-ready software. It's not just about security; it's about system reliability. By implementing Redis-backed limits, you ensure your platform remains available for everyone, even when one user goes rogue.

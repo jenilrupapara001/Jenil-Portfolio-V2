@@ -1,0 +1,41 @@
+---
+title: "Edge Computing for SaaS: When It Actually Matters"
+date: "2026-02-24"
+category: "Performance"
+tags: ["Edge Computing", "Architecture", "SaaS", "Next.js"]
+excerpt: "Moving logic to the network's tip. A pragmatic guide to when you should (and shouldn't) use Edge functions."
+image: "/blogs/edge-computing-saas-guide.png"
+readTime: "11 min read"
+featured: false
+---
+
+## Beyond the Hype
+
+"The Edge" is the buzzword of the decade. But what is it really? It's simply running code in 100+ small data centers instead of one big one. While it offers incredible latency benefits, it comes with strict limitations that can break a poorly designed application.
+
+## 1. The Latency Win: Why It Matters
+
+Data travels at the speed of light, but fiber optic cables aren't perfect. A round trip from London to a server in California takes ~150ms. An **Edge Function** in London responds in ~10ms. For authentication checks or dynamic redirects, this difference is the difference between 'Instant' and 'Waiting'.
+
+## 2. When to Use the Edge
+
+- **A/B Testing**: Deciding which version of a page to show without a flickering UI.
+- **Geographic Redirects**: Sending users to the right language/currency version of your site.
+- **Header Injection**: Adding security headers or custom analytics IDs.
+- **AI Streaming**: Handling LLM responses closer to the user for a zero-lag experience.
+
+## 3. The 'Cold Start' Advantage
+
+Edge functions (like Vercel Edge Runtime) are not full Node.js environments. They use a **V8 Isolate** approach. This means they start up in under 5ms, compared to the 200-500ms 'Cold Start' time of traditional AWS Lambda functions.
+
+## 4. The Limitations: No File System, No Standard Node
+
+You cannot use most Node.js modules (like `fs` or `crypto`) at the Edge. You are limited to a subset of Web APIs. You also cannot keep long-lived connections open (no persistent DB sockets), which means you must use **HTTP-based Databases** like Upstash Redis or Prisma Data Proxy.
+
+## 5. The Database Trap
+
+If your Edge function in Japan has to call a database in Virginia, you've gained nothing. Edge computing only makes sense if your data is also distributed or if you are using a global caching layer.
+
+## Conclusion
+
+Edge computing is a powerful optimization, not a replacement for traditional backends. Use it for "Light" logic that sits between the user and your data. By understanding the constraints, you can leverage the Edge to build truly global-feeling SaaS products.

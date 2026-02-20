@@ -10,23 +10,23 @@ interface CategoryFilterProps {
 
 export default function CategoryFilter({ categories, activeCategory, onSelect }: CategoryFilterProps) {
     return (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 md:gap-3">
             <button
                 onClick={() => onSelect("All")}
-                className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wide transition-all border ${activeCategory === "All"
-                        ? "bg-primary text-white border-primary"
-                        : "bg-white/[0.03] text-foreground/60 border-white/5 hover:border-white/20 hover:text-white"
+                className={`px-5 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all border ${activeCategory === "All"
+                    ? "bg-primary text-white border-primary shadow-[0_10px_20px_-5px_rgba(var(--primary-rgb),0.3)]"
+                    : "bg-white/[0.03] text-foreground/40 border-white/5 hover:border-white/10 hover:text-white"
                     }`}
             >
-                All
+                All Articles
             </button>
             {categories.map((category) => (
                 <button
                     key={category}
                     onClick={() => onSelect(category)}
-                    className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wide transition-all border ${activeCategory === category
-                            ? "bg-primary text-white border-primary"
-                            : "bg-white/[0.03] text-foreground/60 border-white/5 hover:border-white/20 hover:text-white"
+                    className={`px-5 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all border ${activeCategory === category
+                        ? "bg-primary text-white border-primary shadow-[0_10px_20px_-5px_rgba(var(--primary-rgb),0.3)]"
+                        : "bg-white/[0.03] text-foreground/40 border-white/5 hover:border-white/10 hover:text-white"
                         }`}
                 >
                     {category}

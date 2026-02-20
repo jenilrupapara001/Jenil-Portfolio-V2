@@ -1,0 +1,47 @@
+---
+title: "WebSockets vs Server-Sent Events: Choosing the Right Real-Time Strategy"
+date: "2026-02-22"
+category: "Backend"
+tags: ["Real-time", "WebSockets", "SSE", "Backend"]
+excerpt: "Which real-time protocol is best for your SaaS? Comparing bi-directional communication with uni-directional streams."
+image: "/blogs/websockets-vs-sse.png"
+readTime: "12 min read"
+featured: false
+---
+
+## The Push Protocol
+
+Modern users don't want to refresh their browser to see new data. They want it 'Pushed' to them instantly. You have two main architectural choices for this: **WebSockets** and **Server-Sent Events (SSE)**. Choosing the wrong one can lead to unnecessary complexity and server load.
+
+## 1. WebSockets: The Bi-directional Powerhouse
+
+WebSockets provide a full-duplex, persistent connection between the client and server. 
+- **Best For**: Collaborative tools (Figma, Google Docs), Chat apps, Multiplayer games.
+- **Pros**: Extremely low latency, two-way communication.
+- **Cons**: Difficult to scale (requires Sticky Sessions or a Redis Adapter), skips standard HTTP features like caching and compression.
+
+## 2. Server-Sent Events (SSE): The Lightweight Alternative
+
+SSE is a uni-directional protocol where the server 'streams' data to the client over a standard HTTP connection.
+- **Best For**: Stock tickers, dashboard updates, notification feeds, AI text-streaming (ChatGPT).
+- **Pros**: Works over standard HTTP, automatic reconnection, easier to scale via standard load balancers.
+- **Cons**: One-way only (Server to Client).
+
+## 3. Scaling Your Real-time Layer
+
+When you have 10,000 users with open WebSocket connections, your Node.js process will run out of memory. 
+I scale WebSockets using **Redis Pub/Sub**. When a message comes in on Server A, it's published to Redis, and Server B, C, and D pick it up and push it to their locally connected users.
+
+## 4. The Battery/Resource Tradeoff
+
+SSE is generally more battery-efficient on mobile devices as it leverages the browser's native HTTP handling. WebSockets require more overhead to maintain the 'Keep-alive' state.
+
+## 5. Security for Real-time Connections
+
+Both protocols must be secured. 
+- **WebSockets**: Pass the JWT in a 'Ticket' approach or during the initial handshake.
+- **SSE**: Use standard HTTP Authorization headers.
+
+## Conclusion
+
+Don't use WebSockets if SSE is enough. For 80% of SaaS applications (notifications and dashboard updates), SSE is the simpler, more scalable choice. Save WebSockets for when the client *needs* to talk back to the server in milliseconds.

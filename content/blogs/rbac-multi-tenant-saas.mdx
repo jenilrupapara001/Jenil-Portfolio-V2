@@ -1,0 +1,55 @@
+---
+title: "Designing Role-Based Access Control (RBAC) for Multi-Tenant SaaS"
+date: "2026-02-22"
+category: "Backend"
+tags: ["SaaS", "RBAC", "Security", "SaaS Architecture"]
+excerpt: "Handling complex permissions in a multi-user environment. How to design a granular, scalable, and easy-to-manage RBAC system."
+image: "/blogs/rbac-multi-tenant-saas.png"
+readTime: "12 min read"
+featured: false
+---
+
+## The Permission Wall
+
+As your SaaS moves from "Individual Users" to "Enterprise Teams", your security requirements explode. You need a system that can handle "Admin", "Editor", "Viewer", and "Billing Manager" across 1,000 different companies. This is **Role-Based Access Control (RBAC)**.
+
+## 1. The RBAC Data Model
+
+A standard RBAC model consists of:
+- **Users**: Individuals who log in.
+- **Roles**: A collection of permissions (e.g., 'Admin').
+- **Permissions**: Granular actions (e.g., `projects:create`, `users:invite`).
+
+In a multi-tenant SaaS, you must add the **TenantID** to this mix. A user isn't just an 'Admin'; they are an 'Admin' for 'Company A'.
+
+## 2. Granular vs. Flat Roles
+
+Avoid a "Flat" role system where permissions are hardcoded into the role (e.g., `if (user.role === 'admin')`). This is brittle.
+Instead, use a **Permission-Based** approach. Your code should check for the permission: `if (user.hasPermission('projects:delete'))`. This allows you to create custom roles for enterprise clients without changing your codebase.
+
+## 3. Enforcing RBAC in the Middleware
+
+Permissions should be checked at the "Entry Point" of your API. I implement a reusable middleware that accepts the required permission:
+
+```javascript
+router.post('/projects', authorize('projects:create'), (req, res) => {
+  // Logic here
+});
+```
+
+The middleware checks the user's JWT (which contains their roles and permissions) and verifies it against the requested action.
+
+## 4. The 'Owner' Problem
+
+RBAC is great for general actions, but what if a user should only delete *their own* projects? This is **Attribute-Based Access Control (ABAC)**. 
+For this, I combine RBAC with a local resource check:
+1. Does the user have the `projects:delete` permission?
+2. Does the `project.ownerId` match the `user.id`?
+
+## 5. Security Auditing
+
+In enterprise SaaS, you must log every permission change. When a user's role is changed, or a permission is modified, save an audit log with the `operatorId`, `targetId`, and the specific change. This is critical for SOC2 and GDPR compliance.
+
+## Conclusion
+
+Designing a robust RBAC system is about future-proofing. By focusing on granular permissions and decoupling them from user roles, you create a security architecture that scales from five users to five million.

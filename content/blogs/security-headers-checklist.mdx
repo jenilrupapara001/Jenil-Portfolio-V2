@@ -1,0 +1,40 @@
+---
+title: "Security Headers Every Production App Must Have"
+date: "2026-02-26"
+category: "Security"
+tags: ["Security", "HTTP", "Performance", "Web Development"]
+excerpt: "Protect your users with a few lines of configuration. A checklist of essential HTTP security headers for 2026."
+image: "/blogs/essential-security-headers-checklist.png"
+readTime: "10 min read"
+featured: false
+---
+
+## The Low-Hanging Fruit of Security
+
+Many of the most common web attacks (XSS, Clickjacking, MIME-sniffing) can be prevented by simply sending the right **HTTP Headers**. They tell the browser to be more strict and less trusting. Here is my "Must-Have" list for every production application.
+
+## 1. Content Security Policy (CSP)
+
+The most powerful header. It tells the browser which sources of scripts, styles, and images are allowed. A strict CSP prevents 99% of **XSS attacks** by refusing to run any inline scripts or scripts from unknown domains.
+
+## 2. Strict-Transport-Security (HSTS)
+
+This forces the browser to *only* talk to your server over HTTPS. It prevents "Man-in-the-middle" attacks where a hacker tries to downgrade a user's connection to insecure HTTP.
+
+## 3. X-Content-Type-Options: nosniff
+
+This prevents the browser from "Guessing" the MIME type of a file. It ensures that a file sent as `text/plain` isn't executed as `text/javascript`, stopping "MIME-sniffing" attacks.
+
+## 4. X-Frame-Options: DENY
+
+This prevents your site from being embedded in an `<iframe>` on another domain. This is the primary defense against **Clickjacking**, where an attacker overlays your site with a transparent layer to trick users into clicking buttons.
+
+## 5. Permissions-Policy
+
+This is a modern header that tells the browser which hardware features the site is allowed to use. 
+`camera=(), microphone=(), geolocation=()`
+By disabling these by default, you ensure that even if a hacker injected a script, they couldn't turn on a user's camera.
+
+## Conclusion
+
+Security headers are about 'Defense in Depth'. They provide a final layer of protection within the user's own browser. Use a tool like **SecurityHeaders.com** to audit your site. If you don't have an "A" grade, you're leaving your users exposed.

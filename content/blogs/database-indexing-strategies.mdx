@@ -1,0 +1,42 @@
+---
+title: "Database Indexing Strategies for High-Volume Systems"
+date: "2026-02-24"
+category: "Performance"
+tags: ["Database", "Indexing", "MongoDB", "SQL"]
+excerpt: "Beyond simple indexes. Mastering Compound, Partial, and TTL indexes to handle millions of records with millisecond latency."
+image: "/blogs/database-indexing-strategies.png"
+readTime: "14 min read"
+featured: false
+---
+
+## The Full-Table Scan Nightmare
+
+Without indexes, a database is just a giant text file. To find one record in a million, the database has to read every single line from the disk. This is a **Full-Table Scan**. An index is like a 'Phone Book'—it allows the database to jump straight to the correct page.
+
+## 1. Single Field vs. Compound Indexes
+
+A single field index on `userId` is fast for `find({ userId })`. But what about `find({ userId, status: 'active' })`? For this, you need a **Compound Index**. 
+**The Rule of ESR**: Equality, Sort, Range. Put your equality checks first in the index, then your sort fields, and finally your range checks (like `>` or `<`).
+
+## 2. Partial and Sparse Indexes: Saving Space
+
+Indexes take up RAM. If you only search for 'Suspended' users, don't index all users. Use a **Partial Index** that only includes users where `status: 'suspended'`. This reduces index size by 99% and speeds up both reads and writes.
+
+## 3. Covered Queries: The Ultimate Performance
+
+A query is "Covered" if the index itself contains all the data needed for the response. If your index is on `{ username: 1, email: 1 }` and you only request those two fields, the database **never even touches the disk**. It returns the data directly from the RAM-based index.
+
+## 4. TTL Indexes: Self-Cleaning Data
+
+Logs and sessions should expire. Instead of running a cron job to delete old data (which causes massive DB load), use a **TTL (Time To Live) Index**. The database engine will automatically remove expired documents in the background based on a timestamp field.
+
+## 5. Monitoring Index Usage: `explain()`
+
+Before you add an index, use the `explain('executionStats')` command. It will tell you:
+- **nReturned**: How many records you got.
+- **totalKeysExamined**: How many index entries were checked.
+If `totalKeysExamined` is much higher than `nReturned`, your index is inefficient. Aim for a 1:1 ratio.
+
+## Conclusion
+
+Indexing is the most powerful lever in database performance. By designing your indexes around your query patterns, you can make a 10TB database respond as fast as a 10MB one.

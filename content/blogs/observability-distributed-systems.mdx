@@ -1,0 +1,42 @@
+---
+title: "Observability in Distributed Systems: Logs, Metrics, and Traces Explained"
+date: "2026-02-21"
+category: "Architecture"
+tags: ["Observability", "Microservices", "Monitoring", "Distributed Systems"]
+excerpt: "Why monitoring isn't enough. Mastering the three pillars of observability to debug complex issues in production."
+image: "/blogs/observability-distributed-systems.png"
+readTime: "13 min read"
+featured: false
+---
+
+## Monitoring vs. Observability
+
+**Monitoring** tells you that the system is down. **Observability** tells you *why* it's down. In a distributed system, where a single request might touch 10 services, traditional logs are useless without context. You need the "Three Pillars".
+
+## 1. Logs: The 'What'
+
+Logging is the oldest form of observability. But in 2026, we don't use 'Text Logs'. We use **Structured Logging (JSON)**. This allows tools like ELK (Elasticsearch, Logstash, Kibana) to index and search logs by fields like `userId`, `error_code`, or `traceId`.
+
+## 2. Metrics: The 'Statistical Health'
+
+Metrics are numerical representations of data over time and are critical for spotting trends.
+- **RED Pattern**: Rate (requests/sec), Errors (failures/sec), Duration (latency).
+- **USE Method**: Utilization, Saturation, Errors (for infrastructure).
+
+Metrics are cheap to store and perfect for alerting, but they lack the 'fine-grained' detail of logs.
+
+## 3. Traces: The 'Journey'
+
+Traces are the most important pillar for microservices. A **Distributed Trace** follows a request as it moves across service boundaries. By looking at a trace, you can see that a 2-second delay in the 'Checkout' API was actually caused by a slow database query in the 'Inventory' service.
+
+## 4. Correlation: The Secret Sauce
+
+The real power comes from **Correlation**. Every log entry and every metric should be tagged with a `trace_id`. This allows you to jump from a high-latency metric to the exact trace that was slow, and then to the specific logs for that request.
+
+## 5. Implementation Toolset
+
+I utilize **OpenTelemetry** to instrument my Node.js and Next.js applications. It's an industry standard that allows you to send data to any backend (tempo, jaeger, honeycomb, or datadog) without changing your code.
+
+## Conclusion
+
+Observability is about asking the 'unknown unknowns'. By mastering logs, metrics, and traces, you move from 'Guessing' to 'Knowing', significantly reducing your Mean Time to Resolution (MTTR).

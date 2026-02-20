@@ -1,0 +1,43 @@
+---
+title: "Scaling Real-Time Applications Without Breaking Infrastructure"
+date: "2026-02-24"
+category: "Performance"
+tags: ["Real-time", "WebSockets", "Scaling", "Redis"]
+excerpt: "How to handle 100k+ concurrent real-time connections. Strategies for distributed pub/sub and memory management."
+image: "/blogs/scaling-realtime-apps-infrastructure.png"
+readTime: "14 min read"
+featured: false
+---
+
+## The Real-Time Wall
+
+Building a chat app for 10 people is easy. Building a live-trading dashboard for 100,000 concurrent users is a completely different engineering challenge. Connections stay open for hours, memory usage grows, and traditional load balancers fail. Here is how you scale the "Always-On" web.
+
+## 1. Shared State: The Redis Adapter
+
+In a real-time app, users are connected to different servers. If User A on Server 1 sends a message to User B on Server 2, Server 1 doesn't know where User B is. 
+**The Solution**: Every server subscribes to a **Redis Pub/Sub** channel. Server 1 publishes the message to Redis, and Server 2 picks it up and delivers it to User B.
+
+## 2. Handling the 'Thundering Herd'
+
+When a server restarts, 10,000 users try to reconnect at once. This 'Thundering Herd' will crash your authentication service and your database. 
+- **The Fix**: Implement **Jittered Reconnection**. Each client should wait a random amount of time (1-10 seconds) before attempting to reconnect.
+
+## 3. Connection Limits and File Descriptors
+
+Each WebSocket connection is a 'File' on the Linux OS. By default, Linux might only allow 1,024 open files. You must tune your operating system (`ulimit`) and your load balancer to handle hundreds of thousands of concurrent file descriptors.
+
+## 4. Binary vs. Text: Protobuf for WebSockets
+
+JSON is verbose. For real-time updates (like stock prices) sent 10 times a second, the overhead of JSON adds up. Move to **Protocol Buffers (Binary)**. It's significantly smaller and faster to serialize, reducing CPU usage on both the server and the user's mobile device.
+
+## 5. Monitoring Real-Time Health
+
+Standard 'Request/Response' metrics don't work here. You need to monitor:
+- **Active Connections**: Total concurrent users.
+- **Message Latency**: Time from 'Sent' to 'Delivered' across servers.
+- **Memory per Connection**: Ensuring you don't run out of RAM as the user count grows.
+
+## Conclusion
+
+Scaling real-time systems is about managing persistence. By using Redis as a shared brain, binary protocols for efficiency, and smart reconnection logic, you can build systems that feel alive and responsive, no matter how many people are in the room.

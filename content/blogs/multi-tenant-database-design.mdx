@@ -1,0 +1,47 @@
+---
+title: "Multi-Tenant Database Design: Shared vs Isolated Schemas"
+date: "2026-02-25"
+category: "SaaS"
+tags: ["Database", "SaaS", "Architecture", "Multi-tenancy"]
+excerpt: "Strategies for securing and isolating data in multi-user applications. Comparing Shared Database, Schema-per-Tenant, and Database-per-Tenant."
+image: "/blogs/multi-tenant-database-design.png"
+readTime: "13 min read"
+featured: false
+---
+
+## The Core of SaaS Architecture
+
+A single SaaS application serves thousands of different companies (Tenants). The most critical architectural decision you will make is how to store their data. You must balance two competing needs: **Cost Efficiency** and **Data Isolation**.
+
+## 1. Strategy A: Shared Database (Pool Model)
+
+All tenants live in the same tables. You distinguish them via a `tenant_id` column.
+- **Pros**: Lowest cost, easiest to manage, simplest to aggregate global analytics.
+- **Cons**: High risk of data leaks (a missing `where` clause), 'Noisy Neighbor' problem where one large tenant slows down everyone else.
+- **Best For**: Low-cost SaaS, early-stage MVPs.
+
+## 2. Strategy B: Schema-per-Tenant (Bridge Model)
+
+One database, but each tenant has their own isolated Schema (in Postgres) or Namespace (in MongoDB).
+- **Pros**: Stronger isolation, easy to backup one specific client, no cross-tenant query bugs.
+- **Cons**: Harder to migrate (you have to run migrations 1,000 times), harder to aggregate data across tenants.
+- **Best For**: Mid-market B2B SaaS.
+
+## 3. Strategy C: Database-per-Tenant (Silo Model)
+
+Each tenant gets their own physical database server or instance.
+- **Pros**: Ultimate security and performance. Maximum customization allowed for each client.
+- **Cons**: Extremely expensive and a nightmare for DevOps to maintain at scale.
+- **Best For**: High-compliance industries (FinTech, Healthcare) and Enterprise clients.
+
+## 4. Securing the Pooled Model: RLS
+
+If you choose the Shared Database model, use **Row Level Security (RLS)** in PostgreSQL. RLS ensures that the database engine itself rejects any query that tries to access data from a different tenant, providing a 'Safety Net' against application-level code bugs.
+
+## 5. The Migration Path
+
+Don't feel locked in. Many companies start with a Pooled model and 'Silo' their biggest enterprise clients onto dedicated databases later as their needs grow. This is why having a clean **Repository Pattern** in your backend is vital—it allows you to route queries to different databases based on the `tenant_id`.
+
+## Conclusion
+
+Multi-tenancy is a spectrum. Choose the model that matches your business model, your budget, and your security requirements. By understanding the tradeoffs, you build a data foundation that is as secure as it is scalable.

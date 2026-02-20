@@ -1,0 +1,50 @@
+---
+title: "API Versioning Strategies for Long-Term SaaS Stability"
+date: "2026-02-22"
+category: "Backend"
+tags: ["API", "Versioning", "SaaS", "Engineering"]
+excerpt: "How to evolve your API without breaking your clients. Comparing URI, Header, and Content-Type versioning strategies."
+image: "/blogs/api-versioning-strategies.png"
+readTime: "11 min read"
+featured: false
+---
+
+## The Breaking Change Nightmare
+
+In SaaS, your API is a contract. If you change a field name in your response, you break every mobile app and integration that depends on it. **API Versioning** allows you to evolve your platform while keeping existing users happy.
+
+## 1. URI Versioning: The Industry Standard
+
+Used by Stripe, Twilio, and most major platforms. 
+`/v1/projects` -> `/v2/projects`
+- **Pros**: Clear, visible, and easy to cache at the CDN level.
+- **Cons**: Can lead to "Code Duplication" where you have two sets of controllers for the same resource.
+
+## 2. Header Versioning
+
+The client passes the version in a custom header: `X-API-Version: 2026-02-22`.
+- **Pros**: Keeps URLs clean. Allows for 'Granular' date-based versioning.
+- **Cons**: Harder to test in a browser. Makes CDN caching almost impossible without complex logic.
+
+## 3. The 'Stripe' Model: Date-based Versioning
+
+Stripe uses a sophisticated approach where they have one set of "Current" logic and a series of "Transformers" that convert the current response back to the format requested by the client's API version. This is the gold standard for maintenance but requires significant engineering effort to build the transformation layer.
+
+## 4. When to Bump a Version?
+
+Only bump a version for **Breaking Changes**:
+- Removing a field.
+- Changing a data type (String to Object).
+- Changing the URL structure.
+Adding a new field or a new endpoint is NOT a breaking change.
+
+## 5. Deprecation Policy
+
+Versioning shouldn't last forever. Every professional SaaS needs a **Sunset Policy**.
+- `v1` is current.
+- `v2` is released. `v1` is marked as 'Deprecated'.
+- `v1` is decommissioned after 12 months, after multiple email warnings and headers (`Sunset: 2027-02-22`).
+
+## Conclusion
+
+API Versioning is about empathy for your developers. It shows that you respect their time and stability. By choosing a clear versioning strategy, you build trust and ensure your platform remains a reliable foundation for your ecosystem.

@@ -1,0 +1,44 @@
+---
+title: "Designing REST APIs That Scale to Millions of Requests"
+date: "2026-02-22"
+category: "Backend"
+tags: ["APIs", "REST", "Scalability", "Backend Engineering"]
+excerpt: "Building high-performance APIs for the enterprise. Designing for predictability, speed, and massive concurrent load."
+image: "/blogs/scalable-rest-api-design.png"
+readTime: "13 min read"
+featured: false
+---
+
+## The Standard for Data Exchange
+
+REST is the universal language of the web. But there's a world of difference between a 'Tutorial API' and an API that handles 50,000 requests per second. Performance as a Senior Engineer is about designing for predictability and efficiency.
+
+## 1. Predictable Resource Patterns
+
+Standardization reduces friction for consumers. 
+- Use plural nouns for resources: `/v1/projects`, not `/v1/getProject`.
+- Use correct HTTP verbs: `GET` for fetching, `POST` for creating, `PATCH` for partial updates, `DELETE` for removal.
+
+## 2. Intelligent Pagination
+
+Never return a raw array of records. If a table has 100,000 rows, your API will crash. 
+- **Limit/Offset**: Good for small datasets.
+- **Cursor-based Pagination**: The industry standard for large datasets (used by Facebook and Twitter). It uses a 'Unique Marker' (like a timestamp or ID) instead of an offset, preventing 'skipping' when data is inserted during the paginated crawl.
+
+## 3. Partial Responses and Sparse Fieldsets
+
+Why send the entire 2KB User object if the UI only needs the `name` and `avatar`? 
+Allow users to request specific fields: `/v1/users?fields=name,avatar`. This reduces payload sizes by up to 90%, significantly lowering bandwidth costs and improving mobile performance.
+
+## 4. Cache Control Headers
+
+The fastest API request is the one that never hits your server. 
+Utilize `Cache-Control`, `ETag`, and `Last-Modified` headers. This tells the browser (or the CDN) that it can safely reuse the previous response for a certain period, providing sub-millisecond 'Instant' responses for your users.
+
+## 5. Rate Limiting and Quotas
+
+Protection is a feature. Every scalable API must have **Rate Limiting** to prevent abuse and 'Thundering Herd' scenarios. I implement Redis-backed limiting with clear headers: `X-RateLimit-Limit`, `X-RateLimit-Remaining`, and `X-RateLimit-Reset`.
+
+## Conclusion
+
+A great API is invisible. It's fast, consistent, and predictable. By mastering pagination, payloads, and caching, you build an infrastructure that developers love to use and that can scale with your business success.

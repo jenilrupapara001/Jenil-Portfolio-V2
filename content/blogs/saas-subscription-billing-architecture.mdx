@@ -1,0 +1,39 @@
+---
+title: "Designing Subscription Billing Architecture for SaaS"
+date: "2026-02-25"
+category: "SaaS"
+tags: ["SaaS", "Billing", "Architecture", "Stripe"]
+excerpt: "Handling complex pricing models, prorations, and cancellations. A guide to building a robust billing engine for your SaaS."
+image: "/blogs/saas-subscription-billing-architecture.png"
+readTime: "14 min read"
+featured: false
+---
+
+## The Engine of SaaS
+
+Billing is the most complex logic in a SaaS platform. Between monthly vs. yearly plans, 'Pro' vs. 'Enterprise' tiers, free trials, coupons, and prorations, the logic grows exponentially. If your billing architecture is fragile, you lose revenue and customer trust.
+
+## 1. The Billing Source of Truth
+
+**Never store the ultimate subscription state in your own database.** Use a provider like **Stripe** as the source of truth. Your database should only store a 'Cache' of the status (e.g., `subscription_status: 'active'`) and the `stripe_customer_id`.
+
+## 2. Webhooks: The Critical Link
+
+When a user's credit card expires or they upgrade their plan, Stripe sends a **Webhook**. Your system must listen for these events (`customer.subscription.updated`, `invoice.paid`) and update your local database accordingly. 
+**Pro Tip**: Always use a 'Webhook Secret' to verify that the request actually came from Stripe.
+
+## 3. Handling Prorations and Upgrades
+
+If a user upgrades halfway through the month, how much should they pay? Stripe handles the math, but your UI must reflect it. Use the Stripe **Upcoming Invoice API** to show the user exactly what they will be charged *before* they click the upgrade button.
+
+## 4. Grace Periods and Dunning
+
+What happens when a payment fails? Don't block the user immediately. Give them a 3-7 day **Grace Period** while your system sends automated 'Dunning' emails. This reduces 'Involuntary Churn'—one of the biggest killers of SaaS growth.
+
+## 5. Tiered and Usage-Based Pricing
+
+Modern SaaS is moving toward **Usage-Based Pricing** (e.g., $0.01 per API call). To handle this, your application must 'Report' usage events to your billing provider. Design a background queue to batch these events so you don't slam your billing API on every user action.
+
+## Conclusion
+
+Billing architecture is about reliability and transparency. By letting a proven provider handle the financial math and building a robust webhook integration, you create a revenue engine that is legal, accurate, and scalable across global markets.

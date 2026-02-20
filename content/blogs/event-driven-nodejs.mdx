@@ -1,0 +1,65 @@
+---
+title: "Event-Driven Architecture in Node.js: Building Reactive Systems at Scale"
+date: "2026-02-21"
+category: "Architecture"
+tags: ["Node.js", "Kafka", "Event-Driven", "Microservices"]
+excerpt: "Moving beyond Request-Response. How to build highly decoupled, resilient, and scalable systems using events and message brokers."
+image: "/blogs/event-driven-nodejs.png"
+readTime: "14 min read"
+featured: true
+---
+
+## The Myth of the Sync API
+
+In a growing SaaS, synchronous 'Request-Response' chains are a ticking time bomb. If `Service A` calls `Service B`, which calls `Service C`, and `Service C` hangs, your entire user experience explodes. **Event-Driven Architecture (EDA)** solves this by decoupling the 'Action' from the 'Reaction'.
+
+## 1. The Core Concept: Events as First-Class Citizens
+
+In EDA, a service doesn't "tell" another service what to do. It simply "announces" that something has happened. 
+- **Command**: "Create this order." (Synchronous / Destructive)
+- **Event**: "Order Created." (Asynchronous / Informative)
+
+By emitting an "Order Created" event to a message broker like **Apache Kafka** or **RabbitMQ**, five different services (Inventory, Payment, Notification, Shipping, Analytics) can react to it independently without the Order service even knowing they exist.
+
+## 2. Message Brokers: The Backbone
+
+Choosing the right broker is critical for your Node.js stack:
+- **RabbitMQ**: Excellent for complex routing and task queues. Best for "Work Distribution".
+- **Apache Kafka**: The gold standard for "Event Streaming" and high-throughput data pipelines. It allows you to 'Replay' events, which is vital for debugging and microservice recovery.
+- **Redis Pub/Sub**: Great for real-time notifications and low-latency internal signaling, but lacks persistence.
+
+## 3. Implementing EDA in Node.js
+
+Node.js's non-blocking, event-loop driven nature makes it the perfect host for EDA. I use the following pattern:
+
+```javascript
+// Producer Example
+const eventBus = require('./kafka-client');
+
+async function checkout(order) {
+  const savedOrder = await db.orders.save(order);
+  // Emit event and forget
+  await eventBus.emit('ORDER_CREATED', {
+    orderId: savedOrder.id,
+    userId: savedOrder.userId,
+    amount: savedOrder.total
+  });
+  return savedOrder;
+}
+```
+
+By separating the "Save to DB" from the "Processing", the user gets an instant confirmation while the heavy lifting happens in the background.
+
+## 4. Challenges: Eventual Consistency & Error Handling
+
+EDA is not a silver bullet. The biggest challenge is **Eventual Consistency**. You must design your system to handle the 'In-Between' states. 
+
+**Dead Letter Queues (DLQ)** are mandatory. If the Notification service fails to process an event, the event shouldn't disappear. It should be moved to a DLQ for manual inspection or automated retry with exponential backoff.
+
+## 5. Reactive Systems and User Experience
+
+How do you show a user their order is ready if it's being processed asynchronously? Use **WebSockets (Socket.io)**. The backend emits an event, the socket worker catches it and 'pushes' the update to the user's browser in real-time. This provides a 'Sync' feel on top of an 'Async' architecture.
+
+## Conclusion
+
+Event-Driven Architecture is about building systems that breathe. It allows you to scale components independently, survive partial failures, and build features that are truly decoupled. If you're building for the enterprise, events are your best friend.

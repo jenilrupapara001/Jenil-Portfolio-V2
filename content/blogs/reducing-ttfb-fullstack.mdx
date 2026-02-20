@@ -1,0 +1,38 @@
+---
+title: "Reducing Time to First Byte (TTFB) in Full-Stack Applications"
+date: "2026-02-24"
+category: "Performance"
+tags: ["Performance", "TTFB", "Next.js", "Backend"]
+excerpt: "The first 100ms matter most. A deep dive into server response times, edge caching, and database optimization."
+image: "/blogs/reducing-ttfb-fullstack.png"
+readTime: "11 min read"
+featured: false
+---
+
+## The Silent Performance Killer
+
+Time to First Byte (TTFB) is the time between a browser requesting a page and receiving the very first byte of information from the server. If your TTFB is over 500ms, your users will feel that the site is 'Slow' before a single pixel even renders. In 2026, a world-class TTFB is under 100ms.
+
+## 1. Edge-Side Rendering and CDNs
+
+The fastest way to reduce TTFB is to be physically closer to the user. Using **Edge Functions** (like Vercel Edge or Cloudflare Workers), we can execute logic and respond to requests at the 'Edge' node nearest to the user, bypassing the long trip to a central origin server.
+
+## 2. Server-Side Caching (SVR)
+
+If your page data doesn't change every second, don't re-calculate it every second. Use **Stale-While-Revalidate (SWR)** headers. The CDN serves the 'Stale' version instantly (TTFB < 20ms) while fetching and updating the 'Fresh' version in the background for the next user.
+
+## 3. Database Connection Pooling
+
+Opening a new database connection takes 50-100ms. If your API does this on every request, your TTFB is already ruined. Use a **Connection Pool** or a tool like **Prisma Accelerate** or **Supabase Connection Pooling** to keep 'Warm' connections ready at all times.
+
+## 4. Optimizing Main-Thread CPU Work
+
+Node.js is single-threaded. If your code is busy doing heavy JSON parsing or complex calculations before calling `res.send()`, every other user is waiting. Profile your code to find 'Hot Paths' and move heavy work to worker threads or optimize the logic to be non-blocking.
+
+## 5. Streaming Responses
+
+With Next.js and modern Node.js, you don't have to wait for the *whole* page to be ready. **Streaming** allows you to send the `<head>` and the layout immediately while the heavy data-fetching components are still loading. This gives the browser something to do instantly, effectively reducing the 'Perceived' TTFB to near zero.
+
+## Conclusion
+
+TTFB is the technical foundation of user experience. By leveraging the Edge, intelligent caching, and optimized database connections, you ensure that your application feels snappy and professional from the very first millisecond.

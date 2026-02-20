@@ -27,7 +27,7 @@ export async function POST(req: Request) {
             subject: `Portfolio Inquiry: ${name}`,
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-                    <h2 style="color: #6d28d9;">New Project Inquiry</h2>
+                    <h2 style="color: #2860d9ff;">New Project Inquiry</h2>
                     <p><strong>Name:</strong> ${name}</p>
                     <p><strong>Email:</strong> ${email}</p>
                     

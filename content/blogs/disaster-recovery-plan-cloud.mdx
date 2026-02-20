@@ -1,0 +1,44 @@
+---
+title: "Designing Disaster Recovery Plans for Cloud Applications"
+date: "2026-02-23"
+category: "DevOps"
+tags: ["Disaster Recovery", "Cloud", "Availability", "SaaS"]
+excerpt: "Preparing for the 'Worst Case Scenario'. Mastering RTO, RPO, and multi-region backup strategies."
+image: "/blogs/disaster-recovery-plan-cloud.png"
+readTime: "12 min read"
+featured: false
+---
+
+## It Can (and Will) Happen
+
+A whole AWS region goes offline. A developer accidentally deletes the production database. Your main domain is hijacked. **Disaster Recovery (DR)** isn't about being pessimistic; it's about being professional. 
+
+## 1. RTO and RPO: The Two Metrics
+
+- **Recovery Time Objective (RTO)**: How long can your SaaS be down? (Target: 15 minutes)
+- **Recovery Point Objective (RPO)**: How much data can you lose? (Target: 0 seconds)
+
+## 2. The Backup Protocol
+
+Backups are useless if they are in the same account as the data. My protocol:
+- **Cross-Region Replication**: If Region A dies, the data is already in Region B.
+- **Cross-Account Backups**: If the main AWS account is compromised, the "Backup Account" is a separate fortress that hackers can't reach.
+
+## 3. The 'Pilot Light' Strategy
+
+You have a minimal version of your infrastructure "Warm" in another region. The database is constantly replicating. If the primary region fails, you just increase the capacity in the secondary region and switch DNS. This is the best balance of cost and safety.
+
+## 4. Database Point-in-Time Recovery (PITR)
+
+I always enable PITR on production databases. This allows us to "Rewind" the database to any second in the last 35 days. If a bug corrupts data at 10:05:32 AM, we can restore the database to 10:05:31 AM.
+
+## 5. Documenting the Runbook
+
+In a real disaster, people panic. You need a written **Runbook** that any engineer can follow. It should contain:
+- Contact info for the emergency team.
+- Step-by-step commands to trigger the failover.
+- Checklist for verifying that the new region is healthy.
+
+## Conclusion
+
+Disaster recovery is the ultimate test of an architect. It's the "Insurance Policy" that ensures your company's survival. By preparing for the worst today, you sleep soundly through the traffic spikes of tomorrow.

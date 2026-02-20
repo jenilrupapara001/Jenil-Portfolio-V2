@@ -1,0 +1,58 @@
+---
+title: "Database Transactions in MongoDB: Real-World Use Cases"
+date: "2026-02-22"
+category: "Backend"
+tags: ["MongoDB", "Transactions", "Database", "Backend"]
+excerpt: "Moving beyond single-document atomicity. When and how to use multi-document ACID transactions in MongoDB for critical data integrity."
+image: "/blogs/mongodb-transactions-use-cases.png"
+readTime: "11 min read"
+featured: false
+---
+
+## The ACID Myth in NoSQL
+
+For a long time, the knock on MongoDB was "It doesn't support transactions." That's no longer true. Since version 4.0, MongoDB has supported **Multi-Document ACID Transactions**, allowing you to perform complex operations with the same integrity as SQL.
+
+## 1. When to use Transactions?
+
+MongoDB's philosophy is "Data that is accessed together should be stored together." If you design your schema well (embedding), you rarely need transactions. 
+However, you need them when:
+- **Transferring Funds**: Deduct from Account A, Add to Account B.
+- **Inventory Updates**: Create Order, Decrease Stock.
+- **Complex Deletes**: Remove User, Delete Profile, Cleanup Session.
+
+## 2. Implementing Transactions with Mongoose
+
+Mongoose makes transactions simple through **Sessions**.
+
+```javascript
+const session = await mongoose.startSession();
+session.startTransaction();
+try {
+  await Account.updateOne({ id: 1 }, { $inc: { balance: -100 } }, { session });
+  await Account.updateOne({ id: 2 }, { $inc: { balance: 100 } }, { session });
+  await session.commitTransaction();
+} catch (error) {
+  await session.abortTransaction();
+  throw error;
+} finally {
+  session.endSession();
+}
+```
+
+## 3. Performance Trap: Long-Running Transactions
+
+Transactions in MongoDB come with a performance cost. They hold locks and can impact the 'Snapshot' size of the database. 
+**The Rule**: Keep transactions fast. Never perform network calls (like sending an email) inside a database transaction session.
+
+## 4. Read Isolation Levels
+
+MongoDB allows you to configure "Read Concern" and "Write Concern" for transactions. For financial systems, I use `majority` for both, ensuring the transaction is only considered successful when it's been replicated to most nodes in the cluster.
+
+## 5. Should You Always Use Them?
+
+No. Transactions are a scalpel, not a hammer. If you can achieve your goal through atomic operators like `$inc`, `$push`, or `$set` on a single document, do that instead. It's faster and less complex.
+
+## Conclusion
+
+Transactions in MongoDB bring the reliability of SQL to the flexibility of NoSQL. By using them selectively and keeping them fast, you can ensure 100% data integrity for your most critical business flows.

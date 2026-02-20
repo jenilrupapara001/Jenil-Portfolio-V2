@@ -1,0 +1,46 @@
+---
+title: "Optimizing API Response Times Under Heavy Load"
+date: "2026-02-24"
+category: "Performance"
+tags: ["Performance", "Backend", "API", "Engineering"]
+excerpt: "What to do when your API slows down during traffic spikes. Strategies for shedding load, optimizing payloads, and non-blocking I/O."
+image: "/blogs/optimizing-api-response-heavy-load.png"
+readTime: "12 min read"
+featured: false
+---
+
+## The Breaking Point
+
+Every API is fast when one person is using it. But what happens when 10,000 users hit it at once? Your response times spike from 200ms to 5 seconds. This is the 'Performance Death Spiral'. As a Senior Engineer, your job is to design APIs that bend but don't break.
+
+## 1. Payload Minimization: Sparse Fieldsets
+
+Don't send what the user didn't ask for. If your project object has 50 fields, allow the client to specify which ones they need: `GET /projects?fields=id,title`. This reduces the CPU time spent on JSON serialization and the bandwidth used for transit, directly lowering response times.
+
+## 2. Strategic Caching: Shared vs. Private
+
+- **Private Cache**: Using the browser's `localStorage` for user-specific data.
+- **Shared Cache**: Using Redis for global data (like product lists).
+- **Gateway Cache**: Using Nginx or a CDN for static API responses.
+Layered caching ensures that the heaviest queries never even reach your code.
+
+## 3. Load Shedding: Protecting the Core
+
+When the server is overwhelmed, it's better to reject 10% of users with a '503 Service Unavailable' than to make 100% of users wait 10 seconds. I implement **Load Shedding** at the gateway level, dropping non-critical incoming requests when the CPU exceeds 90%.
+
+## 4. Non-blocking I/O and Promise.all
+
+Many developers write "Sequential Async" code. 
+```javascript
+const user = await getUser();
+const orders = await getOrders();
+```
+This is a waste of time. These should run in parallel using `Promise.all`. This simple change can cut your response times in half without changing a single line of business logic.
+
+## 5. Connection Management and Keep-Alive
+
+Establishing a new TCP/TLS connection for every request is expensive. Ensure your server and your clients are using **HTTP Persistent Connections (Keep-Alive)**. This allows a client to reuse a single connection for multiple requests, saving 100ms+ of handshake time per call.
+
+## Conclusion
+
+Optimization under load is about efficiency. By reducing payloads, using parallel I/O, and implementing smart caching, you create an API that stays fast when the heat is on, providing a reliable foundation for your business growth.

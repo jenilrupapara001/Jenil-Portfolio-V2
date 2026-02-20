@@ -1,0 +1,43 @@
+---
+title: "Codebase Structure for Long-Term Maintainability"
+date: "2026-02-27"
+category: "Engineering"
+tags: ["Clean Code", "Engineering", "Architecture", "Maintainability"]
+excerpt: "Building software that doesn't rot. Strategies for organizing folders, naming conventions, and modularity in large-scale projects."
+image: "/blogs/codebase-structure-maintainability.png"
+readTime: "11 min read"
+featured: false
+---
+
+## The 'Legacy Code' Trap
+
+Most software becomes "Legacy" within two years. It's hard to change, impossible to test, and everyone is afraid to touch it. This is **Software Rot**. To build for the long term, you must design your codebase around **Changeability** and **Discoverability**.
+
+## 1. Folder Structure: Domain over Type
+
+Don't group by "What the file is" (e.g., `controllers/`, `services/`, `models/`). 
+Group by "What the business does" (e.g., `checkout/`, `users/`, `inventory/`). 
+When you need to fix a billing bug, all relevant files are in one folder. This reduces "Context Switching" and makes the project much easier for new developers to navigate.
+
+## 2. The Power of Public/Private APIs (Internal)
+
+Within a module, not every file should be accessible from the outside. Use an `index.ts` file in each folder to act as a "Public API." Only export what other modules *need* to know. This **Encapsulation** ensures that you can refactor the internals of a module without breaking the rest of the app.
+
+## 3. Naming: The First Level of Documentation
+
+A variable named `data` is a bug waiting to happen. Use **Descriptive, Domain-Focused Names**. 
+`calculateDiscountedPrice()` is better than `calcPrice()`. 
+`isEmailSubscriptionActive` is better than `activeFlag`. 
+Good code should read like English.
+
+## 4. Dependency Management and Injection
+
+Avoid "Global Singletons" or hardcoding imports. Use **Dependency Injection** to pass services into each other. This makes your code "Loose-Coupled," meaning you can test any piece of code in isolation by passing in "Mock" dependencies.
+
+## 5. Consistent Style Enforcement
+
+In a team of 10, you shouldn't be able to tell who wrote which file. Use **ESLint and Prettier** with a strict config. Use a tool like **Husky** to enforce these rules before any code is committed. Consistency is the secret to "Mental Map" stability in large projects.
+
+## Conclusion
+
+Maintainability isn't a "Task"; it's a culture. By focusing on domain-driven structure, strict encapsulation, and clean naming, you build a codebase that grows with your company rather than collapsing under its own weight.

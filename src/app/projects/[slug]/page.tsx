@@ -23,5 +23,26 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         notFound();
     }
 
-    return <ProjectDetailView project={project} />;
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "SoftwareApplication",
+                        "name": project.title,
+                        "description": project.description,
+                        "applicationCategory": "BusinessApplication",
+                        "operatingSystem": "Web",
+                        "author": {
+                            "@type": "Person",
+                            "name": "Jenil Rupapara"
+                        }
+                    })
+                }}
+            />
+            <ProjectDetailView project={project} />
+        </>
+    );
 }

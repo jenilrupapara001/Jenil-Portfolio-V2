@@ -1,0 +1,45 @@
+---
+title: "Securing Node.js Apps with Reverse Proxies and Nginx"
+date: "2026-02-23"
+category: "DevOps"
+tags: ["Nginx", "Security", "Node.js", "Backend"]
+excerpt: "Never expose your Node.js process directly to the internet. Why an Nginx reverse proxy is your first line of defense."
+image: "/blogs/nginx-reverse-proxy-security.png"
+readTime: "10 min read"
+featured: false
+---
+
+## The Vulnerable Direct Connection
+
+Running `node app.js` on port 80 is a security disaster. Node.js's HTTP parser isn't designed to face the "Wild West" of the public internet. It's susceptible to slow-loris attacks, buffer overflows, and more. To be production-ready, you must use a **Reverse Proxy** like **Nginx**.
+
+## 1. What is a Reverse Proxy?
+
+Nginx sits in front of your Node.js application. The user talks to Nginx, and Nginx talks to Node.js. This creates a "Buffer" that protects your application core.
+
+## 2. Key Security Benefits
+
+### Hiding the Stack
+Nginx hides the fact that you are running Node.js. It strips away headers like `X-Powered-By: Express` that hackers use to target known vulnerabilities in specific framework versions.
+
+### Rate Limiting & DoS Protection
+Nginx is incredibly efficient at dropping malicious requests before they even reach your JavaScript code, saving your CPU for legitimate users.
+
+### SSL/TLS Management
+Nginx handles the HTTPS handshake. It supports modern features like **HTTP/2** and **TLS 1.3** more robustly and efficiently than Node.js natively can.
+
+## 3. Performance Benefits: Gzip & Buffering
+
+Nginx can compress your JSON responses (Gzip/Brotli) on the fly. It also buffers slow client connections. Instead of your Node.js thread staying open while a mobile user on a slow 3G network downloads a response, Nginx takes the response and handles the slow delivery itself.
+
+## 4. Serving Static Assets
+
+Node.js is bad at serving images and CSS. Nginx is the world champion. Use Nginx to serve your `/public` folder directly from the disk, so your Node.js process never even sees those requests.
+
+## 5. Centralized Logging
+
+Nginx logs are the "Ground Truth" for your traffic. They provide a unified view of all incoming requests, status codes, and latencies across all your upstream Node.js instances.
+
+## Conclusion
+
+In production, Nginx is mandatory. It's the "Shield" that protects your "Brain" (Node.js). By implementing a reverse proxy, you gain security, speed, and professional-grade stability for your application.

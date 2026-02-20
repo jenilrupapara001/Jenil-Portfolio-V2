@@ -1,0 +1,49 @@
+---
+title: "Server-Side Rendering vs Static Rendering: Performance Impacts"
+date: "2026-02-24"
+category: "Performance"
+tags: ["Next.js", "SSR", "SSG", "Performance"]
+excerpt: "A data-driven comparison of rendering strategies. When to choose dynamic vs. static for the best SEO and UX."
+image: "/blogs/ssr-vs-ssg-performance.png"
+readTime: "12 min read"
+featured: false
+---
+
+## The Rendering Spectrum
+
+In the Next.js world, we have three main ways to get HTML to the browser: **SSG** (Static), **SSR** (Server), and **ISR** (Incremental). Choosing the wrong one is the #1 cause of poor performance scores.
+
+## 1. SSG: Static Site Generation
+
+The page is built at 'Build Time'. 
+- **TTFB**: Instant (< 50ms).
+- **Pros**: The fastest possible experience. Can be served entirely from a CDN.
+- **Best For**: Blogs, documentation, marketing pages.
+- **Cons**: Can't handle user-specific data or data that changes every minute.
+
+## 2. SSR: Server-Side Rendering
+
+The page is built for *every* request.
+- **TTFB**: Slower (200ms - 1s).
+- **Pros**: Always fresh data. Can handle personalization.
+- **Best For**: Dashboards, news feeds, search result pages.
+- **Cons**: Heavy load on your servers. If the database is slow, the user sees a white screen.
+
+## 3. ISR: Incremental Static Regeneration
+
+The best of both worlds. The page is static but 'Revalidated' in the background after a certain interval.
+- **TTFB**: Instant.
+- **Pros**: Near-perfect performance with fresh-ish data.
+- **Best For**: Product listings, high-traffic SaaS landing pages.
+
+## 4. The Impact on SEO: Core Web Vitals
+
+Google loves **LCP (Largest Contentful Paint)**. SSG and ISR win here because the HTML is already ready on the CDN. SSR can hurt LCP if your server response is slow. If you MUST use SSR, you need to implement a heavy caching layer (like Varnish or Redis) to act like a pseudo-SSG.
+
+## 5. Hydration: The Hidden Cost
+
+No matter how fast the HTML arrives, the page isn't interactive until 'Hydration' is finished. If you ship 500KB of React code to a mobile user, the page will 'Freeze' for 2 seconds after it appears. Use **Server Components** to reduce the amount of JavaScript sent to the browser.
+
+## Conclusion
+
+Performance is a game of tradeoffs. Use Static (SSG/ISR) whenever possible. Use Server (SSR) only when you truly need real-time personalization. By matching the strategy to the page's purpose, you optimize for both Google and your users.

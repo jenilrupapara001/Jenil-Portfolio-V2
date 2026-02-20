@@ -1,0 +1,44 @@
+---
+title: "Designing Idempotent APIs for Financial-Grade Systems"
+date: "2026-02-21"
+category: "Architecture"
+tags: ["APIs", "Security", "Financial Systems", "Engineering"]
+excerpt: "Ensuring that making the same request multiple times has the same effect as making it once. A guide to preventing duplicate transactions."
+image: "/blogs/idempotent-api-design.png"
+readTime: "12 min read"
+featured: false
+---
+
+## The Double-Charge Disaster
+
+Imagine a user clicks 'Pay Now' and their internet cuts out. They click it again. If your API isn't **Idempotent**, they just got charged twice. In the world of FinTech and Enterprise SaaS, this is an unacceptable failure.
+
+## 1. What is Idempotency?
+
+In mathematics and computer science, an operation is idempotent if it can be applied multiple times without changing the result beyond the initial application. 
+- `GET`, `PUT`, `DELETE`: Naturally idempotent.
+- `POST`: **NOT** naturally idempotent. This is where we must focus.
+
+## 2. The Idempotency Key Pattern
+
+The standard industry solution (used by Stripe and PayPal) is the **Idempotency Key**. The client generates a unique UUID for every request and sends it in a header: `X-Idempotency-Key: some-unique-uuid`.
+
+## 3. The Backend Protocol
+
+When the server receives a request:
+1. **Check Cache**: Look in Redis for the `idempotency-key`. 
+2. **If Found**: Return the *previously saved response* without executing any logic.
+3. **If Not Found**: Execute the transaction. Save the response in Redis with a TTL (e.g., 24 hours) linked to the key.
+
+## 4. Handling Race Conditions
+
+What if two identical requests arrive at the exact same millisecond? Use a **Distributed Lock**. 
+The first request sets a 'Processing' flag for that key in Redis. The second request sees the flag and waits (or returns a 409 Conflict), preventing the transaction from being executed twice simultaneously.
+
+## 5. Scope of Idempotency
+
+Idempotency should be scoped to the **User + Key** to prevent cross-account collisions. It should also only apply to specific status codes (2xx). If a request failed with a 500, it should probably be allowed to retry.
+
+## Conclusion
+
+Idempotent APIs are a hallmark of a mature engineering team. They provide a 'Safety Net' for the erratic nature of the internet, ensuring that your financial data—and your user's trust—remains intact.

@@ -1,0 +1,44 @@
+---
+title: "Implementing Usage-Based Pricing in SaaS Platforms"
+date: "2026-02-25"
+category: "SaaS"
+tags: ["SaaS", "Pricing", "Architecture", "Billing"]
+excerpt: "Moving from flat-rate to consumption-based billing. How to track, report, and bill for usage in real-time."
+image: "/blogs/usage-based-pricing-saas.png"
+readTime: "12 min read"
+featured: false
+---
+
+## The Rise of Consumption Billing
+
+Flat-rate subscriptions are easy to understand, but they often leave money on the table. **Usage-Based Pricing** (pioneered by AWS, Twilio, and Snowflake) ensures that your revenue scales directly with the value your users receive. Here is how to build the infrastructure for it.
+
+## 1. Metering: The Heart of the System
+
+You need a way to 'Count' every billable action (e.g., an email sent, a GB stored, an API call made). 
+**The Architecture**:
+1. When the action happens, emit an event to a **Kafka or Redis Queue**.
+2. A small, high-throughput **Metering Service** picks up the event and increments the usage count for that tenant.
+
+## 2. Reporting to the Billing Provider
+
+Don't send an API call to Stripe on every use. It's too slow and expensive. Instead, use an **Aggregation Strategy**. Every hour/day, batch the usage counts and send them to the billing provider's 'Usage Record' API.
+
+## 3. Real-Time Usage Visibility
+
+Usage-based pricing creates 'Bill Shock' if the user can't see how much they've spent. Your dashboard must show a real-time (or near-real-time) counter of the current month's usage. I store these counters in **Redis** for sub-millisecond read performance.
+
+## 4. Overages and Hard Limits
+
+What happens when a user's usage exceeds their pre-paid tier? 
+- **Soft Limit**: Send a warning email.
+- **Hard Limit**: Stop the service until they upgrade or add more credits.
+This logic should live in a central **Policy service** that all other microservices check before performing a billable action.
+
+## 5. Billing Period Complexity
+
+Unlike flat sessions, usage resets every month. You must ensure that your metering service is perfectly synced with the user's **Billing Cycle**. If Company A's month starts on the 10th and Company B's starts on the 20th, your aggregation logic must handle this offset correctly.
+
+## Conclusion
+
+Usage-based billing is an engineering and a product shift. It requires a more robust data pipeline than flat billing, but it creates a fairer, more scalable business model that aligns your success with your customers' success.

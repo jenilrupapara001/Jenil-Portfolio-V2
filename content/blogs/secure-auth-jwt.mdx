@@ -1,0 +1,40 @@
+---
+title: "Building Secure Authentication Systems with JWT and Refresh Tokens"
+date: "2026-02-22"
+category: "Backend"
+tags: ["Auth", "Security", "JWT", "Node.js"]
+excerpt: "A deep dive into secure session management. Implementing HTTP-only cookies, refresh tokens, and CSRF protection in high-stakes SaaS."
+image: "/blogs/secure-auth-jwt.png"
+readTime: "13 min read"
+featured: false
+---
+
+## The Fragility of Modern Auth
+
+Authentication is the most targeted part of any SaaS. A simple JWT (JSON Web Token) implementation stored in `localStorage` is vulnerable to **XSS (Cross-Site Scripting)**. To build a secure, professional system, you need a multi-layered defense strategy.
+
+## 1. Why Short-Lived Access Tokens?
+
+Access tokens should be ephemeral—lasting 15 to 30 minutes. This limits the "Blast Radius" if a token is stolen. But we don't want to log the user out every half hour. This is where **Refresh Tokens** come in.
+
+## 2. Refresh Token Rotation
+
+A Refresh Token should be long-lived (e.g., 7-30 days) and stored in an **HTTP-only, Secure, SameSite=Strict Cookie**. This makes it inaccessible to client-side JavaScript, protecting against XSS.
+
+**The Rotation Strategy**: Every time a user uses a refresh token to get a new access token, the server should also issue a *new* refresh token and invalidate the old one. If a hacker tries to reuse an old refresh token, the server detects it as a breach and invalidates the entire session.
+
+## 3. Database vs. Stateless Auth
+
+While JWTs are stateless, you should keep the **Refresh Token ID** in your database (Redis is perfect for this). This allows you to **Revoke** a session instantly if you detect suspicious activity or if the user clicks 'Logout from all devices'.
+
+## 4. CSRF Protection for Cookies
+
+Using cookies introduces the risk of **CSRF (Cross-Site Request Forgery)**. Even with `SameSite=Strict`, I recommend implementing a double-submit cookie pattern or a custom header requirement for all state-changing requests to provide an extra layer of security.
+
+## 5. Password Hashing: The Gold Standard
+
+Never store passwords. Never encrypt passwords. Always **Hash** them using **Argon2** or **bcrypt** with a high cost factor. This ensures that even if your database is leaked, the actual passwords remain secure.
+
+## Conclusion
+
+Authentication is about layers. By combining short-lived JWTs, rotated refresh tokens in secure cookies, and Redis-backed session revoking, you create an authentication system that is both user-friendly and enterprise-secure.

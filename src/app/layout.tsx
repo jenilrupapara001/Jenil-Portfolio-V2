@@ -105,6 +105,25 @@ export default function RootLayout({
                     crossOrigin="anonymous"
                     strategy="afterInteractive"
                 />
+                <Script
+                    id="person-schema"
+                    type="application/ld+json"
+                    strategy="afterInteractive"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "Person",
+                            "name": "Jenil Rupapara",
+                            "url": "https://jenilrupapara.vercel.app",
+                            "jobTitle": "MERN Stack Developer",
+                            "sameAs": [
+                                "https://github.com/jenilrupapara001",
+                                "https://linkedin.com/in/jenilrupapara-fullstack-developer"
+                            ],
+                            "knowsAbout": ["React", "Next.js", "Node.js", "MongoDB", "Cloud Computing", "SaaS Development"]
+                        })
+                    }}
+                />
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="dark"

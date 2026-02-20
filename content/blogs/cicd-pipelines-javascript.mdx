@@ -1,0 +1,45 @@
+---
+title: "Designing CI/CD Pipelines for Modern JavaScript Applications"
+date: "2026-02-23"
+category: "DevOps"
+tags: ["CI/CD", "JavaScript", "GitHub Actions", "DevOps"]
+excerpt: "Automate your way to production. Designing robust pipelines for testing, linting, and multi-stage deployments."
+image: "/blogs/cicd-pipelines-javascript.png"
+readTime: "12 min read"
+featured: false
+---
+
+## The Manual Deployment Trap
+
+If you're still running `npm run build` and dragging files via FTP, you are living in the past. In 2026, **Continuous Integration and Continuous Deployment (CI/CD)** is the foundation of high-velocity engineering. It ensures that every line of code is verified and deployed without human intervention.
+
+## 1. The CI Phase: Verification
+
+Continuous Integration is about building confidence. Every pull request should trigger:
+- **Linting**: Ensuring code style consistency (ESLint/Prettier).
+- **Unit Testing**: Running your Jest or Vitest suites.
+- **Security Audit**: Checking `npm audit` for vulnerable dependencies.
+- **Build test**: Ensuring the application compiles correctly.
+
+## 2. The CD Phase: Automated Deployment
+
+Once the code is merged, the Deployment phase begins.
+- **Stage 1: Preview**: Deploy to a temporary environment for stakeholder review.
+- **Stage 2: Staging**: Deploy to a production-mirror environment for final E2E testing.
+- **Stage 3: Production**: The final push to the live servers.
+
+## 3. GitHub Actions: The Modern Standard
+
+I utilize GitHub Actions for its deep integration and speed. Using **Environment Secrets**, we can securely inject API keys and database credentials during the build process without ever exposing them in the codebase.
+
+## 4. Multi-Stage Docker Builds
+
+For containerized apps, **Multi-Stage Builds** are critical. We use a 'Heavy' container for building (with all devDependencies) and a 'Light' container (using Alpine Linux) for production. This reduces image sizes from 1GB to 100MB, speeding up deployment and reducing costs.
+
+## 5. Automated Rollbacks
+
+A pipeline is incomplete without a 'Safety Valve'. If the production health checks fail after a deployment, the pipeline should automatically trigger a **Rollback** to the previous stable version. This ensures that a single bad merge doesn't keep your users in the dark.
+
+## Conclusion
+
+CI/CD is about removing fear from the development process. By automating the boring stuff—testing and deploying—you allow your team to focus on what matters: shipping features that users love.

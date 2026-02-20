@@ -1,0 +1,50 @@
+---
+title: "Memory Leak Debugging in Node.js Applications"
+date: "2026-02-24"
+category: "Performance"
+tags: ["Node.js", "Performance", "Debugging", "Backend"]
+excerpt: "How to find and fix the memory leaks that crash your production servers. Identifying closures, global variables, and event listener leaks."
+image: "/blogs/memory-leak-debugging-nodejs.png"
+readTime: "11 min read"
+featured: false
+---
+
+## The Slow Death
+
+A memory leak is a silent killer. Your app starts fast, but every hour it uses 10MB more RAM. Eventually, the OS kills the process (OOM Killer), or the Garbage Collector starts working so hard that the CPU hits 100%. Debugging this requires a structured, scientific approach.
+
+## 1. Identifying the Leak: The Sawtooth Pattern
+
+I use **Prometheus and Grafana** to monitor memory usage. A healthy app has a 'Sawtooth' pattern: memory grows, then drops when the Garbage Collector (GC) runs. A leaking app has a 'Continual Upward Slope' where the drops never reach the previous baseline.
+
+## 2. The Three Common Culprits
+
+- **Global Variables**: Accidental global variables (missing `const/let`) stay in memory forever.
+- **Closures**: Functions that hold onto large objects from their parent scope unnecessarily.
+- **Unclosed Event Listeners**: Adding a listener to `process.on('uncaughtException')` inside an HTTP request without ever removing it.
+
+## 3. Generating a Heap Snapshot
+
+When the app is in its 'High Memory' state, I use the `heapdump` module to take a snapshot.
+```javascript
+const heapdump = require('heapdump');
+heapdump.writeSnapshot('./leak.heapsnapshot');
+```
+I then load this into the **Chrome DevTools Memory Tab**.
+
+## 4. The Comparison Approach
+
+1. Take a snapshot at startup (Baseline).
+2. Run a load test (e.g., 5,000 requests).
+3. Take a second snapshot.
+4. Use the **Comparison View** in DevTools. Any objects that grew between snapshots are your prime suspects.
+
+## 5. Fixing the Leak
+
+- **WeakMap/WeakSet**: Use these for caches. They allow the GC to remove items if there are no other references.
+- **Manual Cleanup**: Always `removeListener` in your cleanup logic.
+- **Scope Isolation**: Avoid passing giant 'Context' objects deep into nested closures.
+
+## Conclusion
+
+Memory management is the hallmark of a Senior Backend Engineer. By understanding how the V8 Garbage Collector works and mastering profiling tools, you can ensure your applications stay lean and stable for months of continuous uptime.

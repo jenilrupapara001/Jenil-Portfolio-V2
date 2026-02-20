@@ -1,0 +1,42 @@
+---
+title: "Designing High-Performance REST APIs"
+date: "2026-02-24"
+category: "Performance"
+tags: ["REST", "API", "Performance", "Engineering"]
+excerpt: "Beyond functionality. How to design APIs that are optimized for speed, bandwidth efficiency, and client-side performance."
+image: "/blogs/high-performance-rest-api-design.png"
+readTime: "13 min read"
+featured: false
+---
+
+## The Performance First API
+
+Most developers design APIs for 'Correctness'. Senior Engineers design for **Performance**. In a world of mobile apps and global users, an API that is 'Correct' but 'Slow' is useless. Here is how I architect REST APIs for maximum speed.
+
+## 1. Compression is Mandatory
+
+Always enable **Gzip** or **Brotli** compression. For typical JSON responses, this can reduce the payload size by 70-80%. Most modern clients support Brotli, which is significantly more efficient than Gzip for text-based data like JSON.
+
+## 2. Leveraging HTTP/2 Multiplexing
+
+The old rule of "Concatenate your requests to save connections" is dead. **HTTP/2** allows multiple requests to be sent over a single connection simultaneously. Design your API to be granular. It's often faster to send 5 small parallel requests than 1 giant blocking one.
+
+## 3. Pre-fetching and 'Link' Headers
+
+Use the `Link` header to tell the client what it might need next.
+`Link: </v1/styles.css>; rel=preload; as=style`
+This allows the browser to start downloading assets before it has even finished parsing your initial API response.
+
+## 4. Efficient Serialization
+
+JSON.stringify is fast, but for truly high-performance systems, it's a bottleneck.
+- **Fast-JSON-Stringify**: Uses schema-based generation to be 2x faster than the native method.
+- **Protocol Buffers (Protobuf)**: If you control both the client and server, move to binary serialization. It's 10x smaller and significantly faster to parse.
+
+## 5. Aggressive Cache Control
+
+If data doesn't change, the server shouldn't even be involved. Use `immutable` and long `max-age` values for static resources. For dynamic but slow-changing data, use `ETag` validation to avoid sending the same data twice if it hasn't changed on the server.
+
+## Conclusion
+
+High performance isn't a 'Feature' you add later; it's a design choice you make on Day 1. By mastering transport efficiency and serialization, you build an API that feels like it's running locally, regardless of where the user is in the world.

@@ -1,0 +1,42 @@
+---
+title: "Service Mesh Architecture Explained for Modern SaaS"
+date: "2026-02-21"
+category: "Architecture"
+tags: ["Service Mesh", "Microservices", "Infrastructure", "Istio"]
+excerpt: "Handling inter-service communication with a dedicated infrastructure layer. Why and when you need a service mesh in your microservices stack."
+image: "/blogs/service-mesh-architecture.png"
+readTime: "13 min read"
+featured: false
+---
+
+## The 'Hidden' Network Problem
+
+In a microservice system, most of the complexity isn't in the code; it's in the **Networking**. How do services find each other? How do they secure their communication? How do they handle retries? Adding this logic to every service is a maintenance nightmare. Enter the **Service Mesh**.
+
+## 1. What is a Service Mesh?
+
+A Service Mesh is a dedicated infrastructure layer for handling service-to-service communication. It uses a **Sidecar Pattern**, where a small proxy (like Envoy) runs alongside every microservice, intercepting all incoming and outgoing traffic.
+
+## 2. The Control Plane vs. The Data Plane
+
+- **Data Plane**: The network of proxies that actually move the bits.
+- **Control Plane**: The central brain (like Istio or Linkerd) that tells the proxies how to behave, providing configuration and security policies.
+
+## 3. Why Use a Service Mesh?
+
+### Zero-Trust Security (mTLS)
+A service mesh automatically encrypts all traffic between services using Mutual TLS (mTLS). You get 'Encryption in Transit' without writing a single line of security code in your Node.js apps.
+
+### Traffic Management
+You can easily implement 'Subset Routing'. Want to send 10% of traffic to a preview version of the 'Billing' service? You can do it with a simple YAML config in the Service Mesh.
+
+### Observability out of the box
+The sidecar proxies see every request. They automatically generate metrics and traces for every network call, providing a global view of your system's health.
+
+## 4. The Cost of Complexity
+
+Service Meshes are powerful but heavy. They add latency (a few milliseconds per hop) and require a dedicated team to manage. If you only have 5 microservices, you don't need a Service Mesh. If you have 50, you can't survive without one.
+
+## Conclusion
+
+The Service Mesh is the evolution of infrastructure. It moves networking concerns out of the application and into the platform, allowing engineers to focus on what matters: building business value.

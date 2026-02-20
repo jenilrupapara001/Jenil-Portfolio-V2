@@ -10,7 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         {
             url: baseUrl,
             lastModified: new Date(),
-            changeFrequency: 'monthly',
+            changeFrequency: 'weekly',
             priority: 1,
         },
         {
@@ -22,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         {
             url: `${baseUrl}/projects`,
             lastModified: new Date(),
-            changeFrequency: 'weekly',
+            changeFrequency: 'daily',
             priority: 0.9,
         },
         {
@@ -34,7 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         {
             url: `${baseUrl}/contact`,
             lastModified: new Date(),
-            changeFrequency: 'yearly',
+            changeFrequency: 'monthly',
             priority: 0.5,
         },
         {
@@ -46,7 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         {
             url: `${baseUrl}/blogs`,
             lastModified: new Date(),
-            changeFrequency: 'weekly',
+            changeFrequency: 'daily',
             priority: 0.9,
         },
     ]
@@ -54,15 +54,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const projectRoutes: MetadataRoute.Sitemap = projects.map((project) => ({
         url: `${baseUrl}/projects/${project.slug}`,
         lastModified: new Date(),
-        changeFrequency: 'monthly',
+        changeFrequency: 'weekly',
         priority: 0.8,
     }))
 
     const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
         url: `${baseUrl}/blogs/${post.slug}`,
         lastModified: new Date(post.date),
-        changeFrequency: 'monthly',
-        priority: 0.8,
+        changeFrequency: 'weekly',
+        priority: 0.7,
     }))
 
     return [...baseRoutes, ...projectRoutes, ...blogRoutes]
