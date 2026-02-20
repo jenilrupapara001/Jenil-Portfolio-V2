@@ -46,18 +46,30 @@ export function getFeaturedPost(): BlogPost | undefined {
     return posts.find((post) => post.featured) || posts[0];
 }
 
-export function getPostBySlug(slug: string): BlogPost | undefined {
+export function getPostBySlug(slug: string): (BlogPost & { rawDate: string }) | undefined {
     const posts = getBlogPosts();
-    return posts.find((post) => post.slug === slug);
+    const post = posts.find((p) => p.slug === slug);
+    if (!post) return undefined;
+
+    const fullPath = path.join(postsDirectory, `${slug}.mdx`);
+    const fileContents = fs.readFileSync(fullPath, "utf8");
+    const { data } = matter(fileContents);
+
+    return {
+        ...post,
+        rawDate: data.date ? new Date(data.date).toISOString().split('T')[0] : ""
+    };
 }
 
 export function getAllTags(): string[] {
     const posts = getBlogPosts();
-    const tags = new Set<string>();
+    const tagCounts: Record<string, number> = {};
     posts.forEach((post) => {
-        post.tags?.forEach((tag) => tags.add(tag));
+        post.tags?.forEach((tag) => {
+            tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+        });
     });
-    return Array.from(tags);
+    return Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a]);
 }
 
 export function getAllCategories(): string[] {

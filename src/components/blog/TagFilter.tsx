@@ -15,7 +15,7 @@ export default function TagFilter({ tags, onSelect }: TagFilterProps) {
                 Tags
             </h3>
             <div className="flex flex-wrap gap-x-3 gap-y-2">
-                {tags.map((tag) => (
+                {tags.slice(0, 12).map((tag) => (
                     <button
                         key={tag}
                         onClick={() => onSelect(tag)}

@@ -114,7 +114,7 @@ export default function BlogListing({ initialPosts, allCategories, allTags }: Bl
                                         <span className="text-foreground/30 text-[10px] font-bold uppercase tracking-widest">{featuredPosts[activeSlide].date}</span>
                                     </div>
                                     <Link href={`/blogs/${featuredPosts[activeSlide].slug}`}>
-                                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-white mb-6 leading-[0.9] hover:text-primary transition-colors cursor-pointer line-clamp-2 md:line-clamp-none">
+                                        <h2 className="text-3xl md:text-5xl lg:text-5xl font-black uppercase tracking-tighter text-white mb-6 leading-[1.1] hover:text-primary transition-colors cursor-pointer line-clamp-2">
                                             {featuredPosts[activeSlide].title}
                                         </h2>
                                     </Link>
