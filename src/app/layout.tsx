@@ -22,22 +22,22 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
     metadataBase: new URL("https://jenilrupapara.vercel.app"),
-    title: "Jenil Rupapara | MERN Stack Developer | React, Node.js, Next.js Expert",
+    title: "Jenil Rupapara | Senior MERN Stack Expert | US & UK SaaS Development Specialist",
     description:
-        "Explore the portfolio of Jenil Rupapara, a MERN Stack Developer specializing in scalable and responsive web apps using React.js, Next.js, Node.js, MongoDB, and Tailwind CSS. View projects, case studies, and contact for collaborations.",
+        "ROI-driven MERN Stack Developer specializing in scalable enterprise SaaS solutions for US and UK markets. Expertise in React, Next.js, Node.js, and high-performance distributed systems.",
     keywords: [
-        "MERN Stack Developer",
-        "React.js Developer",
-        "Node.js Developer",
-        "Next.js Portfolio",
-        "Full-Stack Web Developer",
-        "Web Application Developer",
-        "Frontend Developer",
-        "Backend Developer",
-        "Tailwind CSS",
-        "MongoDB Developer",
-        "Portfolio Website",
-        "Personal Portfolio",
+        "Senior MERN Stack Developer",
+        "React Expert US UK",
+        "SaaS Development Expert",
+        "Full-Stack Web Developer London",
+        "Next.js Specialist New York",
+        "Hire Senior React Developer",
+        "Enterprise Web Architecture",
+        "Scalable SaaS Solutions",
+        "Remote Developer for US Startups",
+        "Node.js Backend Expert",
+        "Tailwind CSS Specialist",
+        "MongoDB Architect",
     ],
     verification: {
         google: "VvSXRnC8iZ9S3kTt_vC91Hn4KDpbZTkhXoj74yTq6cQ",
@@ -115,12 +115,19 @@ export default function RootLayout({
                             "@type": "Person",
                             "name": "Jenil Rupapara",
                             "url": "https://jenilrupapara.vercel.app",
-                            "jobTitle": "MERN Stack Developer",
+                            "jobTitle": "Senior Full-Stack & SaaS Developer",
+                            "address": {
+                                "@type": "PostalAddress",
+                                "addressLocality": "Surat",
+                                "addressRegion": "Gujarat",
+                                "addressCountry": "IN"
+                            },
                             "sameAs": [
                                 "https://github.com/jenilrupapara001",
-                                "https://linkedin.com/in/jenilrupapara-fullstack-developer"
+                                "https://linkedin.com/in/jenilrupapara-fullstack-developer",
+                                "https://twitter.com/jenilrupapara"
                             ],
-                            "knowsAbout": ["React", "Next.js", "Node.js", "MongoDB", "Cloud Computing", "SaaS Development"]
+                            "knowsAbout": ["React", "Next.js", "Node.js", "MongoDB", "Cloud Computing", "SaaS Development", "Microservices", "System Design", "Enterprise Scale Applications"]
                         })
                     }}
                 />

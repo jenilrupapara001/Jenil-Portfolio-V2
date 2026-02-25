@@ -9,8 +9,9 @@ import { ArrowUpRight, BrainCircuit, ShieldCheck, Database, Layout, Sparkles } f
 
 const categories = [
     { id: "all", label: "All Works", icon: Layout },
-    { id: "backend", label: "Microservices", icon: Database },
-    { id: "saas", label: "Enterprise SaaS", icon: ShieldCheck },
+    { id: "AI", label: "Artificial Intelligence", icon: BrainCircuit },
+    { id: "Microservices", label: "Distributed Systems", icon: Database },
+    { id: "SaaS", label: "Enterprise SaaS", icon: ShieldCheck },
 ];
 
 export default function ProjectsGrid() {
@@ -19,12 +20,7 @@ export default function ProjectsGrid() {
     const filteredProjects = useMemo(() => {
         if (activeCategory === "all") return projects;
 
-        const categoryMap: Record<string, string[]> = {
-            backend: ["commercex-microservices"],
-            saas: ["ajio-return-tracking", "grownext-in", "bavadiya-realty", "metalex-saas"],
-        };
-
-        return projects.filter(p => categoryMap[activeCategory]?.includes(p.slug));
+        return projects.filter(p => p.category === activeCategory);
     }, [activeCategory]);
 
     return (

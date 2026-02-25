@@ -71,7 +71,7 @@ export default function Hero() {
                         className="inline-flex items-center gap-3 px-4 sm:px-5 py-2 rounded-full bg-white/5 border border-white/10 text-primary-foreground text-[8px] sm:text-sm font-black mb-6 sm:mb-10 backdrop-blur-md whitespace-nowrap"
                     >
                         <ShieldCheck className="w-3 h-3 sm:w-5 sm:h-5 text-primary" />
-                        <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent tracking-widest sm:tracking-wide">AVAILABLE FOR HIGH-STAKES PROJECTS</span>
+                        <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent tracking-widest sm:tracking-wide">AVAILABLE FOR US • UK • GLOBAL COLLABORATIONS</span>
                     </motion.div>
 
                     <motion.h1
@@ -91,7 +91,7 @@ export default function Hero() {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="text-lg sm:text-xl md:text-2xl text-foreground/40 mb-10 sm:mb-14 max-w-5xl leading-relaxed font-medium italic px-4 sm:px-0"
                     >
-                        Engineering <span className="text-foreground font-black underline underline-offset-8 decoration-primary/30">high-performance ecosystems</span> where scalability is architectural standard.
+                        Engineering <span className="text-foreground font-black underline underline-offset-8 decoration-primary/30">global-scale ecosystems</span> for US & UK markets where performance is the architectural core.
                     </motion.p>
 
                     <motion.div
