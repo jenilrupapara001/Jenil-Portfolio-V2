@@ -58,7 +58,7 @@ export default function ProjectsGrid() {
             {/* High-End Masonry-Style Grid */}
             <motion.div
                 layout
-                className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 px-4 md:px-0"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-12"
             >
                 <AnimatePresence mode="popLayout">
                     {filteredProjects.map((project, index) => (
@@ -69,13 +69,13 @@ export default function ProjectsGrid() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95 }}
                             transition={{ duration: 0.8, delay: index * 0.1, ease: [0.23, 1, 0.32, 1] }}
-                            className={`group relative ${index % 3 === 0 ? "md:col-span-2 lg:col-span-1" : ""}`}
+                            className="group relative"
                         >
                             <Link href={`/projects/${project.slug}`} className="block h-full group">
                                 <div className="h-full rounded-[2.5rem] md:rounded-[3.5rem] bg-white/[0.02] border border-white/5 backdrop-blur-[100px] overflow-hidden hover:border-primary/40 transition-all duration-700 flex flex-col hover:shadow-[0_0_120px_-30px_rgba(var(--primary-rgb),0.4)]">
 
                                     {/* Image Container */}
-                                    <div className="relative h-[20rem] md:h-[28rem] overflow-hidden">
+                                    <div className="relative h-[18rem] md:h-[22rem] overflow-hidden">
                                         <Image
                                             src={project.image}
                                             alt={project.title}
@@ -100,7 +100,7 @@ export default function ProjectsGrid() {
 
                                         {/* Bottom Labels */}
                                         <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 right-6 md:right-10 flex flex-col gap-3 md:gap-4 transform group-hover:-translate-y-2 transition-transform duration-700">
-                                            <h3 className="text-3xl sm:text-4xl md:text-6xl font-black italic uppercase tracking-tighter leading-[0.85] md:leading-none">
+                                            <h3 className="text-2xl sm:text-3xl md:text-4xl font-black italic uppercase tracking-tighter leading-[0.85] md:leading-none">
                                                 {project.title.split(' ')[0]} <br />
                                                 <span className="text-primary">{project.title.split(' ').slice(1).join(' ')}</span>
                                             </h3>
@@ -111,25 +111,17 @@ export default function ProjectsGrid() {
                                     </div>
 
                                     {/* Footer Info */}
-                                    <div className="p-6 md:p-10 flex flex-col gap-6 md:gap-8 flex-grow">
-                                        <div className="grid grid-cols-1 xs:grid-cols-2 gap-6 md:gap-8 border-b border-white/5 pb-6 md:pb-8">
-                                            <div className="space-y-1">
-                                                <p className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.3em] text-primary/60">Core Result</p>
-                                                <p className="text-xs md:text-sm font-bold text-foreground/80 italic leading-tight">{project.impact}</p>
-                                            </div>
-                                            <div className="space-y-1">
-                                                <p className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.3em] text-foreground/20">Technology</p>
-                                                <div className="flex flex-wrap gap-2 text-[8px] md:text-[10px] font-black uppercase tracking-widest text-foreground/60">
-                                                    {project.tags.slice(1, 3).join(" • ")}
-                                                </div>
-                                            </div>
+                                    <div className="p-6 md:p-8 flex flex-col gap-4 flex-grow">
+                                        <div className="flex flex-col gap-2 border-b border-white/5 pb-6">
+                                            <p className="text-[8px] font-black uppercase tracking-[0.3em] text-primary/60">Impact</p>
+                                            <p className="text-xs font-bold text-foreground/70 italic leading-tight line-clamp-1">{project.impact}</p>
                                         </div>
 
-                                        <div className="flex items-center justify-between group/btn">
-                                            <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] text-foreground/40 group-hover:text-primary transition-colors">
-                                                Explore Architecture
+                                        <div className="flex items-center justify-between group/btn pt-2">
+                                            <span className="text-[8px] font-black uppercase tracking-[0.4em] text-foreground/30 group-hover:text-primary transition-colors">
+                                                Case Study
                                             </span>
-                                            <div className="w-8 md:w-12 h-[1px] bg-white/10 group-hover:w-16 md:group-hover:w-20 group-hover:bg-primary transition-all duration-500" />
+                                            <ArrowUpRight className="w-3 h-3 text-foreground/20 group-hover:text-primary transition-colors" />
                                         </div>
                                     </div>
                                 </div>

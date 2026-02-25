@@ -16,7 +16,7 @@ export default function Footer() {
             {/* Ambient Background Glow */}
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[60rem] h-[30rem] bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <div className="w-full px-6 md:px-12 lg:px-20 relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20 items-start mb-20">
                     {/* Brand Section */}
                     <div className="md:col-span-5 space-y-8 text-center md:text-left">

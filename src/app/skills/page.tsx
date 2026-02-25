@@ -16,7 +16,7 @@ export default function SkillsPage() {
                     <div className="absolute top-0 right-0 w-[30rem] md:w-[40rem] h-[30rem] md:h-[40rem] bg-blue-500/5 blur-[100px] md:blur-[150px] rounded-full translate-x-1/3 -translate-y-1/3" />
                 </div>
 
-                <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
+                <div className="w-full relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center">
                         <div className="lg:col-span-12 xl:col-span-8 space-y-8 md:space-y-12">
                             <motion.div
@@ -122,7 +122,7 @@ export default function SkillsPage() {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="max-w-7xl mx-auto px-4 md:px-0"
+                    className="w-full"
                 >
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center p-8 md:p-24 rounded-[3rem] md:rounded-[4rem] bg-white/[0.02] border border-white/5 backdrop-blur-3xl overflow-hidden relative">
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none" />

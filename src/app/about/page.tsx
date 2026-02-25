@@ -14,7 +14,7 @@ export default function AboutPage() {
         <div className="pt-20 md:pt-24 pb-20 md:pb-32 space-y-20 md:space-y-32">
             {/* Hero Quote Section */}
             <Section id="about-hero" title="" className="!py-16 md:!py-28">
-                <div className="max-w-5xl mx-auto text-center px-6">
+                <div className="w-full text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}

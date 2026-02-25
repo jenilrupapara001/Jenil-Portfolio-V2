@@ -9,7 +9,7 @@ export default function ContactPage() {
         <div className="pt-24 md:pt-32 pb-24 md:pb-32 space-y-24">
             {/* High-Impact Contact Hero */}
             <Section id="contact-hero" title="" className="!py-12 md:!py-20">
-                <div className="max-w-7xl mx-auto px-6 relative">
+                <div className="w-full relative">
                     <div className="absolute top-0 left-0 w-[30rem] md:w-[50rem] h-[30rem] md:h-[50rem] bg-primary/10 blur-[150px] md:blur-[250px] rounded-full pointer-events-none -translate-x-1/2 -translate-y-1/2" />
 
                     <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 md:gap-16 mb-20 md:mb-24 relative z-10">
@@ -57,7 +57,7 @@ export default function ContactPage() {
 
             {/* Availability Detail */}
             <Section id="availability" title="" className="!py-20 md:!py-32">
-                <div className="max-w-4xl mx-auto px-6 text-center space-y-8">
+                <div className="w-full text-center space-y-8">
                     <p className="text-[10px] font-black uppercase tracking-[0.4em] text-foreground/20">Response SLA</p>
                     <p className="text-lg md:text-2xl text-foreground/40 font-bold uppercase tracking-widest max-w-xl mx-auto leading-relaxed">
                         I typically respond to technical and career inquiries within <span className="text-white italic">24 hours</span>.

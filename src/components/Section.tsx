@@ -13,7 +13,7 @@ interface SectionProps {
 export default function Section({ id, children, className = "", title }: SectionProps) {
     return (
         <section id={id} className={`py-20 md:py-28 ${className}`}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="w-full px-6 md:px-12 lg:px-20">
                 {title && (
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}

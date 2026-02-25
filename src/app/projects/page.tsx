@@ -10,7 +10,7 @@ export default function ProjectsPage() {
         <div className="pt-24 pb-32 space-y-24">
             {/* High-Impact Hero */}
             <Section id="projects-hero" title="">
-                <div className="max-w-7xl mx-auto px-4 relative">
+                <div className="w-full relative">
                     {/* Background Decorative Element */}
                     <div className="absolute -top-20 -left-20 w-96 h-96 bg-primary/20 blur-[120px] rounded-full pointer-events-none" />
 
@@ -24,7 +24,7 @@ export default function ProjectsPage() {
                                 >
                                     Selected Works
                                 </motion.span>
-                                <h1 className="text-7xl md:text-[12rem] font-black uppercase tracking-tighter italic leading-[0.75] select-none">
+                                <h1 className="text-6xl md:text-9xl lg:text-[10rem] font-black uppercase tracking-tighter italic leading-[0.75] select-none">
                                     The <br />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-400 to-primary/80 animate-gradient-x italic">Solutions</span>
                                 </h1>
@@ -49,14 +49,14 @@ export default function ProjectsPage() {
                     </div>
                 </div>
 
-                <div className="max-w-7xl mx-auto px-4">
+                <div className="w-full">
                     <ProjectsGrid />
                 </div>
             </Section>
 
             {/* Bottom CTA Section */}
             <Section id="projects-cta" title="">
-                <div className="max-w-4xl mx-auto px-4 py-20 rounded-[4rem] bg-white/[0.01] border border-white/5 text-center relative overflow-hidden">
+                <div className="w-full py-20 rounded-[4rem] bg-white/[0.01] border border-white/5 text-center relative overflow-hidden">
                     <div className="absolute inset-0 bg-primary/5 blur-3xl rounded-full translate-y-20" />
                     <h2 className="relative z-10 text-4xl font-black uppercase tracking-tighter italic mb-8">Have a complex bottleneck?</h2>
                     <p className="relative z-10 text-foreground/50 mb-12 max-w-xl mx-auto leading-relaxed">

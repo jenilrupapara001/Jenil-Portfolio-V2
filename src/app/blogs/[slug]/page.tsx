@@ -52,7 +52,7 @@ export default async function BlogPostPage({ params }: any) {
 
             <article className="pt-32 pb-28">
                 {/* Article Container */}
-                <div className="max-w-5xl mx-auto px-6">
+                <div className="w-full px-6">
 
                     {/* Category */}
                     <div className="mb-6">

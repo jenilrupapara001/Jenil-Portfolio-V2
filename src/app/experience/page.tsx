@@ -10,7 +10,7 @@ export default function ExperiencePage() {
         <div className="pt-20 md:pt-24 pb-20 md:pb-32 space-y-16 md:space-y-24">
             {/* Career Hero */}
             <Section id="exp-hero" title="" className="!py-16 md:!py-28">
-                <div className="max-w-7xl mx-auto px-6 relative">
+                <div className="w-full relative">
                     <div className="absolute top-0 right-0 w-[20rem] md:w-[30rem] h-[20rem] md:h-[30rem] bg-accent/10 blur-[100px] md:blur-[150px] rounded-full pointer-events-none" />
 
                     <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 md:gap-12 mb-16 md:mb-20 border-b border-white/10 pb-16 md:pb-20 relative z-10">
@@ -66,7 +66,7 @@ export default function ExperiencePage() {
 
             {/* Delivery Framework Visualization */}
             <Section id="framework" title="" className="!py-16 md:!py-28">
-                <div className="max-w-6xl mx-auto px-6">
+                <div className="w-full">
                     <div className="mb-12 md:mb-20 text-center max-w-2xl mx-auto">
                         <p className="text-primary font-black uppercase tracking-[0.4em] text-[8px] md:text-xs mb-4">The Standard</p>
                         <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter italic">Delivery Framework</h2>

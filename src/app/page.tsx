@@ -16,7 +16,7 @@ export default function Home() {
             {/* Social Proof / Trust Section: High-Fidelity Validation */}
             <Section id="trust" title="" className="py-12 relative overflow-hidden">
                 <div className="absolute inset-0 bg-white/[0.01] border-y border-white/5" />
-                <div className="max-w-6xl mx-auto px-4 relative z-10 flex flex-wrap justify-center md:justify-between items-center gap-12">
+                <div className="w-full relative z-10 flex flex-wrap justify-center md:justify-between items-center gap-12">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -68,7 +68,7 @@ export default function Home() {
 
             {/* Impact Hub: Driving Measurable Results */}
             <Section id="about-hub" title="">
-                <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -128,7 +128,7 @@ export default function Home() {
 
             {/* Deep Technical Philosophy & Positioning (Expansion) */}
             <Section id="technical-authority" title="">
-                <div className="max-w-4xl mx-auto space-y-12">
+                <div className="w-full space-y-12">
                     <div className="space-y-6">
                         <h2 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter">Beyond Full-Stack: <span className="text-primary italic">Systems Engineering.</span></h2>
                         <p className="text-lg md:text-xl text-foreground/60 leading-relaxed">
@@ -158,7 +158,7 @@ export default function Home() {
 
             {/* Services & Industry Expertise */}
             <Section id="services" title="" className="bg-white/[0.01] border-y border-white/5">
-                <div className="max-w-7xl mx-auto px-4">
+                <div className="w-full">
                     <div className="text-center mb-20 space-y-4">
                         <span className="text-primary font-black uppercase tracking-[0.5em] text-[10px]">Strategic Capabilities</span>
                         <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic">Solutions for <span className="text-primary italic">Global Growth.</span></h2>
@@ -198,7 +198,7 @@ export default function Home() {
 
             {/* Why Hire Section: Market Specific Positioning */}
             <Section id="why-hire" title="">
-                <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                     <div className="space-y-8">
                         <h2 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter leading-none">Why Partner With <br /><span className="text-primary italic">Jenil Rupapara?</span></h2>
                         <ul className="space-y-6">
@@ -246,7 +246,7 @@ export default function Home() {
 
             {/* Technical FAQ Section */}
             <Section id="faq" title="" className="pb-40">
-                <div className="max-w-4xl mx-auto space-y-16">
+                <div className="w-full space-y-16">
                     <div className="text-center space-y-4">
                         <span className="text-primary font-black uppercase tracking-[0.5em] text-[10px]">Knowledge Base</span>
                         <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic">Frequently Asked <span className="text-primary italic">Questions.</span></h2>
@@ -286,7 +286,7 @@ export default function Home() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="max-w-7xl mx-auto relative group"
+                    className="w-full relative group"
                 >
                     <div className="absolute inset-0 bg-primary/20 blur-[150px] rounded-[5rem] group-hover:scale-110 transition-transform duration-1000" />
 

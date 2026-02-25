@@ -10,7 +10,7 @@ export default function EducationPage() {
         <div className="pt-20 md:pt-24 pb-20 md:pb-32 space-y-16 md:space-y-24">
             {/* Education Hero */}
             <Section id="edu-hero" title="" className="!py-16 md:!py-28">
-                <div className="max-w-7xl mx-auto px-6 relative">
+                <div className="w-full relative">
                     <div className="absolute -top-20 md:-top-40 left-1/2 -translate-x-1/2 w-[30rem] md:w-[50rem] h-[20rem] md:h-[30rem] bg-primary/10 blur-[120px] md:blur-[200px] rounded-full pointer-events-none" />
 
                     <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 md:gap-12 mb-16 md:mb-24 border-b border-white/10 pb-16 md:pb-20 relative z-10">
@@ -52,7 +52,7 @@ export default function EducationPage() {
 
             {/* Knowledge Domains Refined */}
             <Section id="learning-path" title="" className="!py-16 md:!py-28">
-                <div className="max-w-6xl mx-auto px-6">
+                <div className="w-full">
                     <div className="text-center mb-12 md:mb-20 space-y-3 md:space-y-4">
                         <p className="text-primary font-black uppercase tracking-[0.5em] text-[8px] md:text-[10px]">Intellectual Stack</p>
                         <h2 className="text-3xl md:text-6xl font-black uppercase tracking-tighter italic">Knowledge Domains</h2>

@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 export default function ProjectDetailView({ project }: { project: Project }) {
     return (
         <div className="pt-8 md:pt-12 pb-16 md:pb-24">
-            <div className="max-w-5xl mx-auto px-6">
+            <div className="w-full px-6">
                 <Link
                     href="/projects"
                     className="inline-flex items-center text-primary hover:text-white mb-8 md:mb-12 group transition-colors text-xs font-black uppercase tracking-widest"
@@ -29,10 +29,10 @@ export default function ProjectDetailView({ project }: { project: Project }) {
                             <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                             <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.5em] text-primary/60">Project Specification v1.0</span>
                         </div>
-                        <h1 className="text-4xl sm:text-5xl md:text-8xl font-black uppercase tracking-tighter italic leading-none">{project.title}</h1>
+                        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter italic leading-none">{project.title}</h1>
                     </div>
 
-                    <div className="relative aspect-video rounded-[2.5rem] md:rounded-[4rem] overflow-hidden border border-white/10 bg-white/[0.02] shadow-3xl">
+                    <div className="relative h-[25rem] md:h-[35rem] lg:h-[40rem] rounded-[2rem] md:rounded-[3rem] overflow-hidden border border-white/10 bg-white/[0.02] shadow-3xl">
                         <Image
                             src={project.image}
                             alt={project.title}
@@ -52,7 +52,7 @@ export default function ProjectDetailView({ project }: { project: Project }) {
                                     <div className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-[10px] font-black italic text-primary">01</div>
                                     <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tighter italic text-white/90">The Bottleneck</h2>
                                 </div>
-                                <p className="text-foreground/60 leading-relaxed text-lg md:text-2xl font-medium italic border-l-2 border-primary/20 pl-6 md:pl-8">
+                                <p className="text-foreground/70 leading-relaxed text-lg md:text-xl font-medium italic border-l-2 border-primary/20 pl-6 md:pl-8">
                                     "{project.problem}"
                                 </p>
                             </section>
@@ -136,7 +136,7 @@ export default function ProjectDetailView({ project }: { project: Project }) {
                                             <Zap className="w-5 h-5 md:w-6 md:h-6 text-primary animate-pulse" />
                                             <h2 className="text-xl md:text-2xl font-black uppercase tracking-tighter italic">Engineered Impact</h2>
                                         </div>
-                                        <p className="text-2xl md:text-5xl font-black text-foreground italic tracking-tighter leading-tight">
+                                        <p className="text-2xl md:text-3xl lg:text-4xl font-black text-foreground italic tracking-tighter leading-tight">
                                             {project.impact}
                                         </p>
                                     </div>

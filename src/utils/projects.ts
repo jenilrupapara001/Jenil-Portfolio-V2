@@ -83,36 +83,36 @@ export const projects: Project[] = [
         category: "Microservices"
     },
     {
-        slug: "grownext-in",
-        title: "Grownext.in: Global Partner Portal",
-        description: "The official operations hub for Alibaba.com's Indian partners. A data-intensive platform facilitating B2B seller onboarding, growth analytics, and lead management.",
-        problem: "Alibaba's Indian operations were previously managed through fragmented Excel sheets and legacy CRMs, leading to a 'data silo' effect. Partners had no real-time visibility into seller performance, making it impossible to provide timely growth advice. The onboarding process was manual and slow, taking up to 7 days for a single seller to go live.",
-        solution: "I developed Grownext.in as a unified partner portal using Next.js and Supabase. I architected a real-time data synchronization layer that pulled seller KPIs from internal Alibaba APIs and visualized them through custom D3.js charts. To streamline onboarding, I built an automated documentation engine that uses AI for basic document verification, reducing the manual review queue. The system implements Row-Level Security (RLS) policies at the database level to ensure that multiple competing partners can share a single database without seeing each other's sensitive seller leads. I also leveraged Next.js Edge Functions to handle complex server-side calculations at the CDN level, minimizing latency for users in Tier-2 and Tier-3 cities.",
-        impact: "Onboarding time was slashed from 7 days to 24 hours. The portal now supports over 500+ active B2B partners, with a 40% improvement in reported operational efficiency. Partners now make data-driven decisions that have led to a 25% average increase in seller GMV (Gross Merchandise Volume) within the first 6 months of using the platform.",
+        slug: "gms-report-dashboard",
+        title: "GMS Report Dashboard: Enterprise Amazon BI",
+        description: "A comprehensive Business Intelligence (BI) dashboard for Amazon sellers, featuring OKR tracking, task management, ASIN analytics, and AI-powered goal generation.",
+        problem: "Amazon sellers often deal with fragmented data, making it difficult to track strategic goals (OKRs), manage daily operations, and optimize product performance (ASINs) in real-time. Manual reporting and lack of AI-driven insights lead to operational inefficiencies and missed growth opportunities.",
+        solution: "I developed a full-stack BI ecosystem using the MERN stack with React 19 and Tailwind CSS 4. The platform integrates Perplexity AI for automated OKR generation and task suggestions. It features a real-time notification system via Socket.io and SSE, and a sophisticated ASIN analytics engine that tracks BSR, price trends, and LQS over 12-week windows. The system also includes a hierarchical RBAC system and CometChat integration for vendor communication.",
+        impact: "Streamlined corporate-level OKR tracking for high-volume Amazon brands. Reduced time spent on manual task reporting and goal setting by leveraging AI-powered breakdowns. Enhanced data visibility for Brand Managers through automated ASIN trend analysis, leading to more responsive pricing and inventory strategies.",
         features: [
-            "Real-time Growth Analytics with Interactive Data Visualizations",
-            "Automated Multi-step Document Onboarding Workflows",
-            "Intelligent Lead Distribution & Management Engine",
-            "Supabase-driven Real-time Messaging and Notifications",
-            "Advanced RBAC with PostgreSQL Row-Level Security",
-            "Mobile-optimized Dashboard for Field-agent Accessibility"
+            "AI-Powered OKR Engine: Automated monthly/weekly goal breakdown via Perplexity AI",
+            "Advanced ASIN Analytics: 12-week historical tracking of Price, BSR, and LQS trends",
+            "Real-time Operational Pulse: Socket.io & SSE-driven task updates and notifications",
+            "Hierarchical RBAC: Granular access control for Admins, Brand Managers, and Researchers",
+            "Integrated Communication: Native vendor messaging powered by CometChat sync",
+            "Automated FBA & Referral Fee Engine: Real-time profitability calculations"
         ],
         challenges: [
-            "Legacy Integration: Connecting modern Supabase real-time listeners to legacy SOAP-based internal inventory systems.",
-            "Data Privacy: Designing a complex multi-tenant architecture where data isolation must be guaranteed at the database engine level.",
-            "Accessibility: Optimizing the frontend bundle to ensure fast load times on erratic 4G/5G connections in rural India."
+            "Real-time Synchronization: Ensuring consistent task states across multiple users using a combination of Socket.io and SSE.",
+            "AI Resilience: Implementing robust JSON parsing and error handling for LLM-generated OKR structures.",
+            "Data Isolation: Engineering a multi-tenant data layer that strictly separates seller data between different Brand Managers."
         ],
         process: [
-            "Phase 01: On-site workshops with Alibaba partners to map the seller lifecycle and pain points.",
-            "Phase 02: Rapid prototyping of the analytics dashboard with a focus on data clarity.",
-            "Phase 03: Developing the secure database layer and RLS policies in Supabase.",
-            "Phase 04: Implementing the automation engine for document processing and verification.",
-            "Phase 05: Gradual rollout and feedback-driven refinement of the mobile user experience."
+            "Phase 01: Requirement analysis for high-volume Amazon seller operations and OKR workflows.",
+            "Phase 02: Designing the MERN architecture with a focus on real-time updates and AI integration.",
+            "Phase 03: Developing the ASIN tracking engine and fee calculation logic.",
+            "Phase 04: Building the AI-powered OKR generation pipeline and hierarchical RBAC system.",
+            "Phase 05: Deployment and optimization on Vercel and Render with automated sync scripts."
         ],
-        tags: ["Next.js", "Supabase", "PostgreSQL", "Tailwind", "D3.js"],
-        github: "https://github.com/jenilrupapara001/Grownext.in",
-        demo: "https://grownext.in",
-        image: "/projects/grownext.png",
+        tags: ["React", "Node.js", "MongoDB", "AI", "Socket.io", "Tailwind"],
+        github: "https://github.com/jenilrupapara001/gms-report-dashboard",
+        demo: "https://retail-ops-black.vercel.app",
+        image: "/projects/gms-dashboard.png",
         category: "SaaS"
     },
     {
@@ -180,5 +180,39 @@ export const projects: Project[] = [
         demo: "#",
         image: "/projects/metalex.png",
         category: "SaaS"
-    }
+    },
+    {
+        slug: "dealflow-crm",
+        title: "DealFlow CRM: Elite Sales Workspace",
+        description: "A premium, high-fidelity SaaS CRM workspace designed for high-performance sales teams. DealFlow unifies lead management, pipeline visualization, and advanced business intelligence into a cinematic, glassmorphic interface.",
+        problem: "Sales teams often struggle with fragmented tools and cluttered interfaces that hinder productivity. The challenge was to create a unified, high-performance CRM that combines powerful analytics with an elite, distraction-free user experience, while ensuring data security and scalability for enterprise-level operations.",
+        solution: "I architected and developed a comprehensive CRM solution using the MERN stack. The frontend leverages React 18, Framer Motion for cinematic transitions, and a custom Tailwind CSS glassmorphic design system. I implemented complex data visualizations with Recharts for 12-month trailing revenue and funnel velocity. The backend build with Node.js and Express follows a structured MVC architecture, utilizing MongoDB for scalable data modeling. Features include a fluid Kanban board, automated outreach engines, and a robust RBAC foundation for secure, role-based access control.",
+        impact: "The platform delivers a production-ready CRM experience with a 75% improvement in UI fluidness and data accessibility compared to traditional sales dashboards. By automating lead distribution and outreach tracking, it significantly reduces administrative overhead for sales managers. The integrated analytics provide real-time strategic insights, enabling data-driven decision-making for high-stakes sales environments.",
+        features: [
+            "Advanced BI: 12-month Trailing Revenue & Funnel Velocity Analytics",
+            "Elite Pipeline Management: Fluid Kanban Boards with Real-time Metric Updates",
+            "Enterprise Lead Management: Bulk Pursuit & Smart Assignment Engine",
+            "Automated Outreach 2.0: Campaign Engine with Engagement Insights",
+            "Restricted Demo Mode & RBAC: Security-optimized middleware for public showcases",
+            "Data Mobility: Native CSV Import/Export for seamless scaling"
+        ],
+        challenges: [
+            "High-Fidelity Transitions: Managing complex Framer Motion animations across heavy data grids without sacrificing 60fps performance.",
+            "Stateless Security: Implementing a secure JWT-based authentication system with restricted demo modes and multi-role access control.",
+            "Real-time Intelligence: Optimizing MongoDB queries to recalculate complex deal values and stage occupancy in real-time."
+        ],
+        process: [
+            "Phase 01: Concept design focus on premium glassmorphic aesthetics and sales workflows.",
+            "Phase 02: Architecting the MERN backend with MVC patterns and security-first middleware.",
+            "Phase 03: Developing the core CRM components (Kanban, BI Charts) and motion design system.",
+            "Phase 04: Engineering the automated outreach engine and data mobility features.",
+            "Phase 05: Stress testing with realistic seed data and optimizing for production deployment."
+        ],
+        tags: ["React", "Node.js", "MongoDB", "Framer Motion", "Recharts", "Tailwind"],
+        github: "https://github.com/jenilrupapara001/DealFLow",
+        demo: "https://dealflow-demo.vercel.app",
+        image: "/dealflow.png",
+        category: "SaaS"
+    },
 ];
+
