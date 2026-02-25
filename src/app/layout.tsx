@@ -40,7 +40,8 @@ export const metadata: Metadata = {
         "MongoDB Architect",
     ],
     verification: {
-        google: "VvSXRnC8iZ9S3kTt_vC91Hn4KDpbZTkhXoj74yTq6cQ",
+        // google: "VvSXRnC8iZ9S3kTt_vC91Hn4KDpbZTkhXoj74yTq6cQ",
+        google: "uYVo8_dLBPMuJk6XPLjyHW5aeEl-ufA0OC73XYGsPf4",
     },
     openGraph: {
         title: "Jenil Rupapara | MERN Stack Developer",
