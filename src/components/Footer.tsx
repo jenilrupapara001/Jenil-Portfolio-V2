@@ -61,10 +61,10 @@ export default function Footer() {
                         <div className="space-y-6">
                             <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Showroom</h4>
                             <ul className="space-y-4">
-                                {["Projects", "Experience", "Contact", "Knowledge Hub"].map((item) => (
+                                {["Projects", "Experience", "Contact"].map((item) => (
                                     <li key={item}>
                                         <Link
-                                            href={(item === "Knowledge Hub" ? "/blogs" : `/${item.toLowerCase()}`)}
+                                            href={`/${item.toLowerCase()}`}
                                             className="text-foreground/40 hover:text-white transition-colors text-sm font-black uppercase tracking-widest leading-none"
                                         >
                                             {item}
@@ -78,7 +78,7 @@ export default function Footer() {
                     {/* Socials & Connect */}
                     <div className="md:col-span-3 space-y-8 text-center md:text-left">
                         <div className="space-y-6">
-                            <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Sync Logic</h4>
+                            <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Connect</h4>
                             <div className="flex justify-center md:justify-start gap-4">
                                 {socialLinks.map((item) => (
                                     <Link
@@ -99,28 +99,17 @@ export default function Footer() {
                                 <Zap className="w-5 h-5" />
                             </div>
                             <div className="flex flex-col text-left">
-                                <span className="text-[8px] font-black uppercase tracking-widest text-foreground/40">Network Status</span>
-                                <span className="text-xs font-black italic">Active IST</span>
+                                <span className="text-[8px] font-black uppercase tracking-widest text-foreground/40">Timezone</span>
+                                <span className="text-xs font-black italic">Active IST (US/UK Overlap)</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Bottom Bar */}
                 <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
                     <p className="text-[10px] font-black uppercase tracking-[0.5em] text-foreground/20 select-none">
-                        &copy; {new Date().getFullYear()} JENIL RUPAPARA • FULL-STACK ARCHITECT
+                        &copy; {new Date().getFullYear()} JENIL RUPAPARA
                     </p>
-                    <div className="flex items-center gap-6">
-                        <div className="flex items-center gap-2">
-                            <ShieldCheck className="w-3 h-3 text-green-500/50" />
-                            <span className="text-[8px] font-black uppercase tracking-widest text-foreground/20">Secure Production Environment</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Globe className="w-3 h-3 text-blue-500/50" />
-                            <span className="text-[8px] font-black uppercase tracking-widest text-foreground/20">v2.0.4-LATEST</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </footer>

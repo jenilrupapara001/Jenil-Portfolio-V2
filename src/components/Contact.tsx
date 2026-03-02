@@ -39,8 +39,8 @@ export default function Contact() {
 
     const socialLinks = [
         { label: "LinkedIn", href: "https://linkedin.com/in/jenilrupapara-fullstack-developer", icon: Linkedin, color: "text-[#0077B5]" },
-        { label: "GitHub", href: "https://github.com/jenilrupapara001", icon: Github, color: "text-white" },
         { label: "Email", href: "mailto:jenilrupapara340@gmail.com", icon: Mail, color: "text-primary" },
+        { label: "WhatsApp", href: "https://wa.me/918799257934", icon: Globe2, color: "text-green-400" },
     ];
 
     return (
@@ -65,7 +65,7 @@ export default function Contact() {
                                 className="flex items-center gap-3"
                             >
                                 <span className="w-12 h-[1px] bg-primary/60" />
-                                <span className="text-primary font-mono text-xs tracking-[0.2em] uppercase">System Online</span>
+                                <span className="text-primary font-mono text-xs tracking-[0.2em] uppercase">Direct Access</span>
                             </motion.div>
 
                             <h2 className="text-5xl md:text-7xl lg:text-[6rem] font-black uppercase tracking-tighter leading-[0.9] text-white">
@@ -123,8 +123,8 @@ export default function Contact() {
                                     >
                                         <div className="mb-8 flex items-end justify-between border-b border-white/10 pb-4">
                                             <div>
-                                                <h3 className="text-lg font-mono text-primary tracking-widest uppercase mb-1">// Initialize Protocol</h3>
-                                                <p className="text-xs text-foreground/40">Enter project parameters.</p>
+                                                <h3 className="text-lg font-mono text-primary tracking-widest uppercase mb-1">Project Details</h3>
+                                                <p className="text-xs text-foreground/40">Tell me about your bottleneck.</p>
                                             </div>
                                             <Sparkles className="w-5 h-5 text-primary/50" />
                                         </div>
@@ -201,7 +201,7 @@ export default function Contact() {
                                         >
                                             <div className="relative z-10 flex items-center justify-between px-6">
                                                 <span className="text-xs font-black uppercase tracking-[0.3em]">
-                                                    {loading ? "PROCESSING..." : "EXECUTE TRANSMISSION"}
+                                                    {loading ? "SENDING..." : "SEND MESSAGE"}
                                                 </span>
                                                 {loading ? (
                                                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -224,14 +224,14 @@ export default function Contact() {
                                             <CheckCircle2 className="w-8 h-8 text-primary" />
                                         </div>
                                         <div className="space-y-2">
-                                            <h3 className="text-2xl font-black uppercase tracking-tight text-white">Transmission Complete</h3>
-                                            <p className="text-foreground/60 font-mono text-xs">LOG ID: {Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
+                                            <h3 className="text-2xl font-black uppercase tracking-tight text-white">Message Sent</h3>
+                                            <p className="text-foreground/60 font-mono text-xs">I'll get back to you within 24 hours.</p>
                                         </div>
                                         <button
                                             onClick={() => setSuccess(false)}
                                             className="text-primary text-[10px] font-black uppercase tracking-[0.3em] hover:text-white transition-colors border-b border-primary/40 hover:border-white pb-1"
                                         >
-                                            RESET SIGNAL
+                                            SEND ANOTHER MESSAGE
                                         </button>
                                     </motion.div>
                                 )}

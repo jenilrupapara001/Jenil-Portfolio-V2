@@ -105,7 +105,7 @@ export default function AboutPage() {
                         >
                             <BarChart3 className="w-12 h-12 md:w-16 md:h-16 text-primary" />
                             <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tighter italic leading-tight">Metric-Driven Success</h3>
-                            <p className="text-foreground/50 text-sm md:text-base max-w-sm">My solutions aren't just beautiful—they are verified by business growth metrics and ROI.</p>
+                            <p className="text-foreground/50 text-sm md:text-base max-w-sm">My solutions aren't just beautiful they are verified by business growth metrics and ROI.</p>
                         </motion.div>
                     </div>
                 </div>

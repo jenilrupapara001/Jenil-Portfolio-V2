@@ -17,12 +17,12 @@ At some point, your single server will hit its limit. You have two choices: go b
 
 Vertical scaling means adding more CPU or RAM to your existing server.
 - **Pros**: Zero architectural changes. It's the 'Easy' button. Your database still lives in one place.
-- **Cons**: There is a hard physical limit. Eventually, you can't buy a bigger server. It also creates a **Single Point of Failure**—if that one giant machine crashes, everything goes down.
+- **Cons**: There is a hard physical limit. Eventually, you can't buy a bigger server. It also creates a **Single Point of Failure** if that one giant machine crashes, everything goes down.
 
 ## 2. Horizontal Scaling: 'Scaling Out'
 
 Horizontal scaling means adding more machines to your pool and using a Load Balancer to distribute traffic.
-- **Pros**: Theoretically infinite scale. High availability—if one server dies, the others take over. 
+- **Pros**: Theoretically infinite scale. High availability if one server dies, the others take over. 
 - **Cons**: Requires architectural maturity. Your app must be **Stateless**. You can't store user sessions in memory anymore; you need a shared store like Redis.
 
 ## 3. The Scaling Path for SaaS

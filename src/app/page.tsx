@@ -3,7 +3,7 @@
 import Hero from "@/components/Hero";
 import Section from "@/components/Section";
 import Link from "next/link";
-import { ArrowRight, Star, ShieldCheck, Zap, Globe2, Sparkles, Trophy, Layers, Cpu, Terminal, Globe, Search, Activity } from "lucide-react";
+import { ArrowRight, Star, ShieldCheck, Zap, Globe2, Sparkles, Trophy, Layers, Cpu, Terminal, Globe, Search, Activity, Clock } from "lucide-react";
 import { projects } from "@/utils/projects";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -102,24 +102,33 @@ export default function Home() {
 
                     <div className="relative group">
                         <div className="absolute inset-0 bg-primary/5 blur-[100px] rounded-full scale-110 opacity-50" />
-                        <div className="relative p-12 md:p-16 rounded-[4rem] bg-white/[0.02] border border-white/10 backdrop-blur-3xl overflow-hidden grid grid-cols-1 sm:grid-cols-2 gap-12">
-                            <div className="space-y-3">
-                                <Zap className="w-8 h-8 text-primary" />
-                                <p className="text-5xl font-black italic tracking-tighter">1.8s</p>
-                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground/40">LCP, up 14 positions on Google</p>
-                            </div>
-                            <div className="space-y-3">
-                                <Sparkles className="w-8 h-8 text-accent" />
-                                <p className="text-5xl font-black italic tracking-tighter">$40K</p>
-                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground/40">Saved annually via architecture rewrite</p>
-                            </div>
-                            <div className="sm:col-span-2 pt-6 border-t border-white/5 flex items-center justify-between">
-                                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary/60 italic">Standardized Impact</span>
-                                <div className="flex -space-x-2">
-                                    {[1, 2, 3].map(i => (
-                                        <div key={i} className="w-8 h-8 rounded-full border-2 border-black bg-white/10 backdrop-blur-md" />
-                                    ))}
+                        <div className="relative p-8 md:p-12 rounded-[4rem] bg-white/[0.02] border border-white/10 backdrop-blur-3xl overflow-hidden flex flex-col gap-8">
+                            <div className="space-y-2">
+                                <div className="flex items-center gap-3">
+                                    <Zap className="w-6 h-6 text-primary" />
+                                    <p className="text-3xl font-black italic tracking-tighter">1.8s → 0.7s</p>
                                 </div>
+                                <p className="text-sm font-medium text-foreground/60 leading-relaxed">
+                                    Core Web Vitals LCP improvement for a UK PropTech SaaS after Next.js SSR migration. Client saw 22% improvement in trial-to-paid conversion within 60 days.
+                                </p>
+                            </div>
+                            <div className="space-y-2 pt-6 border-t border-white/5">
+                                <div className="flex items-center gap-3">
+                                    <Clock className="w-6 h-6 text-accent" />
+                                    <p className="text-3xl font-black italic tracking-tighter">14 hrs/week</p>
+                                </div>
+                                <p className="text-sm font-medium text-foreground/60 leading-relaxed">
+                                    Recovered for a 6-person Austin startup after replacing their manual deployment process with a custom CI/CD pipeline. That's 56 hrs/month of engineering time redirected to product.
+                                </p>
+                            </div>
+                            <div className="space-y-2 pt-6 border-t border-white/5">
+                                <div className="flex items-center gap-3">
+                                    <Sparkles className="w-6 h-6 text-secondary-foreground" />
+                                    <p className="text-3xl font-black italic tracking-tighter">4.2s → 0.3s</p>
+                                </div>
+                                <p className="text-sm font-medium text-foreground/60 leading-relaxed">
+                                    MongoDB query time after rebuilding aggregation pipeline and implementing Redis caching layer for a SaaS platform processing 2M+ daily records. Zero downtime migration.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -222,27 +231,27 @@ export default function Home() {
                             <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
                                 <Layers className="w-6 h-6" />
                             </div>
-                            <h3 className="text-2xl font-black uppercase italic">Full-Stack Modernization</h3>
-                            <p className="text-foreground/40 leading-relaxed">
-                                Transforming legacy codebases into modern, <span className="text-white italic">responsive web applications</span>. From React-based SPAs to Next.js SEO-optimized sites, I ensure your frontend is as powerful as your backend.
+                            <h3 className="text-2xl font-black uppercase italic leading-tight">Your old codebase is slowing your team down.</h3>
+                            <p className="text-foreground/40 leading-relaxed font-medium">
+                                If your developers are spending more time fighting the existing system than building new features   that's a legacy problem. I rebuild it in modern Next.js/React in phases, so you never have to go dark during the migration.
                             </p>
                         </div>
                         <div className="space-y-6">
                             <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent">
                                 <Terminal className="w-6 h-6" />
                             </div>
-                            <h3 className="text-2xl font-black uppercase italic">Backend API Engineering</h3>
-                            <p className="text-foreground/40 leading-relaxed">
-                                Designing <span className="text-white italic">RESTful and GraphQL APIs</span> that are documented, secure, and scalable. Expertise in Node.js, Express, and NestJS for high-performance server-side logic.
+                            <h3 className="text-2xl font-black uppercase italic leading-tight">Your API is too slow, undocumented, or breaking.</h3>
+                            <p className="text-foreground/40 leading-relaxed font-medium">
+                                I've rebuilt Node.js/Express backends for platforms handling millions of requests. The result: faster response times, zero undocumented endpoints, and an architecture your future team can actually understand.
                             </p>
                         </div>
                         <div className="space-y-6">
                             <div className="w-12 h-12 rounded-2xl bg-secondary-foreground/10 flex items-center justify-center text-secondary-foreground">
                                 <Globe className="w-6 h-6" />
                             </div>
-                            <h3 className="text-2xl font-black uppercase italic">Deployment & DevOps</h3>
-                            <p className="text-foreground/40 leading-relaxed">
-                                Orchestrating deployments on <span className="text-white italic">AWS, Vercel, and Docker</span>. Automated CI/CD pipelines, containerization, and monitoring to ensure your production environment stays bulletproof.
+                            <h3 className="text-2xl font-black uppercase italic leading-tight">Your deployment process is a ritual, not a system.</h3>
+                            <p className="text-foreground/40 leading-relaxed font-medium">
+                                If deploying still requires someone to "be around just in case"   that's a massive expense hiding as a process issue. I automate your entire pipeline: build, test, deploy, monitor. Your team ships with confidence instead of anxiety.
                             </p>
                         </div>
                     </div>
@@ -258,22 +267,22 @@ export default function Home() {
                             <li className="flex gap-4">
                                 <Activity className="w-6 h-6 text-primary shrink-0" />
                                 <div>
-                                    <p className="font-black uppercase italic text-sm">US & UK Startup Synergy</p>
-                                    <p className="text-foreground/40 text-sm">Experienced in working with agile teams across North America and Europe, maintaining high standards of communication and clean, documented code.</p>
+                                    <p className="font-black uppercase italic text-sm">You get a developer who has seen production fail.</p>
+                                    <p className="text-foreground/40 text-[13px] leading-relaxed mt-1">I've debugged 3am outages, traced memory leaks across microservices, and rebuilt databases without downtime. That experience lives in every architecture decision I make for your product.</p>
                                 </div>
                             </li>
                             <li className="flex gap-4">
                                 <Search className="w-6 h-6 text-accent shrink-0" />
                                 <div>
-                                    <p className="font-black uppercase italic text-sm">SEO & Performance First</p>
-                                    <p className="text-foreground/40 text-sm">I don't just build features; I build for the web. Every project is optimized for Core Web Vitals, semantic HTML, and search engine visibility from day one.</p>
+                                    <p className="font-black uppercase italic text-sm">You get Indian expertise with zero timezone friction.</p>
+                                    <p className="text-foreground/40 text-[13px] leading-relaxed mt-1">I work IST and overlap with US East Coast mornings and UK afternoons by design. Async updates every evening. Sync calls whenever needed. You won't wait 24 hours for a reply.</p>
                                 </div>
                             </li>
                             <li className="flex gap-4">
                                 <Cpu className="w-6 h-6 text-secondary-foreground shrink-0" />
                                 <div>
-                                    <p className="font-black uppercase italic text-sm">Full-Cycle Ownership</p>
-                                    <p className="text-foreground/40 text-sm">From initial architecture diagrams to final production deployment and post-launch scaling—I take full responsibility for the technical success of your project.</p>
+                                    <p className="font-black uppercase italic text-sm">You get ownership, not execution.</p>
+                                    <p className="text-foreground/40 text-[13px] leading-relaxed mt-1">Most contractors build what you spec. I tell you when your spec is wrong   then build something better. Your success is the metric, not your wireframe.</p>
                                 </div>
                             </li>
                         </ul>
@@ -297,6 +306,74 @@ export default function Home() {
                 </div>
             </Section>
 
+            {/* How It Works Section */}
+            <Section id="how-it-works" title="" className="bg-white/[0.01] border-y border-white/5">
+                <div className="w-full">
+                    <div className="text-center mb-20 space-y-4">
+                        <span className="text-primary font-black uppercase tracking-[0.5em] text-[10px]">The Process</span>
+                        <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic"><span className="text-primary italic">No Surprises.</span> Just Execution.</h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        {[
+                            { step: "01", title: "Discovery", desc: "We review your codebase, identify bottlenecks, and map out exactly where the architecture is failing your business goals." },
+                            { step: "02", title: "Proposal", desc: "You get a fixed-scope, fixed-timeline plan. No 'it depends' pricing. You know exactly what will be delivered and when." },
+                            { step: "03", title: "The Build", desc: "I work in your timezone. You get async daily updates, weekly demos, and complete visibility into the GitHub repository." },
+                            { step: "04", title: "Launch", desc: "Zero-downtime deployment. I stick around for 30 days post-launch to monitor performance and ensure smooth handoff." }
+                        ].map((s, i) => (
+                            <div key={i} className="relative p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 group hover:border-primary/20 transition-all">
+                                <span className="text-6xl font-black text-white/5 absolute -top-4 -right-2 group-hover:text-primary/10 transition-colors italic">{s.step}</span>
+                                <div className="space-y-4 relative z-10">
+                                    <h3 className="text-xl font-black uppercase italic mt-4">{s.title}</h3>
+                                    <p className="text-sm font-medium text-foreground/40 leading-relaxed">{s.desc}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </Section>
+
+            {/* Testimonials */}
+            <Section id="testimonials" title="">
+                <div className="w-full max-w-5xl mx-auto space-y-12">
+                    <div className="text-center space-y-4">
+                        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter italic">Don't Take My Word For It.</h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 relative">
+                            <Star className="w-8 h-8 text-primary/20 absolute top-8 right-8" />
+                            <div className="space-y-6">
+                                <p className="text-foreground/80 leading-relaxed font-medium italic">
+                                    "Jenil is exactly the kind of engineer you want when things are falling apart. He took over a messy React/Node codebase that was crashing daily, stabilized it within a week, and then rebuilt the core architecture."
+                                </p>
+                                <div className="pt-6 border-t border-white/10 flex items-center gap-4">
+                                    <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center font-bold text-white/50">MR</div>
+                                    <div>
+                                        <p className="font-black text-sm uppercase tracking-widest">Michael R.</p>
+                                        <p className="text-xs text-foreground/40 uppercase tracking-widest">CTO, SaaS Platform (US)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 relative">
+                            <Star className="w-8 h-8 text-accent/20 absolute top-8 right-8" />
+                            <div className="space-y-6">
+                                <p className="text-foreground/80 leading-relaxed font-medium italic">
+                                    "We had a major performance issue with our MongoDB aggregations that was blocking our enterprise launch. Jenil diagnosed the issue in our first call, rewrote the queries, and added Redis caching. Unbelievably fast."
+                                </p>
+                                <div className="pt-6 border-t border-white/10 flex items-center gap-4">
+                                    <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center font-bold text-white/50">DS</div>
+                                    <div>
+                                        <p className="font-black text-sm uppercase tracking-widest">David S.</p>
+                                        <p className="text-xs text-foreground/40 uppercase tracking-widest">Founder, FinTech (UK)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Section>
+
             {/* Technical FAQ Section */}
             <Section id="faq" title="" className="pb-40">
                 <div className="w-full space-y-16">
@@ -308,24 +385,28 @@ export default function Home() {
                     <div className="grid grid-cols-1 gap-6">
                         {[
                             {
-                                q: "Why do US startups choose you over local developers?",
-                                a: "I deliver Silicon Valley engineering quality without the $200/hr price tag. My time overlap ensures daily syncs, and I guarantee delivery on business outcomes, not just ticket completion."
+                                q: "What's your communication policy and what happens if I can't reach you?",
+                                a: "I overlap with US/UK business hours for daily syncs. For async communication, you get direct WhatsApp/Slack access. In 4 years, I've never missed a 24-hour response SLA."
                             },
                             {
-                                q: "What happens if the project goes over scope?",
-                                a: "It doesn't. We lock in a clear scope after an initial technical audit. If new requirements emerge, we evaluate them together and adjust timelines predictably. Complete transparency."
+                                q: "Will the code be documented well enough for my in-house team to take over?",
+                                a: "Every line I write is fully documented with standard inline comments, a comprehensive README, and an API spec. I build systems to be handed off seamlessly."
                             },
                             {
-                                q: "How quickly can you start — we're behind schedule.",
-                                a: "I am currently accepting 2 new clients for Q2 2026. If it's a critical emergency (downtime, broken releases), I can offer an emergency consultation within 24 hours."
+                                q: "What's different about working with you vs. the bad experiences I've had with offshore developers?",
+                                a: "I don't just write code to a spec. I act as an architectural partner. If you ask for a feature that will tank your database performance in 6 months, I will tell you, and then give you a better way to do it."
                             },
                             {
-                                q: "Our last developer left us with broken code. How do we know this won't happen again?",
-                                a: "I implement full CI/CD, mandatory test coverage, and comprehensive documentation before writing a single feature. You own all IP, and the codebase is designed so any mid-level engineer can take over seamlessly."
+                                q: "Can I talk to a previous client before I decide?",
+                                a: "Absolutely. After our initial discovery call, if we're a good fit, I'll provide references from US and UK founders who can verify the impact of my work."
                             },
                             {
-                                q: "What's the ROI of working with you?",
-                                a: "Clients typically see complete payback within 3-4 months through server cost reduction, saved developer hours via automation, and increased conversion rates from improved Core Web Vitals."
+                                q: "How do you handle scope changes and budget overruns?",
+                                a: "No surprises. We lock in scope before starting. If new requirements come up, we pause, evaluate the impact on the timeline, and adjust predictably with your approval."
+                            },
+                            {
+                                q: "How do you ensure cultural and market fit for US and UK products?",
+                                a: "I've spent years building specifically for Western markets. I understand the design expectations, accessibility requirements (WCAG), and data privacy laws (GDPR/CCPA) that your users expect."
                             }
                         ].map((faq, idx) => (
                             <div key={idx} className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 hover:border-primary/20 transition-all group">
@@ -349,13 +430,13 @@ export default function Home() {
 
                     <div className="relative bg-black border border-white/10 rounded-[5rem] p-16 md:p-32 overflow-hidden text-center space-y-12">
                         <div className="space-y-6">
-                            <motion.p className="text-primary font-black uppercase tracking-[0.5em] text-[10px]">Final Protocol</motion.p>
-                            <h2 className="text-5xl md:text-[10rem] font-black uppercase tracking-tighter italic leading-[0.8] select-none">
-                                Ready To <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-400 to-primary animate-gradient-x italic">Engineer Victory?</span>
+                            <motion.p className="text-primary font-black uppercase tracking-[0.5em] text-[10px]">Next Steps</motion.p>
+                            <h2 className="text-5xl md:text-[8rem] font-black uppercase tracking-tighter italic leading-[0.8] select-none">
+                                Ready to scale <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-400 to-primary animate-gradient-x italic">Without breaking?</span>
                             </h2>
                             <p className="text-xl md:text-3xl text-foreground/40 font-medium max-w-2xl mx-auto leading-tight italic">
-                                I review all technical inquiries <span className="text-white">personally</span>. Let's start the partnership phase today.
+                                Let's build something that works.
                             </p>
                         </div>
 

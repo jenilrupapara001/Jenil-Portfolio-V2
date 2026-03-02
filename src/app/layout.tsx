@@ -150,10 +150,12 @@ export default function RootLayout({
                     dangerouslySetInnerHTML={{
                         __html: JSON.stringify({
                             "@context": "https://schema.org",
-                            "@type": "Person",
+                            "@type": ["Person", "ProfessionalService"],
                             "name": "Jenil Rupapara",
+                            "image": "https://jenilrupapara.vercel.app/og-image.jpg",
                             "url": "https://jenilrupapara.vercel.app",
                             "jobTitle": "Senior Full-Stack & SaaS Developer",
+                            "priceRange": "$$$",
                             "address": {
                                 "@type": "PostalAddress",
                                 "addressLocality": "Surat",
