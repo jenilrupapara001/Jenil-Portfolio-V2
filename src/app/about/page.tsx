@@ -25,7 +25,7 @@ export default function AboutPage() {
                             <span className="text-primary">Efficiency</span>
                         </h1>
                         <p className="text-lg md:text-2xl text-foreground/60 max-w-3xl mx-auto leading-relaxed font-medium">
-                            I don't just build websites. I engineer systems that solve business bottlenecks and accelerate growth through intelligent automation.
+                            Jenil Rupapara is an independent remote contractor providing specialized architectural solutions to eliminate business bottlenecks through intelligent automation. Jenil is an AWS Certified Professional available for hire globally.
                         </p>
                     </motion.div>
 
@@ -61,7 +61,7 @@ export default function AboutPage() {
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="mb-12 md:mb-20 text-center max-w-2xl mx-auto">
                         <p className="text-primary font-black uppercase tracking-[0.4em] text-[8px] md:text-xs mb-4">The Synergy</p>
-                        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter italic leading-tight">How I Build Solutions</h2>
+                        <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter italic leading-tight">MERN Stack Developer India Remote</h2>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -105,7 +105,7 @@ export default function AboutPage() {
                         >
                             <BarChart3 className="w-12 h-12 md:w-16 md:h-16 text-primary" />
                             <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tighter italic leading-tight">Metric-Driven Success</h3>
-                            <p className="text-foreground/50 text-sm md:text-base max-w-sm">My solutions aren't just beautiful they are verified by business growth metrics and ROI.</p>
+                            <p className="text-foreground/50 text-sm md:text-base max-w-sm">Every deployed solution is verified by business growth metrics and ROI.</p>
                         </motion.div>
                     </div>
                 </div>
@@ -121,7 +121,7 @@ export default function AboutPage() {
                                 <span className="text-primary italic">Terminal</span>
                             </h2>
                             <p className="text-base md:text-lg text-foreground/50 leading-relaxed font-medium">
-                                When I'm not architecting systems, I'm analyzing market trends and exploring the intersection of finance and technology. I believe a well-rounded perspective is what makes a developer a true problem solver.
+                                When not architecting systems, Jenil analyzes market trends and explores the intersection of finance and technology, believing a well-rounded perspective is what makes a developer a true problem solver.
                             </p>
                         </div>
 

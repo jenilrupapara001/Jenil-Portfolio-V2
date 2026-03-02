@@ -87,7 +87,7 @@ export default function AdminDashboard({ posts: initialPosts }: AdminDashboardPr
                                     <td className="px-8 py-5">
                                         <div className="flex items-center gap-4">
                                             <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-white/10 flex-shrink-0">
-                                                <Image src={post.image} alt="" fill className="object-cover" />
+                                                <Image src={post.image} alt={post.title} fill className="object-cover" />
                                             </div>
                                             <div>
                                                 <div className="text-sm font-bold text-white group-hover:text-primary transition-colors line-clamp-1">{post.title}</div>

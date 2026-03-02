@@ -1,0 +1,28 @@
+---
+title: "Migrating Monoliths to Microservices with Apache Kafka"
+date: "2026-03-06"
+category: "Architecture"
+tags: ["Kafka", "Microservices", "Node.js", "System Design"]
+excerpt: "Learn how to decompose a fragile legacy monolith into a resilient, event-driven microservices architecture using Apache Kafka."
+image: "/commercex.png"
+readTime: "8 min read"
+featured: true
+---
+# Migrating Monoliths to Microservices with Apache Kafka
+
+Legacy monolithic applications eventually become victims of their own success. As lines of code bloat, deployment times increase, and a single bug in a minor feature can crash the entire system. The solution is migrating to microservices, and the key to a scalable microservices architecture is **Event-Driven Communication via Apache Kafka**.
+
+## Why Point-to-Point Fails
+
+In early microservices migrations, teams often use synchronous HTTP/REST or gRPC calls between services. This creates a "distributed monolith" where Service A cannot process a request if Service B is down. It tightly couples the architecture and introduces cascading failures.
+
+## Enter Apache Kafka
+
+Kafka acts as an asynchronous central nervous system. Instead of Service A calling Service B, Service A emits an event (e.g., `OrderPlaced`). Service B (and any other interested system) independently consumes this event and processes it.
+
+### The Decoupling Advantage
+1. **Fault Isolation:** If the Email Service is down, the Order Service continues to process orders, placing events into Kafka. When the Email Service recovers, it picks up where it left off.
+2. **Scalability:** We can scale the Order Service and the Email Service independently based on their specific loads.
+3. **Data Replay:** Kafka stores data on disk, allowing new services to "replay" historical events to build up their own materialized views.
+
+Decomposing a monolith using Kafka enables the creation of highly-available, autonomous services capable of extreme scale.

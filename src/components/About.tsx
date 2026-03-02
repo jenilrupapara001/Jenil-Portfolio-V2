@@ -35,7 +35,7 @@ function AppWindowIcon(props: any) {
 
 export default function About() {
     return (
-        <Section id="about" title="My Story" className="!py-16 md:!py-28">
+        <Section id="about" title="Freelance Senior Developer" className="!py-16 md:!py-28">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
                 {/* Narrative Left Column */}
                 <motion.div
@@ -47,21 +47,21 @@ export default function About() {
                 >
                     <div className="space-y-4 md:space-y-6">
                         <h3 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tighter leading-none italic">
-                            Why do well-funded startups <br className="hidden md:block" />
-                            <span className="text-primary italic">ship slow software?</span>
+                            Jenil Rupapara is a <br className="hidden md:block" />
+                            <span className="text-primary italic">Senior MERN Stack Developer.</span>
                         </h3>
                         <div className="h-1 w-16 md:w-20 bg-primary rounded-full" />
                     </div>
 
                     <div className="prose prose-base md:prose-lg dark:prose-invert max-w-none space-y-4 md:space-y-6">
                         <p className="text-foreground/80 leading-relaxed text-base md:text-lg">
-                            I started writing code to answer that exact question.
+                            Jenil provides specialized Next.js and Node.js development services to startups in the US, UK, and India, with over 4+ years of production experience scaling SaaS and enterprise platforms.
                         </p>
                         <p className="text-foreground/70 leading-relaxed text-sm md:text-base">
-                            After 4+ years building production systems for US and UK companies SaaS platforms, FinTech tools, PropTech dashboards I've found the answer is almost never a technology problem. It's an architecture problem that compounds over time until you're spending 60% of your sprint fixing what should have worked.
+                            Working as an independent remote contractor, Jenil holds an active AWS Certified Professional badge and focuses on eliminating technical debt and resolving monolithic bottlenecks before they cripple operational velocity.
                         </p>
                         <p className="text-foreground/70 leading-relaxed text-sm md:text-base">
-                            I work differently. Before I write a line of code, I understand your business model, your user's real pain point, and where your system is most likely to fail at scale. Then I build for that. <span className="text-white font-bold italic">My clients don't just get faster software. They get a technical partner who treats their product like it's their own startup.</span>
+                            With a track record spanning FinTech, PropTech, and automated e-commerce distribution, Jenil engineers highly-available systems starting from rigorous problem breakdown rather than immediate code execution. <span className="text-white font-bold italic">He is currently available for freelance remote contracts.</span>
                         </p>
                         <div className="flex flex-wrap gap-3 md:gap-4 pt-4">
                             {[

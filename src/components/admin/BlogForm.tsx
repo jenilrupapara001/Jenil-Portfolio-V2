@@ -228,7 +228,7 @@ export default function BlogForm({ initialData, isNew = false }: BlogFormProps) 
 
                         <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-black/40">
                             {formData.image ? (
-                                <Image src={formData.image} alt="Preview" fill className="object-cover" />
+                                <Image src={formData.image} alt="Blog post cover preview" fill className="object-cover" />
                             ) : (
                                 <div className="absolute inset-0 flex items-center justify-center text-foreground/20 italic text-xs">No image selected</div>
                             )}

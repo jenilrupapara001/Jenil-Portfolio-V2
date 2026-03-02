@@ -25,9 +25,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
     metadataBase: new URL("https://jenilrupapara.vercel.app"),
-    title: "Jenil Rupapara | Senior MERN Stack Expert | US & UK SaaS Development Specialist",
-    description:
-        "ROI-driven MERN Stack Developer specializing in scalable enterprise SaaS solutions for US and UK markets. Expertise in React, Next.js, Node.js, and high-performance distributed systems.",
+    title: "Hire Senior MERN Stack Developer | Next.js & Node.js Expert | Jenil Rupapara",
+    description: "Jenil Rupapara — Senior MERN Stack & Next.js developer helping US & UK SaaS startups ship faster, scale smarter. AWS certified. Remote. Available now.",
     keywords: [
         "Senior MERN Stack Developer",
         "React Expert US UK",
@@ -47,9 +46,8 @@ export const metadata: Metadata = {
         google: "uYVo8_dLBPMuJk6XPLjyHW5aeEl-ufA0OC73XYGsPf4",
     },
     openGraph: {
-        title: "Jenil Rupapara | MERN Stack Developer",
-        description:
-            "Discover the professional portfolio of Jenil Rupapara. Projects, skills, and case studies showcasing modern web development with MERN stack technologies.",
+        title: "Hire Senior MERN Stack Developer | Next.js & Node.js Expert",
+        description: "Jenil Rupapara — Senior MERN Stack & Next.js developer helping US & UK SaaS startups ship faster, scale smarter. AWS certified. Remote. Available now.",
         url: "https://jenilrupapara.vercel.app",
         siteName: "Jenil Rupapara Portfolio",
         images: [
@@ -71,9 +69,8 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "Jenil Rupapara | MERN Stack Developer",
-        description:
-            "Check out the portfolio of Jenil Rupapara. Explore responsive web apps, full-stack projects, and collaborate on modern web development solutions.",
+        title: "Hire Senior MERN Stack Developer | Next.js & Node.js Expert",
+        description: "Jenil Rupapara — Senior MERN Stack & Next.js developer helping US & UK SaaS startups ship faster, scale smarter. AWS certified. Remote. Available now.",
         images: [
             "/og-image.jpg",
             "/og-image-2.jpg"

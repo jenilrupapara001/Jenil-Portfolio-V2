@@ -14,7 +14,7 @@ import {
 const skillCategories = [
     {
         title: "Frontend Engineering",
-        description: "Architecting high-conversion, pixel-perfect user experiences.",
+        description: "Jenil specializes in React and Next.js, architecting high-conversion, pixel-perfect user experiences tailored for enterprise and global SaaS brands. Core capabilities include managing complex state workflows with Redux and building aesthetic, responsive motion UI components using Tailwind CSS and Framer Motion.",
         skills: [
             { name: "React.js", icon: SiReact, color: "#61DAFB" },
             { name: "Next.js", icon: SiNextdotjs, color: "#FFFFFF" },
@@ -28,7 +28,7 @@ const skillCategories = [
     },
     {
         title: "Backend & Systems",
-        description: "Engineering scalable, event-driven autonomous backends.",
+        description: "As a Senior Node.js and MongoDB expert, Jenil engineers scalable, event-driven autonomous backends that effortlessly handle thousands of concurrent requests. He utilizes PostgreSQL for ACID compliance and Kafka paired with Redis for rapid message streaming in microservice environments.",
         skills: [
             { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
             { name: "Python", icon: SiPython, color: "#3776AB" },
@@ -42,7 +42,7 @@ const skillCategories = [
     },
     {
         title: "Architecture & Tools",
-        description: "Managing mission-critical deployment and cloud workflows.",
+        description: "Bringing CI/CD and DevOps rigor into software lifecycles. Expertise includes configuring scalable multi-region AWS and Google Cloud infrastructure, deploying secure containerized applications with Docker, and establishing strict type-safe schemas utilizing Prisma ORM.",
         skills: [
             { name: "AWS", icon: SiAmazonwebservices, color: "#FF9900" },
             { name: "Docker", icon: SiDocker, color: "#2496ED" },

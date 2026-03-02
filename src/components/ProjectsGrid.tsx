@@ -96,14 +96,28 @@ export default function ProjectsGrid() {
 
                                         {/* Bottom Labels */}
                                         <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 right-6 md:right-10 flex flex-col gap-3 md:gap-4 transform group-hover:-translate-y-2 transition-transform duration-700">
-                                            <h3 className="text-2xl sm:text-3xl md:text-4xl font-black italic uppercase tracking-tighter leading-[0.85] md:leading-none">
+                                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black italic uppercase tracking-tighter leading-[0.85] md:leading-none">
                                                 {project.title.split(' ')[0]} <br />
                                                 <span className="text-primary">{project.title.split(' ').slice(1).join(' ')}</span>
-                                            </h3>
+                                            </h2>
                                             <p className="text-white/40 text-[10px] md:text-sm font-medium leading-relaxed line-clamp-2 max-w-sm">
                                                 {project.description}
                                             </p>
                                         </div>
+                                    </div>
+
+                                    {/* SEO Hidden Context containing full case study text for indexing */}
+                                    <div className="sr-only">
+                                        <h3>Problem</h3>
+                                        <p>{project.problem}</p>
+                                        <h3>Solution</h3>
+                                        <p>{project.solution}</p>
+                                        <h3>Impact</h3>
+                                        <p>{project.impact}</p>
+                                        <h3>Tech Stack</h3>
+                                        <p>{project.tags.join(", ")}</p>
+                                        <a href={project.github}>View Source Code on GitHub</a>
+                                        {project.demo && <a href={project.demo}>View Live Demo</a>}
                                     </div>
 
                                     {/* Footer Info */}
