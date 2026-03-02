@@ -54,10 +54,13 @@ export default function About() {
 
                     <div className="prose prose-base md:prose-lg dark:prose-invert max-w-none space-y-4 md:space-y-6">
                         <p className="text-foreground/80 leading-relaxed text-base md:text-lg">
-                            I specialize in bridging the gap between <span className="text-white font-bold">complex business logic</span> and <span className="text-white font-bold">high-performance engineering</span>. My focus is not just on writing code, but on building systems that scale, endure, and empower.
+                            <span className="text-white font-bold italic">Most developers ship code. I ship outcomes.</span>
                         </p>
                         <p className="text-foreground/70 leading-relaxed text-sm md:text-base">
-                            With deep expertise in the <span className="text-primary">MERN Stack</span> and <span className="text-accent">Event-Driven Architectures</span>, I've delivered solutions that handle thousands of real-time events, automate mission-critical workflows, and provide seamless user experiences.
+                            After watching US and UK startups burn $50K+ on developers who built the wrong thing the right way, I took a different approach: <span className="text-white font-bold">understand the business first, build the system second.</span>
+                        </p>
+                        <p className="text-foreground/70 leading-relaxed text-sm md:text-base">
+                            I specialize in <span className="text-primary">MERN Stack</span> and <span className="text-accent">Next.js</span> development — but what my clients actually hire me for is making their product faster, more stable, and impossible for competitors to catch up to. If you're scaling a SaaS, entering a new market, or inheriting a codebase held together by duct tape and prayers — I've seen it. I've fixed it.
                         </p>
                         <div className="flex flex-wrap gap-3 md:gap-4 pt-4">
                             {[

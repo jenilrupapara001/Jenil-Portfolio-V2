@@ -68,30 +68,30 @@ export default function Hero() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="inline-flex items-center gap-3 px-4 sm:px-5 py-2 rounded-full bg-white/5 border border-white/10 text-primary-foreground text-[8px] sm:text-sm font-black mb-6 sm:mb-10 backdrop-blur-md whitespace-nowrap"
+                        className="inline-flex items-center gap-3 px-4 sm:px-5 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-[8px] sm:text-xs font-black mb-6 sm:mb-10 backdrop-blur-md whitespace-nowrap"
                     >
-                        <ShieldCheck className="w-3 h-3 sm:w-5 sm:h-5 text-primary" />
-                        <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent tracking-widest sm:tracking-wide">AVAILABLE FOR US • UK • GLOBAL COLLABORATIONS</span>
+                        <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+                        <span className="tracking-widest sm:tracking-wide">CURRENTLY ACCEPTING 2 NEW CLIENTS FOR Q2 2026. SPOTS FILL FAST.</span>
                     </motion.div>
 
                     <motion.h1
                         initial={{ opacity: 0, y: 40 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="text-5xl sm:text-6xl md:text-7xl lg:text-[9rem] xl:text-[11rem] font-black mb-6 sm:mb-10 leading-[0.85] sm:leading-[0.8] tracking-tighter w-full"
+                        className="text-4xl sm:text-5xl md:text-6xl lg:text-[7rem] xl:text-[8rem] font-black mb-6 sm:mb-10 leading-[0.95] sm:leading-[0.9] tracking-tighter w-full"
                     >
-                        I BUILD <br />
-                        <span className="text-transparent bg-clip-text bg-[image:linear-gradient(45deg,#4F46E5,#0EA5E9,#A855F7,#4F46E5)] bg-[size:300%_auto] animate-gradient-flow italic">SCALABLE</span> <br />
-                        EXPERIENCES.
+                        YOUR SAAS PRODUCT <br />
+                        IS LOSING MONEY. <br />
+                        <span className="text-transparent bg-clip-text bg-[image:linear-gradient(45deg,#4F46E5,#0EA5E9,#A855F7,#4F46E5)] bg-[size:300%_auto] animate-gradient-flow italic">I FIX THAT.</span>
                     </motion.h1>
 
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-lg sm:text-xl md:text-2xl text-foreground/40 mb-10 sm:mb-14 max-w-5xl leading-relaxed font-medium italic px-4 sm:px-0"
+                        className="text-lg sm:text-xl md:text-2xl text-foreground/70 mb-10 sm:mb-14 max-w-5xl leading-relaxed font-medium px-4 sm:px-0"
                     >
-                        Engineering <span className="text-foreground font-black underline underline-offset-8 decoration-primary/30">global-scale ecosystems</span> for US & UK markets where performance is the architectural core.
+                        I'm Jenil a MERN Stack Engineer who has helped US & UK startups cut development time by 50% and eliminate the technical bottlenecks killing their growth. <span className="text-white font-bold italic">Let's talk before your competition does.</span>
                     </motion.p>
 
                     <motion.div
@@ -101,10 +101,10 @@ export default function Hero() {
                         className="flex flex-col sm:flex-row gap-4 sm:gap-8 items-center w-full sm:w-auto"
                     >
                         <MagneticButton href="/contact" variant="primary">
-                            Work With Me <ArrowRight className="ml-3 sm:ml-4 w-5 h-5 sm:w-6 sm:h-6" />
+                            Get My Free Tech Audit <ArrowRight className="ml-3 sm:ml-4 w-5 h-5 sm:w-6 sm:h-6" />
                         </MagneticButton>
                         <MagneticButton href="/projects" variant="secondary">
-                            The Portfolio
+                            See Real Results
                         </MagneticButton>
                     </motion.div>
                 </div>

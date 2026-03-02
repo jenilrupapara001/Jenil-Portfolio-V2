@@ -5,6 +5,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import SplashCursor from "@/components/ui/SplashCursor";
+import StickyCTA from "@/components/StickyCTA";
+import ExitIntentPopup from "@/components/ExitIntentPopup";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -107,11 +109,27 @@ export default function RootLayout({
                     crossOrigin="anonymous"
                     strategy="afterInteractive"
                 />
-                {/* Google Analytics GA4 */}
                 <Script
                     async
                     src="https://www.googletagmanager.com/gtag/js?id=G-EF2LZ65C16"
                     strategy="afterInteractive"
+                />
+                {/* Hotjar Tracking Code */}
+                <Script
+                    id="hotjar-analytics"
+                    strategy="afterInteractive"
+                    dangerouslySetInnerHTML={{
+                        __html: `
+                            (function(h,o,t,j,a,r){
+                                h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                                h._hjSettings={hjid:YOUR_HOTJAR_ID_HERE,hjsv:6};
+                                a=o.getElementsByTagName('head')[0];
+                                r=o.createElement('script');r.async=1;
+                                r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                                a.appendChild(r);
+                            })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+                        `,
+                    }}
                 />
                 <Script
                     id="google-analytics"
@@ -162,6 +180,8 @@ export default function RootLayout({
                         <Navbar />
                         <main className="flex-grow pt-16">{children}</main>
                         <Footer />
+                        <StickyCTA />
+                        <ExitIntentPopup />
                     </div>
                 </ThemeProvider>
                 <Analytics />

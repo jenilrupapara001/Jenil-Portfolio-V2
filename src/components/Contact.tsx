@@ -68,14 +68,14 @@ export default function Contact() {
                                 <span className="text-primary font-mono text-xs tracking-[0.2em] uppercase">System Online</span>
                             </motion.div>
 
-                            <h2 className="text-6xl md:text-8xl lg:text-[7rem] font-black uppercase tracking-tighter leading-[0.85] text-white">
-                                Let's <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-white opacity-80">Forge</span> <br />
-                                The Future.
+                            <h2 className="text-5xl md:text-7xl lg:text-[6rem] font-black uppercase tracking-tighter leading-[0.9] text-white">
+                                Let's Figure <br />
+                                Out If We're <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-white opacity-80">A Good Fit.</span>
                             </h2>
 
                             <p className="text-lg md:text-xl text-foreground/50 font-medium max-w-xl border-l-2 border-primary/20 pl-6 leading-relaxed">
-                                I engineer high-performance digital ecosystems. If you have a complex problem or a visionary idea, I provide the architecture to make it real.
+                                I only take on projects where I know I can deliver at least a 3x ROI. Tell me about your biggest technical challenge right now.
                             </p>
                         </div>
 
@@ -181,13 +181,13 @@ export default function Contact() {
                                             </div>
 
                                             <div className="space-y-2 group">
-                                                <label className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">Mission Parameters</label>
+                                                <label className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">What's your biggest technical challenge right now?</label>
                                                 <textarea
                                                     name="message"
                                                     required
                                                     rows={3}
                                                     className="w-full bg-white/[0.03] border-b border-white/10 px-0 py-2 outline-none focus:border-primary focus:bg-transparent transition-all text-sm font-medium placeholder:text-foreground/10 font-mono resize-none leading-relaxed"
-                                                    placeholder="DESCRIBE OBJECTIVES..."
+                                                    placeholder="DESCRIBE YOUR BOTTLENECK..."
                                                 />
                                             </div>
                                         </div>
@@ -240,6 +240,25 @@ export default function Contact() {
                     </div>
 
                 </div>
+
+                {/* Calendly Embed Section */}
+                <div className="mt-32 w-full max-w-4xl mx-auto align-center flex border-t border-white/5 pt-20 flex-col">
+                    <div className="text-center mb-10 space-y-4">
+                        <span className="text-primary font-black uppercase tracking-[0.5em] text-[10px]">Instant Booking</span>
+                        <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tighter italic">Schedule A <span className="text-primary italic">Strategy Call.</span></h3>
+                        <p className="text-foreground/50 text-sm">Select a time below for your free 20-minute technical review.</p>
+                    </div>
+                    <div className="h-[700px] w-full bg-white/[0.02] border border-white/5 rounded-3xl overflow-hidden">
+                        <iframe
+                            src="https://calendly.com/jenilrupapara48/30min"
+                            width="100%"
+                            height="100%"
+                            frameBorder="0"
+                            className="bg-transparent"
+                        ></iframe>
+                    </div>
+                </div>
+
             </div>
         </Section>
     );

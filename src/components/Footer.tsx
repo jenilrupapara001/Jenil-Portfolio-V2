@@ -29,8 +29,8 @@ export default function Footer() {
                                 Jenil<span className="text-primary tracking-[-0.1em]">.</span>
                             </span>
                         </Link>
-                        <p className="text-foreground/40 font-medium text-lg leading-relaxed max-w-sm mx-auto md:mx-0">
-                            Engineering <span className="text-white italic">resilient ecosystems</span> and high-performance engineering for the next generation of digital infrastructure.
+                        <p className="text-foreground/60 font-medium text-sm md:text-base leading-relaxed max-w-sm mx-auto md:mx-0">
+                            If your product isn't performing, it's costing you. Most technical problems are solvable in days, not months. <span className="text-white italic">Let's find out where your system is leaking money</span> free 20-minute call, no sales pitch.
                         </p>
                         <div className="flex items-center justify-center md:justify-start gap-3">
                             <div className="flex -space-x-3">
