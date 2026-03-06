@@ -71,12 +71,31 @@ export default function Contact() {
                             <h2 className="text-5xl md:text-7xl lg:text-[6rem] font-black uppercase tracking-tighter leading-[0.9] text-white">
                                 Let's Figure <br />
                                 Out If We're <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-white opacity-80">A Good Fit.</span>
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-white opacity-80">A Right Fit.</span>
                             </h2>
 
                             <p className="text-lg md:text-xl text-foreground/50 font-medium max-w-xl border-l-2 border-primary/20 pl-6 leading-relaxed">
-                                I only take on projects where I know I can deliver at least a 3x ROI. Tell me about your biggest technical challenge right now.
+                                No pitch. No pressure. Just 20 minutes to understand your project and tell you honestly whether I can help.
                             </p>
+                        </div>
+
+                        {/* What Happens Next Timeline */}
+                        <div className="space-y-4 pt-4 border-t border-white/5">
+                            <h4 className="text-[10px] font-mono uppercase tracking-[0.2em] text-primary">What Happens Next</h4>
+                            <div className="flex flex-col gap-3">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-8 h-8 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center text-xs font-black text-white/50">1</div>
+                                    <p className="text-sm font-medium text-foreground/70">I'll review your details and reply within 24 hours.</p>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <div className="w-8 h-8 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center text-xs font-black text-white/50">2</div>
+                                    <p className="text-sm font-medium text-foreground/70">We schedule a free 20-minute Strategy Call if we're a match.</p>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <div className="w-8 h-8 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center text-xs font-black text-white/50">3</div>
+                                    <p className="text-sm font-medium text-foreground/70">You get a fixed-scope, fixed-timeline proposal.</p>
+                                </div>
+                            </div>
                         </div>
 
                         {/* HUD-style Social Links */}
@@ -151,37 +170,36 @@ export default function Contact() {
                                             </div>
                                             <div className="grid grid-cols-2 gap-4">
                                                 <div className="space-y-2 group">
-                                                    <label className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">Service Interest</label>
+                                                    <label className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">What are you building?</label>
                                                     <select
-                                                        name="service"
+                                                        name="project_type"
                                                         required
                                                         className="w-full bg-white/[0.03] border-b border-white/10 px-0 py-2 outline-none focus:border-primary focus:bg-transparent transition-all text-sm font-medium text-foreground/80 font-mono option:bg-black"
                                                     >
                                                         <option value="" className="bg-black text-foreground/50">SELECT TYPE</option>
-                                                        <option value="web-dev" className="bg-black">Web Development</option>
-                                                        <option value="app-dev" className="bg-black">App Development</option>
-                                                        <option value="consulting" className="bg-black">Tech Consulting</option>
+                                                        <option value="saas" className="bg-black">SaaS Platform</option>
+                                                        <option value="ecommerce" className="bg-black">E-Commerce</option>
+                                                        <option value="internal" className="bg-black">Internal Tool</option>
                                                         <option value="other" className="bg-black">Other</option>
                                                     </select>
                                                 </div>
                                                 <div className="space-y-2 group">
-                                                    <label className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">Budget Range</label>
+                                                    <label className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">Rough Timeline</label>
                                                     <select
-                                                        name="budget"
+                                                        name="timeline"
                                                         required
                                                         className="w-full bg-white/[0.03] border-b border-white/10 px-0 py-2 outline-none focus:border-primary focus:bg-transparent transition-all text-sm font-medium text-foreground/80 font-mono"
                                                     >
-                                                        <option value="" className="bg-black text-foreground/50">SELECT RANGE</option>
-                                                        <option value="<1k" className="bg-black">&lt; $1k</option>
-                                                        <option value="1k-5k" className="bg-black">$1k - $5k</option>
-                                                        <option value="5k-10k" className="bg-black">$5k - $10k</option>
-                                                        <option value="10k+" className="bg-black">$10k+</option>
+                                                        <option value="" className="bg-black text-foreground/50">SELECT TIMELINE</option>
+                                                        <option value="asap" className="bg-black">ASAP</option>
+                                                        <option value="1-3-months" className="bg-black">1-3 Months</option>
+                                                        <option value="exploring" className="bg-black">Just Exploring</option>
                                                     </select>
                                                 </div>
                                             </div>
 
                                             <div className="space-y-2 group">
-                                                <label className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">What's your biggest technical challenge right now?</label>
+                                                <label className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">What's the main problem you need solved?</label>
                                                 <textarea
                                                     name="message"
                                                     required

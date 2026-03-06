@@ -55,13 +55,13 @@ export default function About() {
 
                     <div className="prose prose-base md:prose-lg dark:prose-invert max-w-none space-y-4 md:space-y-6">
                         <p className="text-foreground/80 leading-relaxed text-base md:text-lg">
-                            Jenil provides specialized Next.js and Node.js development services to startups in the US, UK, and India, with over 4+ years of production experience scaling SaaS and enterprise platforms.
+                            Early in my career, I watched a startup burn through heavily-funded months because they built their product on a monolithic architecture that couldn't handle their first real traffic spike. <span className="text-white italic font-bold">That failure fundamentally changed how I engineer.</span>
                         </p>
                         <p className="text-foreground/70 leading-relaxed text-sm md:text-base">
-                            Working as an independent remote contractor, Jenil holds an active AWS Certified Professional badge and focuses on eliminating technical debt and resolving monolithic bottlenecks before they cripple operational velocity.
+                            I don't just write code; I architect resilient ecosystems. I provide specialized Next.js and Node.js development services to startups in the US, UK, and India, with over 4+ years of production experience scaling SaaS and enterprise platforms.
                         </p>
                         <p className="text-foreground/70 leading-relaxed text-sm md:text-base">
-                            With a track record spanning FinTech, PropTech, and automated e-commerce distribution, Jenil engineers highly-available systems starting from rigorous problem breakdown rather than immediate code execution. <span className="text-white font-bold italic">He is currently available for freelance remote contracts.</span>
+                            Working as an independent remote contractor, I hold an active <a href="https://www.credly.com/earner/earned" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline italic font-bold">AWS Certified Professional badge</a>. My entire focus is on eliminating technical debt and resolving monolithic bottlenecks before they cripple your operational velocity. <span className="text-white font-bold italic">I am currently available for freelance remote contracts.</span>
                         </p>
                         <div className="flex flex-wrap gap-3 md:gap-4 pt-4">
                             {[

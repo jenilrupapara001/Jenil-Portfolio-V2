@@ -29,19 +29,9 @@ export default function Footer() {
                                 Jenil<span className="text-primary tracking-[-0.1em]">.</span>
                             </span>
                         </Link>
-                        <p className="text-foreground/60 font-medium text-sm md:text-base leading-relaxed max-w-sm mx-auto md:mx-0">
-                            If your product isn't performing, it's costing you. Most technical problems are solvable in days, not months. <span className="text-white italic">Let's find out where your system is leaking money</span> free 20-minute call, no sales pitch.
+                        <p className="text-foreground/60 font-medium text-sm md:text-base leading-relaxed max-w-sm mx-auto md:mx-0 mt-4">
+                            Senior MERN Stack & Next.js developer for US/UK startups. AWS certified. Available for remote contracts.
                         </p>
-                        <div className="flex items-center justify-center md:justify-start gap-3">
-                            <div className="flex -space-x-3">
-                                {[1, 2, 3].map(i => (
-                                    <div key={i} className="w-8 h-8 rounded-full border border-black bg-white/[0.05] backdrop-blur-md flex items-center justify-center">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-primary/40" />
-                                    </div>
-                                ))}
-                            </div>
-                            <span className="text-[10px] font-black uppercase tracking-widest text-foreground/20 ml-2">System Uptime: 99.99%</span>
-                        </div>
                     </div>
 
                     {/* Quick Links */}
@@ -49,9 +39,9 @@ export default function Footer() {
                         <div className="space-y-6">
                             <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Capabilities</h4>
                             <ul className="space-y-4">
-                                {["About Hub", "Technical Skills", "Architecture"].map((item) => (
+                                {["About", "Skills", "Blogs"].map((item) => (
                                     <li key={item}>
-                                        <Link href={`/${item.split(' ')[0].toLowerCase()}`} className="text-foreground/40 hover:text-white transition-colors text-sm font-black uppercase tracking-widest leading-none">
+                                        <Link href={`/${item.toLowerCase()}`} className="text-foreground/40 hover:text-white transition-colors text-sm font-black uppercase tracking-widest leading-none">
                                             {item}
                                         </Link>
                                     </li>
@@ -61,7 +51,7 @@ export default function Footer() {
                         <div className="space-y-6">
                             <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Showroom</h4>
                             <ul className="space-y-4">
-                                {["Projects", "Experience", "Contact"].map((item) => (
+                                {["Projects", "Experience", "Education", "Contact"].map((item) => (
                                     <li key={item}>
                                         <Link
                                             href={`/${item.toLowerCase()}`}
@@ -99,8 +89,8 @@ export default function Footer() {
                                 <Zap className="w-5 h-5" />
                             </div>
                             <div className="flex flex-col text-left">
-                                <span className="text-[8px] font-black uppercase tracking-widest text-foreground/40">Timezone</span>
-                                <span className="text-xs font-black italic">Active IST (US/UK Overlap)</span>
+                                <span className="text-[8px] font-black uppercase tracking-widest text-foreground/40">Location & Timezone</span>
+                                <span className="text-xs font-black italic">Gujarat, India (IST)</span>
                             </div>
                         </div>
                     </div>
@@ -110,6 +100,14 @@ export default function Footer() {
                     <p className="text-[10px] font-black uppercase tracking-[0.5em] text-foreground/20 select-none">
                         &copy; {new Date().getFullYear()} JENIL RUPAPARA
                     </p>
+                    <div className="flex gap-8">
+                        <Link href="/privacy-policy" className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground/20 hover:text-primary transition-colors italic">
+                            Privacy Policy
+                        </Link>
+                        <Link href="/terms-of-service" className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground/20 hover:text-primary transition-colors italic">
+                            Terms of Service
+                        </Link>
+                    </div>
                 </div>
             </div>
         </footer>

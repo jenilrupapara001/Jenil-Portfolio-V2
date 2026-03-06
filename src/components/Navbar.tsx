@@ -8,11 +8,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
+  { name: "Work", href: "/projects" },
   { name: "About", href: "/about" },
-  { name: "Skills", href: "/skills" },
-  { name: "Projects", href: "/projects" },
-  { name: "Experience", href: "/experience" },
-  { name: "Education", href: "/education" },
+  { name: "Blogs", href: "/blogs" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -80,7 +78,7 @@ export default function Navbar() {
               href="/contact"
               className="px-6 py-2 bg-primary text-white text-[10px] font-black uppercase tracking-widest rounded-full hover:shadow-[0_0_30px_-5px_rgba(var(--primary-rgb),0.5)] transition-all active:scale-95"
             >
-              Consult
+              Book a Call
             </Link>
           </div>
 
