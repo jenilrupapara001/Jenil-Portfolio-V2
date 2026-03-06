@@ -39,10 +39,10 @@ export default function Footer() {
                         <div className="space-y-6">
                             <h4 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary">Capabilities</h4>
                             <ul className="space-y-4">
-                                {["About", "Skills", "Blogs"].map((item) => (
+                                {["About", "Skills", "Blogs", "privacy-policy", "terms-of-service"].map((item) => (
                                     <li key={item}>
                                         <Link href={`/${item.toLowerCase()}`} className="text-foreground/40 hover:text-white transition-colors text-sm font-black uppercase tracking-widest leading-none">
-                                            {item}
+                                            {item.replace("-", " ")}
                                         </Link>
                                     </li>
                                 ))}
@@ -100,14 +100,6 @@ export default function Footer() {
                     <p className="text-[10px] font-black uppercase tracking-[0.5em] text-foreground/20 select-none">
                         &copy; {new Date().getFullYear()} JENIL RUPAPARA
                     </p>
-                    <div className="flex gap-8">
-                        <Link href="/privacy-policy" className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground/20 hover:text-primary transition-colors italic">
-                            Privacy Policy
-                        </Link>
-                        <Link href="/terms-of-service" className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground/20 hover:text-primary transition-colors italic">
-                            Terms of Service
-                        </Link>
-                    </div>
                 </div>
             </div>
         </footer>
