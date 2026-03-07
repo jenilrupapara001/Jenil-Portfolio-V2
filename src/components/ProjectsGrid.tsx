@@ -116,8 +116,8 @@ export default function ProjectsGrid() {
                                         <p>{project.impact}</p>
                                         <h3>Tech Stack</h3>
                                         <p>{project.tags.join(", ")}</p>
-                                        <a href={project.github}>View Source Code on GitHub</a>
-                                        {project.demo && <a href={project.demo}>View Live Demo</a>}
+                                        <span>View Source Code on GitHub</span>
+                                        {project.demo && <span>View Live Demo</span>}
                                     </div>
 
                                     {/* Footer Info */}
