@@ -19,11 +19,12 @@ export default function Hero() {
     const y = useTransform(scrollYProgress, [0, 1], [0, -200]);
     const opacityTransform = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
+    // We use a CSS-based reveal for the first mount to prevent layout shift
+    // while ensuring content is always present for SEO and client-side navigation.
+    const [isFullyMounted, setIsFullyMounted] = useState(false);
     useEffect(() => {
-        setMounted(true);
+        setIsFullyMounted(true);
     }, []);
-
-    if (!mounted) return null;
 
     return (
         <section
