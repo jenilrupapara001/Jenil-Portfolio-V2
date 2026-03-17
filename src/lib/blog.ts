@@ -21,10 +21,12 @@ export type BlogPost = {
 export function getBlogPosts(): BlogPost[] {
     if (!fs.existsSync(postsDirectory)) return [];
 
-    const fileNames = fs.readdirSync(postsDirectory);
+    const fileNames = fs.readdirSync(postsDirectory).filter(file => file.endsWith('.mdx'));
     const allPostsData = fileNames.map((fileName) => {
         const slug = fileName.replace(/\.mdx$/, "");
         const fullPath = path.join(postsDirectory, fileName);
+        if (!fs.statSync(fullPath).isFile()) return null;
+
         const fileContents = fs.readFileSync(fullPath, "utf8");
         const { data, content } = matter(fileContents);
 
@@ -34,7 +36,7 @@ export function getBlogPosts(): BlogPost[] {
             ...(data as any),
             date: data.date ? format(new Date(data.date), "MMMM dd, yyyy") : "",
         };
-    });
+    }).filter(Boolean) as BlogPost[];
 
     return allPostsData.sort((a, b) => {
         return new Date(a.date) < new Date(b.date) ? 1 : -1;

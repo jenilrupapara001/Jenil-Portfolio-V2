@@ -6,6 +6,7 @@ import { projects } from "@/utils/projects";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, BrainCircuit, ShieldCheck, Database, Layout, Sparkles } from "lucide-react";
+import { ProjectCard } from "./ProjectCard";
 
 const categories = [
     { id: "all", label: "All Works", icon: Layout },
@@ -14,51 +15,46 @@ const categories = [
     { id: "SaaS", label: "Enterprise SaaS", icon: ShieldCheck },
 ];
 
-export default function ProjectsGrid() {
+export default function ProjectsGrid({ limit }: { limit?: number }) {
     const [activeCategory, setActiveCategory] = useState("all");
-    const [expandedSlugs, setExpandedSlugs] = useState<string[]>([]);
-
-    const toggleExpand = (e: React.MouseEvent, slug: string) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setExpandedSlugs(prev =>
-            prev.includes(slug) ? prev.filter(s => s !== slug) : [...prev, slug]
-        );
-    };
 
     const filteredProjects = useMemo(() => {
-        if (activeCategory === "all") return projects;
-
-        return projects.filter(p => p.category === activeCategory);
-    }, [activeCategory]);
+        let result = projects;
+        if (!limit && activeCategory !== "all") {
+            result = projects.filter(p => p.category === activeCategory);
+        }
+        return limit ? result.slice(0, limit) : result;
+    }, [activeCategory, limit]);
 
     return (
         <div className="space-y-12 md:space-y-24">
-            {/* Premium Category Filter */}
-            <div className="flex flex-wrap justify-center items-center gap-4 px-4">
-                <div className="p-1.5 md:p-2 bg-white/[0.02] border border-white/10 rounded-2xl md:rounded-[2rem] flex flex-wrap justify-center gap-1.5 md:gap-2 backdrop-blur-xl">
-                    {categories.map((cat) => (
-                        <button
-                            key={cat.id}
-                            onClick={() => setActiveCategory(cat.id)}
-                            className={`group flex items-center gap-2 md:gap-3 px-4 md:px-8 py-3 md:py-4 rounded-xl md:rounded-[1.5rem] text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500 relative overflow-hidden ${activeCategory === cat.id
-                                ? "text-white"
-                                : "text-foreground/40 hover:text-foreground/80"
-                                }`}
-                        >
-                            {activeCategory === cat.id && (
-                                <motion.div
-                                    layoutId="activeFilter"
-                                    className="absolute inset-0 bg-primary shadow-[0_0_40px_-5px_rgba(var(--primary-rgb),0.5)]"
-                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                                />
-                            )}
-                            <cat.icon className={`w-3 h-3 md:w-4 md:h-4 relative z-10 ${activeCategory === cat.id ? "animate-pulse" : "opacity-40 group-hover:opacity-100 transition-opacity"}`} />
-                            <span className="relative z-10">{cat.label}</span>
-                        </button>
-                    ))}
+            {/* Premium Category Filter - Only show if no limit is provided */}
+            {!limit && (
+                <div className="flex flex-wrap justify-center items-center gap-4 px-4">
+                    <div className="p-1.5 md:p-2 bg-white/[0.02] border border-white/10 rounded-2xl md:rounded-[2rem] flex flex-wrap justify-center gap-1.5 md:gap-2 backdrop-blur-xl">
+                        {categories.map((cat) => (
+                            <button
+                                key={cat.id}
+                                onClick={() => setActiveCategory(cat.id)}
+                                className={`group flex items-center gap-2 md:gap-3 px-4 md:px-8 py-3 md:py-4 rounded-xl md:rounded-[1.5rem] text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500 relative overflow-hidden ${activeCategory === cat.id
+                                    ? "text-white"
+                                    : "text-foreground/40 hover:text-foreground/80"
+                                    }`}
+                            >
+                                {activeCategory === cat.id && (
+                                    <motion.div
+                                        layoutId="activeFilter"
+                                        className="absolute inset-0 bg-primary shadow-[0_0_40px_-5px_rgba(var(--primary-rgb),0.5)]"
+                                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                    />
+                                )}
+                                <cat.icon className={`w-3 h-3 md:w-4 md:h-4 relative z-10 ${activeCategory === cat.id ? "animate-pulse" : "opacity-40 group-hover:opacity-100 transition-opacity"}`} />
+                                <span className="relative z-10">{cat.label}</span>
+                            </button>
+                        ))}
+                    </div>
                 </div>
-            </div>
+            )}
 
             {/* High-End Masonry-Style Grid */}
             <motion.div
@@ -70,89 +66,12 @@ export default function ProjectsGrid() {
                         <motion.div
                             key={project.slug}
                             layout
-                            initial={{ opacity: 0, y: 40 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
-                            transition={{ duration: 0.8, delay: index * 0.1, ease: [0.23, 1, 0.32, 1] }}
-                            className="group relative"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
+                            transition={{ duration: 0.5, delay: index * 0.05 }}
                         >
-                            <Link href={`/projects/${project.slug}`} className="block h-full group">
-                                <div className="h-full rounded-[2.5rem] md:rounded-[3.5rem] bg-white/[0.02] border border-white/5 backdrop-blur-[100px] overflow-hidden hover:border-primary/40 transition-all duration-700 flex flex-col hover:shadow-[0_0_120px_-30px_rgba(var(--primary-rgb),0.4)]">
-
-                                    {/* Image Container */}
-                                    <div className="relative h-[18rem] md:h-[22rem] overflow-hidden">
-                                        <Image
-                                            src={project.image}
-                                            alt={project.title}
-                                            fill
-                                            className="object-cover group-hover:scale-105 transition-transform duration-1000 ease-out grayscale-[0.3] group-hover:grayscale-0"
-                                            sizes="(max-width: 768px) 100vw, 50vw"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/20 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-700" />
-
-                                        {/* Floating Badge */}
-                                        <div className="absolute top-6 md:top-8 left-6 md:left-8 flex items-center gap-2 md:gap-3 px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-black/40 border border-white/10 backdrop-blur-md">
-                                            <Sparkles className="w-3 h-3 text-primary animate-pulse" />
-                                            <span className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-white/80">
-                                                {project.tags[0]}
-                                            </span>
-                                        </div>
-
-                                        {/* Corner Arrow (Hidden on very small mobile) */}
-                                        <div className="absolute top-6 md:top-8 right-6 md:right-8 w-10 h-10 md:w-14 md:h-14 rounded-full bg-primary text-white flex items-center justify-center opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 rotate-45 group-hover:rotate-0 transition-all duration-500 shadow-2xl">
-                                            <ArrowUpRight className="w-4 h-4 md:w-6 md:h-6" />
-                                        </div>
-
-                                        {/* Bottom Labels */}
-                                        <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 right-6 md:right-10 flex flex-col gap-3 md:gap-4 transform group-hover:-translate-y-2 transition-transform duration-700">
-                                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black italic uppercase tracking-tighter leading-[0.85] md:leading-none">
-                                                {project.title.split(' ')[0]} <br />
-                                                <span className="text-primary">{project.title.split(' ').slice(1).join(' ')}</span>
-                                            </h2>
-                                            <p className="text-white/40 text-[10px] md:text-sm font-medium leading-relaxed max-w-sm">
-                                                {expandedSlugs.includes(project.slug)
-                                                    ? project.description
-                                                    : `${project.description.slice(0, 120)}...`}
-                                            </p>
-                                            <button
-                                                onClick={(e) => toggleExpand(e, project.slug)}
-                                                className="text-[10px] font-bold text-primary hover:text-white transition-colors w-fit"
-                                            >
-                                                {expandedSlugs.includes(project.slug) ? "Read Less ↑" : "Read Full Case Study →"}
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    {/* SEO Hidden Context containing full case study text for indexing */}
-                                    <div className="sr-only">
-                                        <h3>Problem</h3>
-                                        <p>{project.problem}</p>
-                                        <h3>Solution</h3>
-                                        <p>{project.solution}</p>
-                                        <h3>Impact</h3>
-                                        <p>{project.impact}</p>
-                                        <h3>Tech Stack</h3>
-                                        <p>{project.tags.join(", ")}</p>
-                                        <span>View Source Code on GitHub</span>
-                                        {project.demo && <span>View Live Demo</span>}
-                                    </div>
-
-                                    {/* Footer Info */}
-                                    <div className="p-6 md:p-8 flex flex-col gap-4 flex-grow">
-                                        <div className="flex flex-col gap-2 border-b border-white/5 pb-6">
-                                            <p className="text-[8px] font-black uppercase tracking-[0.3em] text-primary/60">Impact</p>
-                                            <p className="text-xs font-bold text-foreground/70 italic leading-tight line-clamp-1">{project.impact}</p>
-                                        </div>
-
-                                        <div className="flex items-center justify-between group/btn pt-2">
-                                            <span className="text-[8px] font-black uppercase tracking-[0.4em] text-foreground/30 group-hover:text-primary transition-colors">
-                                                Read Case Study →
-                                            </span>
-                                            <ArrowUpRight className="w-3 h-3 text-foreground/20 group-hover:text-primary transition-colors" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </Link>
+                            <ProjectCard project={project} />
                         </motion.div>
                     ))}
                 </AnimatePresence>

@@ -3,18 +3,27 @@
 import About from "@/components/About";
 import Section from "@/components/Section";
 import { motion } from "framer-motion";
+import { GridPattern } from "@/components/GridPattern";
+import { TechStack } from "@/components/TechStack";
+import { ExperienceTimeline } from "@/components/ExperienceTimeline";
 import {
     Cpu, Layers, Zap, Eye, Rocket, Shield,
     BarChart3, Binary, Workflow, TrendingUp,
-    SearchCode, Database, Server, Smartphone, Layout, Target
+    SearchCode, Database, Server, Smartphone, Layout, Target,
+    Activity, Search, Star, CheckCircle2
 } from "lucide-react";
 
 export default function AboutPage() {
     return (
         <div className="pt-20 md:pt-24 pb-20 md:pb-32 space-y-20 md:space-y-32">
             {/* Hero Quote Section */}
-            <Section id="about-hero" title="" className="!py-16 md:!py-28">
-                <div className="w-full text-center">
+            <Section id="about-hero" title="" className="!py-16 md:!py-28 relative overflow-hidden">
+                {/* Background Grid */}
+                <div className="absolute inset-0 z-0 opacity-40">
+                    <GridPattern />
+                </div>
+                
+                <div className="w-full text-center relative z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -55,6 +64,27 @@ export default function AboutPage() {
             <div className="bg-white/[0.01] border-y border-white/5 py-20 md:py-32">
                 <About />
             </div>
+
+            {/* Technical DNA Deep Dive */}
+            <Section id="tech-dna" title="" className="py-32 relative overflow-hidden">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
+                <div className="text-center mb-20 relative z-10">
+                    <span className="text-primary font-black uppercase tracking-[0.5em] text-[10px]">Technical DNA</span>
+                    <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic mt-4">High-Velocity <br /> <span className="text-primary">Engineering Stack.</span></h2>
+                </div>
+                <div className="relative z-10">
+                    <TechStack />
+                </div>
+            </Section>
+
+            {/* Career Trajectory: Full History */}
+            <Section id="career" title="" className="bg-white/[0.01] border-y border-white/5 py-32">
+                <div className="text-center mb-16">
+                    <span className="text-primary font-black uppercase tracking-[0.5em] text-[10px]">The Evolution</span>
+                    <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic mt-4">Full Career <span className="text-primary italic">Trajectory.</span></h2>
+                </div>
+                <ExperienceTimeline />
+            </Section>
 
             {/* Architecture Visualization Section */}
             <Section id="architecture" title="" className="!py-16 md:!py-28">
@@ -145,6 +175,81 @@ export default function AboutPage() {
                                 </motion.div>
                             ))}
                         </div>
+                    </div>
+                </div>
+            </Section>
+
+            {/* Why Partner With Me (Moved from Home) */}
+            <Section id="why-hire" title="" className="bg-white/[0.01] border-y border-white/5 py-32">
+                <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                    <div className="space-y-8">
+                        <h2 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter leading-none">The Engineering <br /><span className="text-primary italic">Philosophy.</span></h2>
+                        <ul className="space-y-6">
+                            <li className="flex gap-4">
+                                <Activity className="w-6 h-6 text-primary shrink-0" />
+                                <div>
+                                    <p className="font-black uppercase italic text-sm">Resilience by Design.</p>
+                                    <p className="text-foreground/40 text-[13px] leading-relaxed mt-1">I've debugged 3am outages, traced memory leaks across microservices, and rebuilt databases without downtime. That experience lives in every architecture decision I make.</p>
+                                </div>
+                            </li>
+                            <li className="flex gap-4">
+                                <Search className="w-6 h-6 text-accent shrink-0" />
+                                <div>
+                                    <p className="font-black uppercase italic text-sm">Global Collaboration, Zero Friction.</p>
+                                    <p className="text-foreground/40 text-[13px] leading-relaxed mt-1">I work IST and overlap with US East Coast mornings and UK afternoons. Async updates every evening. Sync calls whenever needed.</p>
+                                </div>
+                            </li>
+                            <li className="flex gap-4">
+                                <Cpu className="w-6 h-6 text-secondary-foreground shrink-0" />
+                                <div>
+                                    <p className="font-black uppercase italic text-sm">Radical Ownership.</p>
+                                    <p className="text-foreground/40 text-[13px] leading-relaxed mt-1">Most contractors build what you spec. I tell you when your spec is wrong—then build something better. Your success is the metric.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="relative">
+                        <div className="absolute inset-0 bg-primary/20 blur-[100px] rounded-full" />
+                        <div className="relative p-12 bg-white/[0.02] border border-white/10 rounded-[4rem] backdrop-blur-3xl">
+                            <div className="space-y-6">
+                                <p className="text-xs font-black uppercase tracking-widest text-primary">Core Expertise Domains</p>
+                                <div className="flex flex-wrap gap-3">
+                                    {["E-commerce", "FinTech", "PropTech", "SaaS", "AI/ML", "Manufacturing", "Logistics"].map(industry => (
+                                        <span key={industry} className="px-5 py-3 rounded-2xl bg-white/5 border border-white/5 text-[10px] font-black uppercase tracking-widest italic">{industry}</span>
+                                    ))}
+                                </div>
+                                <div className="pt-6 border-t border-white/5">
+                                    <p className="text-foreground/40 text-xs italic">Specialized in US/UK/EU remote architecture contracts.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Section>
+
+            {/* The Process (Moved from Home) */}
+            <Section id="how-it-works" title="" className="py-32">
+                <div className="w-full">
+                    <div className="text-center mb-20 space-y-4">
+                        <span className="text-primary font-black uppercase tracking-[0.5em] text-[10px]">Methodology</span>
+                        <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter italic">From Discovery <br /><span className="text-primary italic">To Deployment.</span></h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        {[
+                            { step: "01", title: "Discovery", desc: "We review your codebase, identify bottlenecks, and map out architectural alignment with business goals." },
+                            { step: "02", title: "Strategy", desc: "You get a fixed-scope, fixed-timeline plan. Zero ambiguity on delivery or technical milestones." },
+                            { step: "03", title: "Execution", desc: "I work in your timezone. Daily async updates and weekly demos ensure constant visibility." },
+                            { step: "04", title: "Handoff", desc: "Zero-downtime deployment. 30-day post-launch monitoring ensures absolute stability." }
+                        ].map((s, i) => (
+                            <div key={i} className="relative p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 group hover:border-primary/20 transition-all">
+                                <span className="text-6xl font-black text-white/5 absolute -top-4 -right-2 group-hover:text-primary/10 transition-colors italic">{s.step}</span>
+                                <div className="space-y-4 relative z-10">
+                                    <h3 className="text-xl font-black uppercase italic mt-4">{s.title}</h3>
+                                    <p className="text-sm font-medium text-foreground/40 leading-relaxed">{s.desc}</p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </Section>

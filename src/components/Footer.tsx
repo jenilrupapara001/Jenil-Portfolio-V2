@@ -25,8 +25,8 @@ export default function Footer() {
                                 <div className="absolute inset-0 bg-primary/20 blur-lg rounded-full animate-pulse" />
                                 <div className="w-2 h-2 rounded-full bg-primary" />
                             </div>
-                            <span className="text-3xl font-black uppercase tracking-tighter italic leading-none">
-                                Jenil<span className="text-primary tracking-[-0.1em]">.</span>
+                            <span className="text-3xl font-black uppercase tracking-tighter italic leading-none whitespace-nowrap">
+                                Jenil Rupapara
                             </span>
                         </Link>
                         <p className="text-foreground/60 font-medium text-sm md:text-base leading-relaxed max-w-sm mx-auto md:mx-0 mt-4">

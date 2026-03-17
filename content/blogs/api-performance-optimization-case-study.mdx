@@ -1,0 +1,241 @@
+---
+title: "How I Improved API Response Time by 300%: A Step-by-Step Case Study"
+slug: "api-performance-optimization-case-study"
+excerpt: "A detailed case study of how I optimized a Node.js API from 1.2s to 0.3s response time. Includes profiling techniques, database optimization, caching strategies, and before/after benchmarks."
+tags: ["api", "performance", "optimization", "nodejs", "caching"]
+category: "Performance"
+readTime: "16 min"
+date: "2025-05-01"
+image: "/blogs/api-performance/hero.png"
+---
+
+# How I Improved API Response Time by 300%: A Step-by-Step Case Study
+
+> The client's API was taking 1.2 seconds to respond. Users were leaving.
+> Revenue was dropping. I reduced it to 300ms in 2 weeks.
+> Here's exactly how.
+
+[Hero Image: Before/After Performance]
+
+## The Situation
+
+A mid-stage startup approached me with a problem: their e-commerce API
+had become painfully slow. What started as snappy 200ms responses had
+degraded to 1.2 seconds as their user base grew from 5K to 40K.
+
+**The symptoms:**
+- Product listing API: 1,200ms average response time
+- Checkout API: 2,100ms (users abandoning carts)
+- Search API: 800ms (with frequent timeouts)
+- Server CPU: consistently at 85%+
+- Database connections: maxing out at 100
+
+**The business impact:**
+- 23% cart abandonment rate (industry average: 12%)
+- User complaints increasing 40% month-over-month
+- Google penalizing pages with slow API responses (SEO impact)
+
+I had two weeks. Here's what I did.
+
+---
+
+## Step 1: Profile Before You Optimize
+
+**Rule #1: Never optimize without data.**
+
+```bash
+# Install clinic.js for Node.js profiling
+npm install -g clinic
+
+# Generate flame chart
+clinic flame -- node server.js
+
+# Generate bubbleprof (async bottlenecks)
+clinic bubbleprof -- node server.js
+```
+
+### What the profiler revealed:
+
+| Bottleneck | Time Spent | % of Total |
+|------------|------------|------------|
+| MongoDB queries (no indexes) | 520ms | 43% |
+| JSON serialization (large payloads) | 210ms | 18% |
+| Authentication middleware | 180ms | 15% |
+| Network latency (no connection pooling) | 150ms | 13% |
+| Business logic | 80ms | 7% |
+| Other | 60ms | 5% |
+
+[Image: Profiling Flame Chart]
+
+**Key insight:** 76% of the response time was database + serialization.
+The actual business logic was only 7%. This is typical — I/O is almost
+always the bottleneck, not compute.
+
+---
+
+## Step 2: Database Indexing (Saved 400ms)
+
+The MongoDB queries were doing collection scans on 2M+ documents.
+
+```javascript
+// The problematic query
+const products = await Product.find({
+  category: 'electronics',
+  price: { $gte: 100, $lte: 500 },
+  inStock: true,
+}).sort({ createdAt: -1 }).limit(20)
+
+// MongoDB explain() output:
+// "stage": "COLLSCAN"  ← Full collection scan! 😱
+// "totalDocsExamined": 2,147,483
+// "executionTimeMillis": 487
+```
+
+### The Fix
+
+```javascript
+// Added compound index matching the query pattern
+db.products.createIndex({
+  category: 1,
+  inStock: 1,
+  price: 1,
+  createdAt: -1
+})
+
+// After indexing:
+// "stage": "IXSCAN"  ← Index scan! ✅
+// "totalDocsExamined": 847
+// "executionTimeMillis": 12
+```
+
+**Result:** Query time dropped from 487ms to 12ms. That's a 97.5% improvement
+from a single index.
+
+### Indexing Rules I Follow
+
+```javascript
+// 1. Index fields you filter on (most selective first)
+// ESR Rule: Equality → Sort → Range
+
+// ✅ Good: Equality (category) → Sort (createdAt) → Range (price)
+{ category: 1, createdAt: -1, price: 1 }
+
+// ❌ Bad: Range first → forces scanning more documents
+{ price: 1, category: 1, createdAt: -1 }
+
+// 2. Cover your queries (include projected fields)
+{ category: 1, createdAt: -1, price: 1, name: 1, image: 1 }
+// Now MongoDB doesn't even need to read the document — just the index
+
+// 3. Monitor slow queries
+db.setProfilingLevel(1, { slowms: 100 })
+db.system.profile.find().sort({ ts: -1 }).limit(10)
+```
+
+---
+
+## Step 3: Redis Caching Layer (Saved 300ms)
+
+Even with indexes, hitting MongoDB for every request is wasteful.
+Most product data changes rarely.
+
+```typescript
+// lib/cache.ts
+import Redis from 'ioredis'
+
+const redis = new Redis(process.env.REDIS_URL)
+
+export async function cacheGet<T>(key: string): Promise<T | null> {
+  const data = await redis.get(key)
+  return data ? JSON.parse(data) : null
+}
+
+export async function cacheSet(
+  key: string,
+  data: any,
+  ttlSeconds: number = 300 // 5 minutes default
+): Promise<void> {
+  await redis.set(key, JSON.stringify(data), 'EX', ttlSeconds)
+}
+
+export async function cacheInvalidate(pattern: string): Promise<void> {
+  const keys = await redis.keys(pattern)
+  if (keys.length > 0) {
+    await redis.del(...keys)
+  }
+}
+
+// middleware/cache.ts
+export function cacheMiddleware(ttl: number = 300) {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    // Only cache GET requests
+    if (req.method !== 'GET') return next()
+
+    const key = `api:${req.originalUrl}`
+    const cached = await cacheGet(key)
+
+    if (cached) {
+      res.setHeader('X-Cache', 'HIT')
+      return res.json(cached)
+    }
+
+    // Override res.json to intercept the response and cache it
+    const originalJson = res.json.bind(res)
+    res.json = (body: any) => {
+      cacheSet(key, body, ttl) // Fire and forget
+      res.setHeader('X-Cache', 'MISS')
+      return originalJson(body)
+    }
+
+    next()
+  }
+}
+
+// Usage
+app.get('/api/products',
+  cacheMiddleware(300), // Cache for 5 minutes
+  productsController.list
+)
+
+// Invalidate on writes
+app.post('/api/products', async (req, res) => {
+  const product = await Product.create(req.body)
+  await cacheInvalidate('api:/api/products*') // Clear all product caches
+  res.json(product)
+})
+```
+```
+
+### Cache Hit Rates After 1 Week
+- Product listing:  94% cache hit rate → avg 8ms response (was 487ms)
+- Product details:  87% cache hit rate → avg 15ms response (was 230ms)
+- Category pages:   91% cache hit rate → avg 10ms response (was 350ms)
+- Search results:   62% cache hit rate → avg 45ms response (was 800ms)
+
+[Continue with Steps 4-6: Query optimization, connection pooling,
+payload compression, and final results]
+
+---
+
+## Final Results
+
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| Avg response time | 1,200ms | 295ms | 75% faster |
+| P95 response time | 2,800ms | 520ms | 81% faster |
+| Throughput | 500 req/s | 2,200 req/s | 340% increase |
+| CPU usage | 85% | 32% | 62% reduction |
+| Error rate | 2.3% | 0.08% | 96% reduction |
+| Cart abandonment | 23% | 11% | 52% reduction |
+
+[Image: Results Dashboard]
+
+**Business impact:**
+- Cart completion rate increased by 52%
+- Estimated $180K additional annual revenue from reduced abandonment
+- Google Core Web Vitals passed → improved SEO rankings
+- Server costs reduced by 40% (fewer instances needed)
+
+Total engineering time: 2 weeks. ROI: massive.
+
+Is your API slow? Let me audit it →

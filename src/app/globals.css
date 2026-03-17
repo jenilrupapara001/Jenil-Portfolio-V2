@@ -9,6 +9,16 @@
   --secondary-foreground: #c7d2fe;
   --accent: #fbbf24;
   --accent-foreground: #000000;
+
+  /* Playbook Cinematic Surface Colors */
+  --surface-0: #000000;
+  --surface-1: #0a0a0a;
+  --surface-2: #111111;
+  --surface-3: #1a1a1a;
+  --surface-4: #222222;
+
+  /* Brand Gradient Orbs */
+  --brand-400: #60a5fa;
 }
 
 @theme inline {
@@ -22,6 +32,19 @@
   --color-accent-foreground: var(--accent-foreground);
   --font-sans: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+
+  /* Surface Extensions */
+  --color-surface-0: var(--surface-0);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-4: var(--surface-4);
+
+  /* Brand Extension */
+  --color-brand-400: var(--brand-400);
+
+  /* Custom Animations */
+  --animate-glow: glow 2s ease-in-out infinite alternate;
 }
 
 body {

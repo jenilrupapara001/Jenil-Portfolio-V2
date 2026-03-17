@@ -4,7 +4,10 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import SplashCursor from "@/components/ui/SplashCursor";
+import { CustomCursor } from "@/components/CustomCursor";
+import { PageTransition } from "@/components/PageTransition";
+import { SpotifyWidget } from "@/components/SpotifyWidget";
+import ScrollToTop from "@/components/ScrollToTop";
 import StickyCTA from "@/components/StickyCTA";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import Script from "next/script";
@@ -96,7 +99,7 @@ export default function RootLayout({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+        <html lang="en" suppressHydrationWarning>
             <head>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -123,7 +126,7 @@ export default function RootLayout({
                         __html: `
                             (function(h,o,t,j,a,r){
                                 h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-                                h._hjSettings={hjid: Number(process.env.NEXT_PUBLIC_HOTJAR_ID), hjsv:6};
+                                h._hjSettings={hjid: ${process.env.NEXT_PUBLIC_HOTJAR_ID || 0}, hjsv:6};
                                 a=o.getElementsByTagName('head')[0];
                                 r=o.createElement('script');r.async=1;
                                 r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
@@ -178,10 +181,14 @@ export default function RootLayout({
                     forcedTheme="dark"
                     disableTransitionOnChange
                 >
-                    <SplashCursor />
+                    <CustomCursor />
+                    <ScrollToTop />
+                    <SpotifyWidget />
                     <div className="relative z-10 flex flex-col min-h-screen">
                         <Navbar />
-                        <main className="flex-grow pt-16">{children}</main>
+                        <PageTransition>
+                            <main className="flex-grow pt-16">{children}</main>
+                        </PageTransition>
                         <Footer />
                         <StickyCTA />
                         <ExitIntentPopup />

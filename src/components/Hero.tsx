@@ -1,57 +1,23 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Zap, ShieldCheck, Clock, Layers, Cpu, Terminal, Globe, Search, Activity, Box } from "lucide-react";
-import { useRef, useState, useEffect, useMemo } from "react";
-
-
-const MagneticButton = ({ children, href, variant = "primary" }: any) => {
-    const ref = useRef<HTMLDivElement>(null);
-    const x = useMotionValue(0);
-    const y = useMotionValue(0);
-    const springX = useSpring(x, { stiffness: 150, damping: 15 });
-    const springY = useSpring(y, { stiffness: 150, damping: 15 });
-
-    const handleMouseMove = (e: React.MouseEvent) => {
-        const rect = ref.current?.getBoundingClientRect();
-        if (rect) {
-            const { left, top, width, height } = rect;
-            const centerX = left + width / 2;
-            const centerY = top + height / 2;
-            x.set((e.clientX - centerX) * 0.4);
-            y.set((e.clientY - centerY) * 0.4);
-        }
-    };
-
-    const handleMouseLeave = () => {
-        x.set(0);
-        y.set(0);
-    };
-
-    return (
-        <motion.div
-            ref={ref}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{ x: springX, y: springY }}
-            className="w-full sm:w-auto"
-        >
-            <Link
-                href={href}
-                className={`flex sm:inline-flex items-center justify-center px-8 sm:px-10 py-4 sm:py-5 text-base sm:text-lg font-bold rounded-xl sm:rounded-2xl transition-all shadow-xl active:scale-95 ${variant === "primary"
-                    ? "bg-primary text-white shadow-primary/20 hover:shadow-primary/40 ring-1 ring-white/20"
-                    : "bg-background/50 backdrop-blur-md border border-white/10 text-foreground hover:bg-white/10 ring-1 ring-white/5"
-                    }`}
-            >
-                {children}
-            </Link>
-        </motion.div>
-    );
-};
+import { ArrowRight } from "lucide-react";
+import { GridPattern } from "./GridPattern";
+import { TypewriterEffect } from "./TypewriterEffect";
 
 export default function Hero() {
+    const [target, setTarget] = useState<HTMLElement | null>(null);
     const [mounted, setMounted] = useState(false);
+
+    const { scrollYProgress } = useScroll({
+        target: target ? { current: target } : undefined,
+        offset: ["start start", "end start"],
+    });
+
+    const y = useTransform(scrollYProgress, [0, 1], [0, -200]);
+    const opacityTransform = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
     useEffect(() => {
         setMounted(true);
@@ -60,116 +26,104 @@ export default function Hero() {
     if (!mounted) return null;
 
     return (
-        <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden selection:bg-primary/30 pt-20 md:pt-0 pb-12 md:pb-0">
-            <div className="w-full px-6 md:px-12 lg:px-20 z-10 flex flex-col md:flex-row items-center justify-between gap-12 lg:gap-24">
+        <section
+            ref={setTarget}
+            className="relative h-screen flex items-center justify-center overflow-hidden selection:bg-primary/30"
+        >
+            {/* Animated grid background */}
+            <div className="absolute inset-0 bg-[#0a0a0a]">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-purple-900/10" />
+                <GridPattern />
+            </div>
 
-                {/* Text Content */}
-                <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left pt-12 md:pt-0 w-full">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="inline-flex items-center gap-3 px-4 sm:px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] sm:text-[11px] font-black mb-6 sm:mb-10 backdrop-blur-md whitespace-nowrap group hover:bg-primary/20 transition-colors"
-                    >
-                        <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-primary" />
-                        <span className="tracking-widest uppercase">3 client slots open for Q2 2026 →</span>
-                    </motion.div>
-
-                    <motion.h1
-                        initial={{ opacity: 0, y: 40 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="text-4xl sm:text-5xl md:text-[4rem] lg:text-[5.5rem] xl:text-[6.5rem] font-black mb-6 sm:mb-8 leading-[0.95] sm:leading-[0.9] tracking-tighter w-full uppercase"
-                    >
-                        Your SaaS Is <br />
-                        Slower And More <br />
-                        Fragile Than <br />
-                        It Should Be. <br />
-                        <span className="text-transparent bg-clip-text bg-[image:linear-gradient(45deg,#4F46E5,#0EA5E9,#A855F7,#4F46E5)] bg-[size:300%_auto] animate-gradient-flow italic">I Fix That.</span>
-                    </motion.h1>
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-lg sm:text-xl md:text-2xl text-foreground/70 mb-10 sm:mb-12 max-w-3xl leading-relaxed font-medium px-4 sm:px-0"
-                    >
-                        I'm Jenil   a Senior MERN Stack & Next.js engineer who's helped US and UK startups cut load times, eliminate backend bottlenecks, and ship features 2x faster. Based in India, working your timezone, AWS certified, and available now.
-                    </motion.p>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center w-full sm:w-auto"
-                    >
-                        <MagneticButton href="/contact" variant="primary">
-                            Book a Free 20-Min Call <ArrowRight className="ml-3 sm:ml-4 w-5 h-5 sm:w-6 sm:h-6" />
-                        </MagneticButton>
-                        <MagneticButton href="/projects" variant="secondary">
-                            See Real Results
-                        </MagneticButton>
-                    </motion.div>
-                </div>
-
-                {/* Right Visual Element: Professional Headshot */}
+            {/* Main content */}
+            <motion.div
+                style={{ y, opacity: opacityTransform }}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="relative z-10 max-w-5xl mx-auto px-6 text-center"
+            >
+                {/* Status badge */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1.2, delay: 0.3 }}
-                    className="flex-1 w-full max-w-[500px] flex justify-center lg:justify-end relative items-center mt-12 lg:mt-0"
+                    transition={{ delay: 0.2 }}
+                    className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 text-green-400 text-xs px-4 py-2 rounded-full mb-8 sm:mb-12 backdrop-blur-md"
                 >
-                    <div className="relative w-full aspect-[4/5] md:h-[600px] rounded-[2rem] sm:rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group">
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10" />
-                        <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/0 transition-colors duration-500 z-10 mix-blend-overlay" />
-
-                        {/* Placeholder for Jenil's Headshot */}
-                        <div className="w-full h-full bg-[#111] flex flex-col items-center justify-center border border-white/5">
-                            <Zap className="w-12 h-12 text-primary/40 mb-4" />
-                            <span className="text-white/40 font-mono text-xs uppercase tracking-widest text-center px-8">
-                                [Insert Professional Headshot Here] <br /><br />
-                                /public/profile.jpg
-                            </span>
-                        </div>
-                        {/* Actual Image Tag to uncomment when ready:
-                        <img 
-                            src="/profile.jpg" 
-                            alt="Jenil Rupapara - Senior MERN Stack Developer"
-                            className="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-700 absolute inset-0"
-                        />
-                        */}
-
-                        {/* Floating Trust Badge */}
-                        <motion.div
-                            animate={{ y: [0, -10, 0] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute bottom-6 left-6 right-6 p-4 sm:p-5 bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl z-20 flex items-center gap-4 hover:border-blue-500/50 transition-colors cursor-pointer"
-                        >
-                            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
-                                <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
-                            </div>
-                            <div>
-                                <p className="text-white font-bold text-sm sm:text-base tracking-tight">AWS Certified Professional</p>
-                                <p className="text-foreground/50 text-[10px] sm:text-xs font-mono uppercase tracking-widest mt-1">Verified Solutions Architect</p>
-                            </div>
-                        </motion.div>
-                    </div>
+                    <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+                    </span>
+                    <span className="tracking-widest uppercase font-black">Available for new projects</span>
                 </motion.div>
-            </div>
 
-            <style jsx global>{`
-        @keyframes gradient-flow {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        .animate-gradient-flow {
-          background-size: 200% auto;
-          animation: gradient-flow 5s linear infinite;
-        }
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-      `}</style>
+                {/* Name with gradient */}
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-6 sm:mb-8 uppercase">
+                    <span className="text-white">Hi, I'm </span>
+                    <span className="bg-gradient-to-r from-primary via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                        Jenil Rupapara
+                    </span>
+                </h1>
+
+                {/* Animated role text */}
+                <div className="text-xl md:text-3xl text-foreground/50 mb-10 sm:mb-16 font-bold h-10 tracking-tight">
+                    <TypewriterEffect
+                        words={[
+                            "I build scalable web ecosystems",
+                            "I architect microservices that handle 50K+ users",
+                            "I turn ideas into production-ready apps",
+                            "I make backends 300% faster",
+                        ]}
+                    />
+                </div>
+
+                {/* Proof bar */}
+                <div className="flex flex-wrap justify-center gap-6 sm:gap-12 text-foreground/40 text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] mb-12 sm:mb-20">
+                    <Stat value="4+" label="Years Experience" />
+                    <Stat value="50K+" label="Users Served" />
+                    <Stat value="99.9%" label="Uptime Delivered" />
+                    <Stat value="300%" label="Avg Performance Gain" />
+                </div>
+
+                {/* CTAs */}
+                <div className="flex flex-col sm:row gap-4 sm:gap-6 justify-center">
+                    <motion.div className="flex flex-col sm:flex-row gap-4 justify-center" style={{ opacity: opacityTransform }}>
+                        <Link
+                            href="/projects"
+                            className="px-10 py-5 bg-white text-black font-black uppercase tracking-widest rounded-xl hover:bg-gray-100 transition-all active:scale-95 text-sm"
+                        >
+                            View My Work →
+                        </Link>
+                        <Link
+                            href="/contact"
+                            className="px-10 py-5 border border-white/10 bg-white/5 backdrop-blur-md text-white font-black uppercase tracking-widest rounded-xl hover:bg-white/10 transition-all active:scale-95 text-sm"
+                        >
+                            Let's Talk
+                        </Link>
+                    </motion.div>
+                </div>
+            </motion.div>
+
+            {/* Scroll indicator */}
+            <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+                className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-20"
+            >
+                <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center pt-2">
+                    <div className="w-1 h-2 bg-white rounded-full" />
+                </div>
+            </motion.div>
         </section>
+    );
+}
+
+function Stat({ value, label }: { value: string; label: string }) {
+    return (
+        <div className="flex items-center gap-2 group cursor-default">
+            <span className="text-white font-black text-sm sm:text-base group-hover:text-primary transition-colors italic">{value}</span>
+            <span className="font-mono">{label}</span>
+        </div>
     );
 }

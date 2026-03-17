@@ -1,0 +1,60 @@
+---
+title: "Docker + Node.js: The Complete Containerization Guide for Production"
+slug: "docker-nodejs-production-guide"
+excerpt: "Learn how to containerize Node.js applications for production. Multi-stage builds, Docker Compose, health checks, security hardening, and CI/CD integration."
+tags: ["docker", "node.js", "containerization", "production", "devops"]
+category: "DevOps"
+readTime: "14 min"
+date: "2025-05-15"
+image: "/blogs/docker-guide/hero.png"
+---
+
+# Docker + Node.js: The Complete Containerization Guide for Production
+
+> Containerization isn't just about "it works on my machine." It's about
+> reproducible deployments, isolated environments, and seamless scaling.
+> Let's build a production-grade Docker setup for Node.js.
+
+[Hero Image: Docker Node.js Containers]
+
+---
+
+## Multi-Stage Build: From 1.2GB to 150MB
+
+The secret to fast Docker builds and small images is multi-stage builds.
+
+**Stage 1 (Builder):**
+- 1.2GB base image
+- Installs all dependencies (including dev)
+- Builds the application (TypeScript → JS)
+
+**Stage 2 (Runner):**
+- 150MB minimal base image
+- Copies only the production files
+- **87% smaller** than a single-stage build
+
+[Image: Multi-Stage Build process pipeline]
+
+---
+
+## Docker Compose Architecture
+
+Typical production setup includes:
+- **nginx**: Reverse proxy and SSL termination.
+- **node-app**: The Node.js application (scaled to 3 replicas).
+- **mongodb**: Data persistence with volumes.
+- **redis**: Fast caching layer.
+
+[Image: Docker Compose Architecture network diagram]
+
+---
+
+## CI/CD Pipeline
+
+1. **Git Push** → GitHub / GitLab
+2. **Action** → Build Docker Image
+3. **Tests** → Run Unit & Integration Tests
+4. **Registry** → Push to Docker Hub or AWS ECR
+5. **Deploy** → Update Production Containers
+
+[Image: CI/CD Pipeline diagram]

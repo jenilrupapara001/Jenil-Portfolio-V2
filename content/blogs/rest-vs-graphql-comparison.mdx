@@ -1,0 +1,53 @@
+---
+title: "REST vs GraphQL: When to Use Each (A Developer Who Uses Both Daily)"
+slug: "rest-vs-graphql-comparison"
+excerpt: "An honest, practical comparison of REST and GraphQL from a developer who uses both in production. Real-world scenarios, performance implications, and decision framework."
+tags: ["rest", "graphql", "api", "architecture", "comparison"]
+category: "Architecture"
+readTime: "13 min"
+date: "2025-05-22"
+image: "/blogs/rest-vs-graphql/hero.png"
+---
+
+# REST vs GraphQL: When to Use Each (A Developer Who Uses Both Daily)
+
+> There's no "best" API protocol, only the best tool for the job. Having built
+> hundreds of endpoints in both REST and GraphQL, here's my practical guide.
+
+[Hero Image: REST vs GraphQL Comparison]
+
+---
+
+## Over-fetching: The REST Problem
+
+In a traditional REST API, calling `/api/users/1` might return 40 fields even
+if you only need the `name` and `email`. This is over-fetching.
+
+- **REST**: 15KB response (3KB needed)
+- **GraphQL**: 3KB response (0 waste)
+
+[Image: Over-fetching Illustration]
+
+---
+
+## The N+1 Problem
+
+When you need a post and its author:
+- **REST**: 1 request for posts + N requests for each author = 11 total requests.
+- **GraphQL**: 1 request with a nested query = 1 total request.
+
+[Image: N+1 Problem diagram]
+
+---
+
+## Decision Framework
+
+| Criteria | Choose REST if... | Choose GraphQL if... |
+|----------|-------------------|----------------------|
+| **Client Diversity** | Single platform | Web, Mobile, IoT (many clients) |
+| **Data Complexity** | Simple, flat resources | Highly relational, nested data |
+| **Cacheability** | HTTP caching is critical | Data freshness is top priority |
+| **Performance** | Low overhead | Precise data selection |
+| **Ultra-low latency** | Rust + Actix | Node.js GC pauses matter at &lt;1ms |
+
+[Image: Decision Framework matrix]

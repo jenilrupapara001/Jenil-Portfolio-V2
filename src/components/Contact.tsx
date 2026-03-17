@@ -271,6 +271,40 @@ export default function Contact() {
 
                 </div>
 
+                {/* Technical FAQ: Pre-Consultation Clarity */}
+                <div className="mt-32 w-full space-y-20 border-t border-white/5 pt-20">
+                    <div className="text-center space-y-4">
+                        <span className="text-primary font-black uppercase tracking-[0.5em] text-[10px]">Pre-Consultation Clarity</span>
+                        <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter italic">Technical FAQ.</h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {[
+                            {
+                                q: "What's your communication policy?",
+                                a: "I overlap with US/UK business hours for daily syncs. For async communication, you get direct WhatsApp/Slack access. In 4 years, I've never missed a 24-hour response SLA."
+                            },
+                            {
+                                q: "How do you handle documentation?",
+                                a: "Every line I write is fully documented with standard inline comments, a comprehensive README, and an API spec. I build systems to be handed off seamlessly."
+                            },
+                            {
+                                q: "Why hire you vs. other developers?",
+                                a: "I act as an architectural partner. If you ask for a feature that will tank your database performance in 6 months, I will notify you and provide a superior alternative."
+                            },
+                            {
+                                q: "Can I talk to previous clients?",
+                                a: "Absolutely. After our initial discovery call, if we're a good fit, I'll provide references from US and UK founders who can verify my impact."
+                            }
+                        ].map((faq, idx) => (
+                            <div key={idx} className="p-10 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-primary/20 transition-all group">
+                                <h4 className="text-lg font-black italic mb-4 group-hover:text-primary transition-colors">{faq.q}</h4>
+                                <p className="text-foreground/60 text-sm leading-relaxed font-medium">{faq.a}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
                 {/* Calendly Embed Section */}
                 <div className="mt-32 w-full max-w-4xl mx-auto align-center flex border-t border-white/5 pt-20 flex-col">
                     <div className="text-center mb-10 space-y-4">
