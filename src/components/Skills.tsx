@@ -11,50 +11,7 @@ import {
     SiFlask, SiPostgresql, SiSqlite, SiMysql, SiGraphql, SiApollographql
 } from "react-icons/si";
 
-const skillCategories = [
-    {
-        title: "Frontend Engineering",
-        description: "Jenil specializes in React and Next.js, architecting high-conversion, pixel-perfect user experiences tailored for enterprise and global SaaS brands. Core capabilities include managing complex state workflows with Redux and building aesthetic, responsive motion UI components using Tailwind CSS and Framer Motion.",
-        skills: [
-            { name: "React.js", icon: SiReact, color: "#61DAFB" },
-            { name: "Next.js", icon: SiNextdotjs, color: "#FFFFFF" },
-            { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
-            { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
-            { name: "Tailwind", icon: SiTailwindcss, color: "#06B6D4" },
-            { name: "Redux", icon: SiRedux, color: "#764ABC" },
-            { name: "HTML5", icon: SiHtml5, color: "#E34F26" },
-            { name: "CSS3", icon: SiCss3, color: "#1572B6" },
-        ],
-    },
-    {
-        title: "Backend & Systems",
-        description: "As a Senior Node.js and MongoDB expert, Jenil engineers scalable, event-driven autonomous backends that effortlessly handle thousands of concurrent requests. He utilizes PostgreSQL for ACID compliance and Kafka paired with Redis for rapid message streaming in microservice environments.",
-        skills: [
-            { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
-            { name: "Python", icon: SiPython, color: "#3776AB" },
-            { name: "Express", icon: SiExpress, color: "#FFFFFF" },
-            { name: "FastAPI", icon: SiFastapi, color: "#009688" },
-            { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
-            { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
-            { name: "Kafka", icon: SiApachekafka, color: "#FFFFFF" },
-            { name: "Redis", icon: SiRedis, color: "#FF4438" },
-        ],
-    },
-    {
-        title: "Architecture & Tools",
-        description: "Bringing CI/CD and DevOps rigor into software lifecycles. Expertise includes configuring scalable multi-region AWS and Google Cloud infrastructure, deploying secure containerized applications with Docker, and establishing strict type-safe schemas utilizing Prisma ORM.",
-        skills: [
-            { name: "AWS", icon: SiAmazonwebservices, color: "#FF9900" },
-            { name: "Docker", icon: SiDocker, color: "#2496ED" },
-            { name: "Google Cloud", icon: SiGooglecloud, color: "#4285F4" },
-            { name: "Prisma", icon: SiPrisma, color: "#2D3748" },
-            { name: "Github", icon: SiGithub, color: "#FFFFFF" },
-            { name: "Postman", icon: SiPostman, color: "#FF6C37" },
-            { name: "Figma", icon: SiFigma, color: "#F24E1E" },
-            { name: "Vercel", icon: SiVercel, color: "#FFFFFF" },
-        ],
-    },
-];
+import { skillCategories } from "@/utils/skills";
 
 export default function Skills() {
     return (

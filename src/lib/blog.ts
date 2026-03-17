@@ -80,3 +80,17 @@ export function getAllCategories(): string[] {
     });
     return Array.from(categories);
 }
+
+export function getRelatedPosts(currentSlug: string, tags: string[], limit: number = 3): BlogPost[] {
+    const posts = getBlogPosts();
+    return posts
+        .filter((post) => post.slug !== currentSlug)
+        .map((post) => ({
+            post,
+            score: post.tags?.filter((tag) => tags.includes(tag)).length || 0,
+        }))
+        .filter((item) => item.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, limit)
+        .map((item) => item.post);
+}

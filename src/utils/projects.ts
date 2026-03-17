@@ -12,6 +12,7 @@ export interface Project {
     github: string;
     demo: string;
     image: string;
+    imageAlt: string;
     category: "AI" | "Microservices" | "SaaS";
 }
 
@@ -47,6 +48,7 @@ export const projects: Project[] = [
         github: "https://github.com/jenilrupapara001/ajio-return-tracking-dashboard",
         demo: "#",
         image: "/ajio.png",
+        imageAlt: "Ajio Return Tracking Dashboard showing logistics reconciliation and claim status grid",
         category: "SaaS"
     },
     {
@@ -80,6 +82,7 @@ export const projects: Project[] = [
         github: "https://github.com/jenilrupapara001/commercex-event-driven-microservices",
         demo: "#",
         image: "/commercex.png",
+        imageAlt: "CommerceX microservices architecture diagram showing event-driven flow with Kafka and Redis",
         category: "Microservices"
     },
     {
@@ -113,6 +116,7 @@ export const projects: Project[] = [
         github: "https://github.com/jenilrupapara001/retail-ops.git",
         demo: "https://retail-ops-black.vercel.app",
         image: "/gms.png",
+        imageAlt: "GMS Report Dashboard featuring Amazon BI analytics, OKR tracking, and performance metrics",
         category: "SaaS"
     },
     {
@@ -146,6 +150,7 @@ export const projects: Project[] = [
         github: "https://github.com/jenilrupapara001/bavadiya-realty-dashboard",
         demo: "https://bavadiyarealty.vercel.app/",
         image: "/bavadiya.png",
+        imageAlt: "Bavadiya Realty management system workspace with payment tracking and project reports",
         category: "SaaS"
     },
     {
@@ -179,6 +184,7 @@ export const projects: Project[] = [
         github: "https://github.com/jenilrupapara001/metalex-dashboard",
         demo: "",
         image: "/metalex.png",
+        imageAlt: "Metalex Industrial SaaS platform showing production workflows and scrap tracking dashboard",
         category: "SaaS"
     },
     {
@@ -212,6 +218,7 @@ export const projects: Project[] = [
         github: "https://github.com/jenilrupapara001/DealFLow",
         demo: "https://dealflow-demo.vercel.app",
         image: "/dealflow.png",
+        imageAlt: "DealFlow CRM elite sales workspace with revenue analytics and pipeline kanban board",
         category: "SaaS"
     },
     {
@@ -245,6 +252,7 @@ export const projects: Project[] = [
         github: "https://github.com/jenilrupapara001/LeadIntelAI",
         demo: "https://leadintelai.vercel.app/",
         image: "/hero-architecture.png",
+        imageAlt: "LeadIntelAI intelligence platform showing AI-powered lead scoring and enrichment signals",
         category: "AI"
     },
     {
@@ -278,6 +286,7 @@ export const projects: Project[] = [
         github: "https://github.com/jenilrupapara001/vyapaarsetu-ai-bharat",
         demo: "#",
         image: "/vyapaarsetu.png",
+        imageAlt: "VyapaarSetu AI commerce agent mobile interface for multilingual seller onboarding",
         category: "AI"
     },
     {
@@ -311,6 +320,7 @@ export const projects: Project[] = [
         github: "https://github.com/jenilrupapara001",
         demo: "https://grownext.in",
         image: "/grownext.png",
+        imageAlt: "Grownext.in company platform for B2B trade and SME onboarding onto Alibaba",
         category: "SaaS"
     },
     {
@@ -344,6 +354,42 @@ export const projects: Project[] = [
         github: "https://github.com/jenilrupapara001/Jenil-Portfolio-V2",
         demo: "https://jenilrupapara.vercel.app",
         image: "/og-image-2.jpg",
+        imageAlt: "Jenil Rupapara portfolio showcase with cinematic animations and project grid",
+        category: "SaaS"
+    },
+    {
+        slug: "cloud-auditor",
+        title: "Cloud Auditor: Local-First Security",
+        description: "A high-performance, local-first AWS security auditing engine designed for absolute privacy and sub-30-second scan times. Cloud Auditor bridges the gap between basic open-source tools and expensive enterprise platforms.",
+        problem: "Security teams often face a dilemma: use slow, clunky open-source tools or expensive enterprise platforms that require cloud-to-cloud access to sensitive AWS data. Many organizations cannot afford the $50k-$200k/year enterprise price tags, yet they refuse to compromise on privacy by sending their AWS configurations to third-party vendors.",
+        solution: "I engineered a hardened, locally-executed Go engine that utilizes goroutines for maximum parallel execution. The system connects directly to local AWS credentials via SDK, performing 80+ security checks across S3, EC2, IAM, and RDS in seconds. I implemented a secure architecture using RSA-2048 signed responses and hardware-locked licensing, ensuring that all scan data remains strictly on the user's machine while providing premium compliance mapping (CIS, SOC2, HIPAA).",
+        impact: "Delivers military-grade security auditing with 100% data privacy. Scans typical accounts in under 30 seconds compared to minutes with traditional tools. Successfully provides automated compliance cross-referencing for startups without the enterprise cost overhead.",
+        features: [
+            "Local-First Architecture: 100% privacy with zero data exfiltration",
+            "Parallel Go Engine: Sub-30 second full account scans",
+            "82+ Automated Security Checks across core AWS services",
+            "Compliance Framework Mapping: CIS v2.0, SOC 2, HIPAA, ISO 27001",
+            "Hardened Security: RSA-2048 signed logic and hardware-locked licensing",
+            "Premium HTML Reporting: Cinematic, executive-ready security findings",
+            "Remediation Guidance: Actionable CLI commands for every identified risk"
+        ],
+        challenges: [
+            "Concurrency at Scale: Managing 11+ concurrent AWS SDK services via goroutines without hitting aggressive rate limits.",
+            "Licensing Security: Designing a bypass-resistant, hardware-bound licensing system that works offline.",
+            "Report Portability: Building a standalone, visual-rich HTML report generator that requires zero external assets."
+        ],
+        process: [
+            "Phase 01: Competitive analysis of existing AWS auditing tools and privacy gaps.",
+            "Phase 02: Architecture design of the parallel Go scanning engine and local SDK integration.",
+            "Phase 03: Implementing the security check library and compliance mapping logic.",
+            "Phase 04: Engineering the hardened licensing and secure binary architecture.",
+            "Phase 05: Crafting the premium reporting engine and executive dashboard UI."
+        ],
+        tags: ["Go", "AWS SDK", "Security", "CLI", "Compliance", "React"],
+        github: "https://github.com/jenilrupapara001/Cloud-Auditor",
+        demo: "https://cloudauditor.vercel.app/",
+        image: "/cloud-auditor.png",
+        imageAlt: "Cloud Auditor dashboard displaying AWS security scan findings and compliance mapping",
         category: "SaaS"
     },
 ];

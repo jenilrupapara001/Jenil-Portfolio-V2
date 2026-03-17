@@ -30,7 +30,7 @@ export default function Footer() {
                             </span>
                         </Link>
                         <p className="text-foreground/60 font-medium text-sm md:text-base leading-relaxed max-w-sm mx-auto md:mx-0 mt-4">
-                            Senior MERN Stack & Next.js developer for US/UK startups. AWS certified. Available for remote contracts.
+                            I am a Senior MERN Stack & Next.js developer for US/UK startups. AWS certified. Available for remote contracts.
                         </p>
                     </div>
 

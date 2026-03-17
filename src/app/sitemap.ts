@@ -1,99 +1,42 @@
 import { MetadataRoute } from 'next'
-import { projects } from '@/utils/projects'
 import { getBlogPosts } from '@/lib/blog'
+import { allSkills } from '@/utils/skills'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://jenilrupapara.vercel.app'
-    const posts = getBlogPosts()
+  const baseUrl = 'https://jenilrupapara.vercel.app'
 
-    const baseRoutes: MetadataRoute.Sitemap = [
-        {
-            url: baseUrl,
-            lastModified: new Date(),
-            changeFrequency: 'daily',
-            priority: 1,
-        },
-        {
-            url: `${baseUrl}/about`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/projects`,
-            lastModified: new Date(),
-            changeFrequency: 'daily',
-            priority: 0.9,
-        },
-        {
-            url: `${baseUrl}/experience`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: `${baseUrl}/contact`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.5,
-        },
-        {
-            url: `${baseUrl}/skills`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.6,
-        },
-        {
-            url: `${baseUrl}/blogs`,
-            lastModified: new Date(),
-            changeFrequency: 'daily',
-            priority: 0.9,
-        },
-        {
-            url: `${baseUrl}/case-studies`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.9,
-        },
-        {
-            url: `${baseUrl}/nextjs-developer-for-hire`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.9,
-        },
-        {
-            url: `${baseUrl}/saas-backend-developer`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.9,
-        },
-        {
-            url: `${baseUrl}/privacy-policy`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.3,
-        },
-        {
-            url: `${baseUrl}/terms-of-service`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.3,
-        },
-    ]
+  const staticPages = [
+    '',
+    '/about',
+    '/projects',
+    '/skills',
+    '/blogs',
+    '/experience',
+    '/education',
+    '/contact',
+  ]
 
-    const projectRoutes: MetadataRoute.Sitemap = projects.map((project) => ({
-        url: `${baseUrl}/projects/${project.slug}`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly',
-        priority: 0.8,
-    }))
+  const sitemapEntries: MetadataRoute.Sitemap = staticPages.map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: new Date(),
+    changeFrequency: route === '/blogs' ? 'weekly' : 'monthly' as any,
+    priority: route === '' ? 1.0 : 0.8,
+  }))
 
-    const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
-        url: `${baseUrl}/blogs/${post.slug}`,
-        lastModified: new Date(post.date),
-        changeFrequency: 'weekly',
-        priority: 0.7,
-    }))
+  const blogPosts = getBlogPosts()
+  const blogEntries: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${baseUrl}/blogs/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: 'monthly' as any,
+    priority: 0.6,
+  }))
 
-    return [...baseRoutes, ...projectRoutes, ...blogRoutes]
+  const skillEntries: MetadataRoute.Sitemap = allSkills.map((skill) => ({
+    url: `${baseUrl}/skills/${skill.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as any,
+    priority: 0.7,
+  }))
+
+  return [...sitemapEntries, ...blogEntries, ...skillEntries]
 }

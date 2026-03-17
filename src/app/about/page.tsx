@@ -25,7 +25,7 @@ export default function AboutPage() {
                             <span className="text-primary">Efficiency</span>
                         </h1>
                         <p className="text-lg md:text-2xl text-foreground/60 max-w-3xl mx-auto leading-relaxed font-medium">
-                            Jenil Rupapara is an independent remote contractor providing specialized architectural solutions to eliminate business bottlenecks through intelligent automation. Jenil is an AWS Certified Professional available for hire globally.
+                            I am an independent remote contractor providing specialized architectural solutions to eliminate business bottlenecks through intelligent automation. I am an AWS Certified Professional available for hire globally.
                         </p>
                     </motion.div>
 
@@ -121,7 +121,7 @@ export default function AboutPage() {
                                 <span className="text-primary italic">Terminal</span>
                             </h2>
                             <p className="text-base md:text-lg text-foreground/50 leading-relaxed font-medium">
-                                When not architecting systems, Jenil analyzes market trends and explores the intersection of finance and technology, believing a well-rounded perspective is what makes a developer a true problem solver.
+                                When I'm not architecting systems, I analyze market trends and explore the intersection of finance and technology, believing a well-rounded perspective is what makes a developer a true problem solver.
                             </p>
                         </div>
 

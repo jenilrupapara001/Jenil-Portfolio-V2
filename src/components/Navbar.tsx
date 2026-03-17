@@ -43,8 +43,8 @@ export default function Navbar() {
               <div className="absolute inset-0 bg-primary/20 blur-lg rounded-full animate-pulse" />
               <div className="w-1.5 h-1.5 rounded-full bg-primary" />
             </div>
-            <span className="text-xl md:text-2xl font-black uppercase tracking-tighter italic leading-none">
-              Jenil<span className="text-primary tracking-[-0.1em]">.</span>
+            <span className="text-xl md:text-2xl font-black uppercase tracking-tighter italic leading-none whitespace-nowrap">
+              Jenil Rupapara
             </span>
           </Link>
 
@@ -78,7 +78,7 @@ export default function Navbar() {
               href="/contact"
               className="px-6 py-2 bg-primary text-white text-[10px] font-black uppercase tracking-widest rounded-full hover:shadow-[0_0_30px_-5px_rgba(var(--primary-rgb),0.5)] transition-all active:scale-95"
             >
-              Book a Call
+              Let's Talk
             </Link>
           </div>
 
@@ -139,6 +139,21 @@ export default function Navbar() {
                   </motion.div>
                 ))}
               </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="pt-8"
+              >
+                <Link
+                  href="/contact"
+                  onClick={() => setIsOpen(false)}
+                  className="px-12 py-4 bg-primary text-white text-xs font-black uppercase tracking-widest rounded-full hover:shadow-[0_0_30px_-5px_rgba(var(--primary-rgb),0.5)] transition-all active:scale-95"
+                >
+                  Let's Talk
+                </Link>
+              </motion.div>
 
               <motion.div
                 initial={{ opacity: 0 }}

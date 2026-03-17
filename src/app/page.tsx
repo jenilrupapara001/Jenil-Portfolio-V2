@@ -262,7 +262,7 @@ export default function Home() {
             <Section id="why-hire" title="">
                 <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                     <div className="space-y-8">
-                        <h2 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter leading-none">Why Partner With <br /><span className="text-primary italic">Jenil Rupapara?</span></h2>
+                        <h2 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter leading-none">Why Partner With <br /><span className="text-primary italic">Me?</span></h2>
                         <ul className="space-y-6">
                             <li className="flex gap-4">
                                 <Activity className="w-6 h-6 text-primary shrink-0" />

@@ -150,30 +150,38 @@ export default function Contact() {
 
                                         <div className="space-y-6">
                                             <div className="space-y-2 group">
-                                                <label className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">Identification</label>
+                                                <label htmlFor="name" className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">Your Name</label>
                                                 <input
+                                                    id="name"
                                                     name="name"
                                                     required
+                                                    aria-required="true"
+                                                    autoComplete="name"
                                                     className="w-full bg-white/[0.03] border-b border-white/10 px-0 py-2 outline-none focus:border-primary focus:bg-transparent transition-all text-sm font-medium placeholder:text-foreground/10 font-mono"
                                                     placeholder="ENTER FULL NAME"
                                                 />
                                             </div>
                                             <div className="space-y-2 group">
-                                                <label className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">Return Frequency</label>
+                                                <label htmlFor="email" className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">Email Address</label>
                                                 <input
+                                                    id="email"
                                                     name="email"
                                                     type="email"
                                                     required
+                                                    aria-required="true"
+                                                    autoComplete="email"
                                                     className="w-full bg-white/[0.03] border-b border-white/10 px-0 py-2 outline-none focus:border-primary focus:bg-transparent transition-all text-sm font-medium placeholder:text-foreground/10 font-mono"
                                                     placeholder="ENTER EMAIL ADDRESS"
                                                 />
                                             </div>
                                             <div className="grid grid-cols-2 gap-4">
                                                 <div className="space-y-2 group">
-                                                    <label className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">What are you building?</label>
+                                                    <label htmlFor="project_type" className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">What are you building?</label>
                                                     <select
+                                                        id="project_type"
                                                         name="project_type"
                                                         required
+                                                        aria-required="true"
                                                         className="w-full bg-white/[0.03] border-b border-white/10 px-0 py-2 outline-none focus:border-primary focus:bg-transparent transition-all text-sm font-medium text-foreground/80 font-mono option:bg-black"
                                                     >
                                                         <option value="" className="bg-black text-foreground/50">SELECT TYPE</option>
@@ -184,10 +192,12 @@ export default function Contact() {
                                                     </select>
                                                 </div>
                                                 <div className="space-y-2 group">
-                                                    <label className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">Rough Timeline</label>
+                                                    <label htmlFor="timeline" className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">Rough Timeline</label>
                                                     <select
+                                                        id="timeline"
                                                         name="timeline"
                                                         required
+                                                        aria-required="true"
                                                         className="w-full bg-white/[0.03] border-b border-white/10 px-0 py-2 outline-none focus:border-primary focus:bg-transparent transition-all text-sm font-medium text-foreground/80 font-mono"
                                                     >
                                                         <option value="" className="bg-black text-foreground/50">SELECT TIMELINE</option>
@@ -199,10 +209,12 @@ export default function Contact() {
                                             </div>
 
                                             <div className="space-y-2 group">
-                                                <label className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">What's the main problem you need solved?</label>
+                                                <label htmlFor="message" className="text-[10px] font-mono text-foreground/50 uppercase tracking-wider group-focus-within:text-white transition-colors">What's the main problem you need solved?</label>
                                                 <textarea
+                                                    id="message"
                                                     name="message"
                                                     required
+                                                    aria-required="true"
                                                     rows={3}
                                                     className="w-full bg-white/[0.03] border-b border-white/10 px-0 py-2 outline-none focus:border-primary focus:bg-transparent transition-all text-sm font-medium placeholder:text-foreground/10 font-mono resize-none leading-relaxed"
                                                     placeholder="DESCRIBE YOUR BOTTLENECK..."
@@ -219,7 +231,7 @@ export default function Contact() {
                                         >
                                             <div className="relative z-10 flex items-center justify-between px-6">
                                                 <span className="text-xs font-black uppercase tracking-[0.3em]">
-                                                    {loading ? "SENDING..." : "SEND MESSAGE"}
+                                                    {loading ? "SENDING..." : "Send Message 🚀"}
                                                 </span>
                                                 {loading ? (
                                                     <Loader2 className="w-4 h-4 animate-spin" />

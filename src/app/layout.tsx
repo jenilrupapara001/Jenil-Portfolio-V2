@@ -9,6 +9,7 @@ import StickyCTA from "@/components/StickyCTA";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
+import { WebVitals } from "@/components/WebVitals";
 
 const syne = Syne({
     variable: "--font-syne",
@@ -27,6 +28,9 @@ export const metadata: Metadata = {
     metadataBase: new URL("https://jenilrupapara.vercel.app"),
     title: "Hire Senior MERN Stack Developer | Next.js & Node.js Expert | Jenil Rupapara",
     description: "Jenil Rupapara — Senior MERN Stack & Next.js developer helping US & UK SaaS startups ship faster, scale smarter. AWS certified. Remote. Available now.",
+    alternates: {
+        canonical: "https://jenilrupapara.vercel.app",
+    },
     keywords: [
         "Senior MERN Stack Developer",
         "React Expert US UK",
@@ -184,6 +188,7 @@ export default function RootLayout({
                     </div>
                 </ThemeProvider>
                 <Analytics />
+                <WebVitals />
             </body>
         </html>
     );

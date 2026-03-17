@@ -47,7 +47,7 @@ export default function About() {
                 >
                     <div className="space-y-4 md:space-y-6">
                         <h3 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tighter leading-none italic">
-                            Jenil Rupapara is a <br className="hidden md:block" />
+                            I am a <br className="hidden md:block" />
                             <span className="text-primary italic">Senior MERN Stack Developer.</span>
                         </h3>
                         <div className="h-1 w-16 md:w-20 bg-primary rounded-full" />
@@ -61,7 +61,7 @@ export default function About() {
                             I don't just write code; I architect resilient ecosystems. I provide specialized Next.js and Node.js development services to startups in the US, UK, and India, with over 4+ years of production experience scaling SaaS and enterprise platforms.
                         </p>
                         <p className="text-foreground/70 leading-relaxed text-sm md:text-base">
-                            Working as an independent remote contractor, I hold an active <a href="https://www.credly.com/earner/earned" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline italic font-bold">AWS Certified Professional badge</a>. My entire focus is on eliminating technical debt and resolving monolithic bottlenecks before they cripple your operational velocity. <span className="text-white font-bold italic">I am currently available for freelance remote contracts.</span>
+                            Working as an independent remote contractor, I hold an active <a href="https://www.credly.com/earner/earned" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline italic font-bold">AWS Certified Professional badge</a>. My entire focus is on eliminating technical debt and resolving monolithic bottlenecks before they cripple operational velocity. <span className="text-white font-bold italic">I am currently available for freelance remote contracts.</span>
                         </p>
                         <div className="flex flex-wrap gap-3 md:gap-4 pt-4">
                             {[
@@ -94,13 +94,12 @@ export default function About() {
                                 <stat.icon className="w-24 h-24 md:w-32 md:h-32" />
                             </div>
 
-                            <stat.icon className={`w-8 h-8 md:w-10 md:h-10 mb-4 md:mb-6 ${stat.color}`} />
-                            <h4 className="text-3xl md:text-5xl font-black tracking-tighter mb-2 italic">
-                                {stat.value}
-                            </h4>
-                            <p className="text-foreground/40 font-bold uppercase tracking-widest text-[8px] md:text-[10px] leading-tight">
-                                {stat.label}
-                            </p>
+                            <div className="flex flex-col items-center gap-1 text-center relative z-10 w-full">
+                                <span className="text-2xl md:text-4xl font-bold text-primary">{stat.value}</span>
+                                <span className="text-[8px] md:text-[10px] text-foreground/40 font-bold uppercase tracking-widest whitespace-nowrap">
+                                    {stat.label}
+                                </span>
+                            </div>
                         </motion.div>
                     ))}
 

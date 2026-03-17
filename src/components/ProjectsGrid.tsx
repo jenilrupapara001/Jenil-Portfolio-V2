@@ -16,6 +16,15 @@ const categories = [
 
 export default function ProjectsGrid() {
     const [activeCategory, setActiveCategory] = useState("all");
+    const [expandedSlugs, setExpandedSlugs] = useState<string[]>([]);
+
+    const toggleExpand = (e: React.MouseEvent, slug: string) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setExpandedSlugs(prev =>
+            prev.includes(slug) ? prev.filter(s => s !== slug) : [...prev, slug]
+        );
+    };
 
     const filteredProjects = useMemo(() => {
         if (activeCategory === "all") return projects;
@@ -100,9 +109,17 @@ export default function ProjectsGrid() {
                                                 {project.title.split(' ')[0]} <br />
                                                 <span className="text-primary">{project.title.split(' ').slice(1).join(' ')}</span>
                                             </h2>
-                                            <p className="text-white/40 text-[10px] md:text-sm font-medium leading-relaxed line-clamp-2 max-w-sm">
-                                                {project.description}
+                                            <p className="text-white/40 text-[10px] md:text-sm font-medium leading-relaxed max-w-sm">
+                                                {expandedSlugs.includes(project.slug)
+                                                    ? project.description
+                                                    : `${project.description.slice(0, 120)}...`}
                                             </p>
+                                            <button
+                                                onClick={(e) => toggleExpand(e, project.slug)}
+                                                className="text-[10px] font-bold text-primary hover:text-white transition-colors w-fit"
+                                            >
+                                                {expandedSlugs.includes(project.slug) ? "Read Less ↑" : "Read Full Case Study →"}
+                                            </button>
                                         </div>
                                     </div>
 
@@ -129,7 +146,7 @@ export default function ProjectsGrid() {
 
                                         <div className="flex items-center justify-between group/btn pt-2">
                                             <span className="text-[8px] font-black uppercase tracking-[0.4em] text-foreground/30 group-hover:text-primary transition-colors">
-                                                Case Study
+                                                Read Case Study →
                                             </span>
                                             <ArrowUpRight className="w-3 h-3 text-foreground/20 group-hover:text-primary transition-colors" />
                                         </div>
